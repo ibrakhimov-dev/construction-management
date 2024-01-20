@@ -4,6 +4,22 @@ import { themeOptions } from './style/Variables';
 import SignIn from './components/Auth/SignIn';
 import Sidebar from './components/Sidebar/Sidebar';
 import Dashboard from './components/Dashboard/Dashboard';
+import Income from './components/Income/Income';
+import CreateIncome from './components/Income/CreateIncome';
+import EditIncome from './components/Income/EditIncome';
+import Cost from './components/Cost/Cost';
+import CreateCost from './components/Cost/CreateCost';
+import EditCost from './components/Cost/EditCost';
+import DetailCost from './components/Cost/DetailCost';
+import Worker from './components/Worker/Worker';
+import EditWorker from './components/Worker/EditWorker';
+import CreateWorker from './components/Worker/CreateWorker';
+import Objects from './components/Objects/Objects';
+import CreateObject from './components/Objects/CreateObject';
+import EditObject from './components/Objects/EditObject';
+import HiredWorker from './components/HiredWorker/HiredWorker';
+import EditHiredWorker from './components/HiredWorker/EditHiredWorker';
+import CreateHiredWorker from './components/HiredWorker/CreateHiredWorker';
 
 function App() {
   return (
@@ -15,6 +31,22 @@ function App() {
           <Route path='home' element={<Sidebar />}>
             <Route index element={<Dashboard />} />
             <Route path='dashboard' element={<Dashboard />} />
+            <Route path='income' element={<Income />} />
+            <Route path='create-income' element={<CreateIncome />} />
+            <Route path='edit-income' element={<EditIncome />} />
+            <Route path='cost' element={<Cost />} />
+            <Route path='create-cost' element={<CreateCost />}/>
+            <Route path='edit-cost' element={<EditCost />} />
+            <Route path='detail-cost' element={<DetailCost />} />
+            <Route path='worker' element={<Worker />} />
+            <Route path='edit-worker' element={<EditWorker />}/>
+            <Route path='create-worker' element={<CreateWorker />} />
+            <Route path='object' element={<Objects />} />
+            <Route path='create-object' element={<CreateObject />} />
+            <Route path='edit-object' element={<EditObject />} />
+            <Route path='hired-worker' element={<HiredWorker/>} />
+            <Route path='create-hired-worker' element={<CreateHiredWorker/>} />
+            <Route path='edit-hired-worker' element={<EditHiredWorker/>} />
           </Route>
         </Routes>
       </BrowserRouter>

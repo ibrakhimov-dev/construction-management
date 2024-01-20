@@ -14,9 +14,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AddHomeIcon from '@mui/icons-material/AddHome';
 
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 
 function Sidebar() {
+  const navigate = useNavigate();
   return (
     <Stack>
       <Grid container spacing={0}>
@@ -28,7 +29,7 @@ function Sidebar() {
           <Box mt={1} width="100%">
             <nav aria-label="main mailbox folders">
               <List>
-                <ListItem sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                <ListItem onClick={() => navigate("dashboard")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
                       <SpeedIcon />
@@ -36,7 +37,7 @@ function Sidebar() {
                     <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Dashboard" />
                   </ListItemButton>
                 </ListItem>
-                <ListItem sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                <ListItem onClick={() => navigate("income")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
                       <AddCircleOutlineIcon />
@@ -44,7 +45,7 @@ function Sidebar() {
                     <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Daromad" />
                   </ListItemButton>
                 </ListItem>
-                <ListItem sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                <ListItem onClick={() => navigate("cost")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
                       <RemoveCircleOutlineIcon />
@@ -52,7 +53,7 @@ function Sidebar() {
                     <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Xarajatlar" />
                   </ListItemButton>
                 </ListItem>
-                <ListItem sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                <ListItem onClick={() => navigate("worker")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
                       <EngineeringIcon />
@@ -60,7 +61,7 @@ function Sidebar() {
                     <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Ishchilar" />
                   </ListItemButton>
                 </ListItem>
-                <ListItem sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                <ListItem onClick={() => navigate('object')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
                       <ApartmentIcon />
@@ -68,7 +69,7 @@ function Sidebar() {
                     <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Obyektlar" />
                   </ListItemButton>
                 </ListItem>
-                <ListItem sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                <ListItem onClick={() => navigate("hired-worker")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
                       <GroupIcon />

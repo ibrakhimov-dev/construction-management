@@ -2,7 +2,6 @@ import { Grid, Stack, Typography, TextField, Box, FormControl, FormGroup, Button
 import logo from "../Assets/logo.png";
 import banner from "../Assets/image.webp"
 import React, { useState } from 'react'
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
