@@ -1,17 +1,22 @@
 import React from 'react'
 import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
-import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
+import { MuiFileInput } from 'mui-file-input';
 
-function EditHiredWorker() {
+function CreateEquipment() {
     const [paymentType, setPaymentType] = useState('Naxt')
     const navigate = useNavigate();
+    const [value, setValue] = React.useState(null)
+    const handleChange = (newValue) => {
+            setValue(newValue)
+        }
   return (
     <Stack>
         <Grid container p={3}>
             <Grid item xl={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Yollanma ishchilar (umimiy malumot)</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Uskuna Qo'shish</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
@@ -19,7 +24,7 @@ function EditHiredWorker() {
                 <Grid container spacing={3}>
                     <Grid item xl={6} p={2}>
                         <FormControl fullWidth>
-                            <Typography>Ism Familiya:</Typography>
+                            <Typography>Uskuna Nomi:</Typography>
                             <TextField id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
@@ -37,21 +42,31 @@ function EditHiredWorker() {
                             </Select>
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Telofon raqami:</Typography>
+                            <Typography mt={2}>Narxi:</Typography>
                             <TextField id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid item xl={6} p={2}>
-                        <FormControl fullWidth>
-                            <Typography>Ish Haqi:</Typography>
-                            <TextField id="outlined-basic" type='number' variant="outlined" />
+                        <FormControl  fullWidth>
+                            <Typography>Holati:</Typography>
+                            <Select
+                                sx={{padding: 0, paddingLeft: 0}}
+                                labelId="demo-select-small-label"
+                                id="demo-select-small"
+                                color='warning'
+                                value={paymentType}
+                                onChange={(e) => setPaymentType(e.target.value) }
+                            >
+                                <MenuItem value="Naxt">Ishlaydi</MenuItem>
+                                <MenuItem value="O'tqazma">Ishlamaydi</MenuItem>
+                            </Select>
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Izoh:</Typography>
-                            <TextField id="outlined-basic" color='warning' variant="outlined" />
+                            <Typography mt={2}>Obyekt rasmini yuklang:</Typography>
+                            <MuiFileInput color='warning' value={value} onChange={handleChange} />
                         </FormControl>
-                            <Button onClick={() => navigate('/home/hired-worker')} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
-                                Tahrirlash
+                            <Button onClick={() => navigate('/home/equipment')} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                                Uskuna qo'shish
                             </Button>  
                     </Grid>
                 </Grid>
@@ -61,4 +76,4 @@ function EditHiredWorker() {
   )
 }
 
-export default EditHiredWorker
+export default CreateEquipment;

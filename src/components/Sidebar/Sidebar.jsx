@@ -77,7 +77,7 @@ function Sidebar() {
                     <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Yollanma Ishchilar" />
                   </ListItemButton>
                 </ListItem>
-                <ListItem  sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                <ListItem onClick={() => navigate("equipment")}  sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
                       <SettingsIcon />
@@ -86,7 +86,7 @@ function Sidebar() {
                   </ListItemButton>
                 </ListItem>
                 <Divider sx={{mt: '20px'}} />
-                <ListItem  sx={{mt: '20px', '&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                <ListItem onClick={() => navigate('daily-expenses')}  sx={{mt: '20px', '&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
                   <ListItemButton>
                     <ListItemIcon>
                       <AddHomeIcon />

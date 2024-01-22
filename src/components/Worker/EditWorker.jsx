@@ -1,5 +1,5 @@
 import React from 'react';
-import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import { useState } from 'react';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -92,7 +92,7 @@ function EditWorker() {
                             <Typography mt={2}>Avans:</Typography>
                             <TextField color='warning' id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
-                        <Button onClick={() => navigate('/home/worker')} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                        <Button onClick={() => navigate('/home/worker')} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
                             Tahrirlash
                         </Button>               
                     </Grid>

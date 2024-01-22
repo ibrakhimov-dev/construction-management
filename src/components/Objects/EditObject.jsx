@@ -1,5 +1,5 @@
 import React from 'react';
-import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import { useState } from 'react';
 import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
@@ -49,7 +49,7 @@ function EditObject() {
                                 <MenuItem value="O'tqazma">Tugallanmagan</MenuItem>
                             </Select>
                         </FormControl>  
-                        <Button onClick={() => navigate('/home/object')} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                        <Button onClick={() => navigate('/home/object')} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
                             Tahrirlash
                         </Button>               
                     </Grid>

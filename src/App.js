@@ -20,6 +20,12 @@ import EditObject from './components/Objects/EditObject';
 import HiredWorker from './components/HiredWorker/HiredWorker';
 import EditHiredWorker from './components/HiredWorker/EditHiredWorker';
 import CreateHiredWorker from './components/HiredWorker/CreateHiredWorker';
+import Equipment from './components/Equipment/Equipment';
+import EditEquipment from './components/Equipment/EditEquipment';
+import CreateEquipment from './components/Equipment/CreateEquipment';
+import DailyExpenses from './components/DailyExpenses/DailyExpenses';
+import EditDailyExpenses from './components/DailyExpenses/EditDailyExpenses';
+import CreateDailyExpenses from './components/DailyExpenses/CreateDailyExpenses';
 
 function App() {
   return (
@@ -47,6 +53,12 @@ function App() {
             <Route path='hired-worker' element={<HiredWorker/>} />
             <Route path='create-hired-worker' element={<CreateHiredWorker/>} />
             <Route path='edit-hired-worker' element={<EditHiredWorker/>} />
+            <Route path='equipment' element={<Equipment />} />
+            <Route path='edit-equipment' element={<EditEquipment/>} />
+            <Route path='create-equipment' element={<CreateEquipment/>} />
+            <Route path='daily-expenses' element={<DailyExpenses />} />
+            <Route path='edit-daily-expenses' element={<EditDailyExpenses />} />
+            <Route path='create-daily-expenses' element={<CreateDailyExpenses />} />
           </Route>
         </Routes>
       </BrowserRouter>
