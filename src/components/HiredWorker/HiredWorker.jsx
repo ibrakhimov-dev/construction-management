@@ -6,6 +6,7 @@ import HiredWorkerTable from './HiredWorkerTable';
 
 function HiredWorker() {
     const [objectSelect, setObjectSelect] = useState("");
+    
     const navigate = useNavigate();
   return (
     <Stack>

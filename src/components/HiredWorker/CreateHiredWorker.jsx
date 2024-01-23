@@ -36,19 +36,12 @@ function EditHiredWorker() {
                                 <MenuItem value="O'tqazma">Obyekt 2</MenuItem>
                             </Select>
                         </FormControl>
-                        <FormControl fullWidth>
-                            <Typography mt={2}>Telofon raqami:</Typography>
-                            <TextField id="outlined-basic" type='number' variant="outlined" />
-                        </FormControl>
+                        
                     </Grid>
                     <Grid item xl={6} p={2}>
-                        <FormControl fullWidth>
-                            <Typography>Ish Haqi:</Typography>
+                    <FormControl fullWidth>
+                            <Typography>Telofon raqami:</Typography>
                             <TextField id="outlined-basic" type='number' variant="outlined" />
-                        </FormControl>
-                        <FormControl fullWidth>
-                            <Typography mt={2}>Izoh:</Typography>
-                            <TextField id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                             <Button onClick={() => navigate('/home/hired-worker')} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                                 Ishchi qo'shish

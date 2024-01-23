@@ -21,9 +21,9 @@ function EquipmentTable() {
             </TheadWrapper>
             <TbodyWrapper>
                 <TdId>1</TdId>
-                <TdComment>Kran</TdComment>
+                <TdComment>Balgarka</TdComment>
                 <TdMoney>
-                    <img src="https://avtokrany.guru/wp-content/uploads/2018/03/Kak-vybrat-bashennyj-kran-574x420.jpg" width={60} alt="" />
+                    <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
                 </TdMoney>
                 <TdMoney>1 mlrd so'm</TdMoney>
                 <TdMoney>Ishlaydi</TdMoney>
@@ -41,9 +41,9 @@ function EquipmentTable() {
             </TbodyWrapper>
             <TbodyWrapper>
                 <TdId>1</TdId>
-                <TdComment>Kran</TdComment>
+                <TdComment>Balgarka</TdComment>
                 <TdMoney>
-                    <img src="https://avtokrany.guru/wp-content/uploads/2018/03/Kak-vybrat-bashennyj-kran-574x420.jpg" width={60} alt="" />
+                    <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
                 </TdMoney>
                 <TdMoney>1 mlrd so'm</TdMoney>
                 <TdMoney>Ishlaydi</TdMoney>
@@ -61,9 +61,9 @@ function EquipmentTable() {
             </TbodyWrapper>
             <TbodyWrapper>
                 <TdId>1</TdId>
-                <TdComment>Kran</TdComment>
+                <TdComment>Balgarka</TdComment>
                 <TdMoney>
-                    <img src="https://avtokrany.guru/wp-content/uploads/2018/03/Kak-vybrat-bashennyj-kran-574x420.jpg" width={60} alt="" />
+                    <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
                 </TdMoney>
                 <TdMoney>1 mlrd so'm</TdMoney>
                 <TdMoney>Ishlaydi</TdMoney>
@@ -81,9 +81,9 @@ function EquipmentTable() {
             </TbodyWrapper>
             <TbodyWrapper>
                 <TdId>1</TdId>
-                <TdComment>Kran</TdComment>
+                <TdComment>Balgarka</TdComment>
                 <TdMoney>
-                    <img src="https://avtokrany.guru/wp-content/uploads/2018/03/Kak-vybrat-bashennyj-kran-574x420.jpg" width={60} alt="" />
+                    <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
                 </TdMoney>
                 <TdMoney>1 mlrd so'm</TdMoney>
                 <TdMoney>Ishlaydi</TdMoney>
@@ -101,9 +101,9 @@ function EquipmentTable() {
             </TbodyWrapper>
             <TbodyWrapper>
                 <TdId>1</TdId>
-                <TdComment>Kran</TdComment>
+                <TdComment>Balgarka</TdComment>
                 <TdMoney>
-                    <img src="https://avtokrany.guru/wp-content/uploads/2018/03/Kak-vybrat-bashennyj-kran-574x420.jpg" width={60} alt="" />
+                    <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
                 </TdMoney>
                 <TdMoney>1 mlrd so'm</TdMoney>
                 <TdMoney>Ishlaydi</TdMoney>
@@ -121,9 +121,9 @@ function EquipmentTable() {
             </TbodyWrapper>
             <TbodyWrapper>
                 <TdId>1</TdId>
-                <TdComment>Kran</TdComment>
+                <TdComment>Balgarka</TdComment>
                 <TdMoney>
-                    <img src="https://avtokrany.guru/wp-content/uploads/2018/03/Kak-vybrat-bashennyj-kran-574x420.jpg" width={60} alt="" />
+                    <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
                 </TdMoney>
                 <TdMoney>1 mlrd so'm</TdMoney>
                 <TdMoney>Ishlaydi</TdMoney>
@@ -141,9 +141,9 @@ function EquipmentTable() {
             </TbodyWrapper>
             <TbodyWrapper>
                 <TdId>1</TdId>
-                <TdComment>Kran</TdComment>
+                <TdComment>Balgarka</TdComment>
                 <TdMoney>
-                    <img src="https://avtokrany.guru/wp-content/uploads/2018/03/Kak-vybrat-bashennyj-kran-574x420.jpg" width={60} alt="" />
+                    <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
                 </TdMoney>
                 <TdMoney>1 mlrd so'm</TdMoney>
                 <TdMoney>Ishlaydi</TdMoney>

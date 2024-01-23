@@ -1,21 +1,33 @@
-import { Grid, Stack, IconButton } from '@mui/material'
+import { Grid, Stack, IconButton, Typography } from '@mui/material'
 import styled from 'styled-components'
 import React from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import AddHiredCost from './AddHiredCost'
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 function HiredWorkerTable() {
     const navigate = useNavigate();
+    const [isAgreeCost, setIsAgreeCost] = useState(false);
+
+    function closeModal() {
+        setIsAgreeCost(false);
+    }
+
   return (
     <Grid container p={3}>
+        {
+            isAgreeCost ? <AddHiredCost closeModal = {closeModal} /> : <></>
+        }
         <Grid item xl={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
             <TheadWrapper>
                 <ThId>T/r</ThId>
                 <ThComment>Ism Familiya</ThComment>
                 <ThMoney>Obyekt Nomi</ThMoney>
                 <ThMoney>Telefon</ThMoney>
-                <ThMoney>Ish haqi</ThMoney>
+                <ThMoney>Umumiy Summa</ThMoney>
                 <ThComment>Izoh</ThComment>
                 <ThMoney>Boshqaruv</ThMoney>
             </TheadWrapper>
@@ -24,7 +36,12 @@ function HiredWorkerTable() {
                 <TdComment>Ilhom Farmonov</TdComment>
                 <TdMoney>Cambridge</TdMoney>
                 <TdMoney>991234567</TdMoney>
-                <TdMoney>3 mln so'm</TdMoney>
+                <TdMoney>
+                    <Typography>3 mln so'm</Typography>
+                    <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
+                        <AddCircleIcon color='success' />
+                    </IconButton>
+                </TdMoney>
                 <TdComment>Yanvar oyi ish haqi</TdComment>
                 <TdMoney>
                     <Stack direction="row" spacing={2}>
@@ -42,7 +59,12 @@ function HiredWorkerTable() {
                 <TdComment>Ilhom Farmonov</TdComment>
                 <TdMoney>Cambridge</TdMoney>
                 <TdMoney>991234567</TdMoney>
-                <TdMoney>3 mln so'm</TdMoney>
+                <TdMoney>
+                    <Typography>3 mln so'm</Typography>
+                    <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
+                        <AddCircleIcon color='success' />
+                    </IconButton>
+                </TdMoney>
                 <TdComment>Yanvar oyi ish haqi</TdComment>
                 <TdMoney>
                     <Stack direction="row" spacing={2}>
@@ -60,7 +82,12 @@ function HiredWorkerTable() {
                 <TdComment>Ilhom Farmonov</TdComment>
                 <TdMoney>Cambridge</TdMoney>
                 <TdMoney>991234567</TdMoney>
-                <TdMoney>3 mln so'm</TdMoney>
+                <TdMoney>
+                    <Typography>3 mln so'm</Typography>
+                    <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
+                        <AddCircleIcon color='success' />
+                    </IconButton>
+                </TdMoney>
                 <TdComment>Yanvar oyi ish haqi</TdComment>
                 <TdMoney>
                     <Stack direction="row" spacing={2}>
@@ -78,7 +105,12 @@ function HiredWorkerTable() {
                 <TdComment>Ilhom Farmonov</TdComment>
                 <TdMoney>Cambridge</TdMoney>
                 <TdMoney>991234567</TdMoney>
-                <TdMoney>3 mln so'm</TdMoney>
+                <TdMoney>
+                    <Typography>3 mln so'm</Typography>
+                    <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
+                        <AddCircleIcon color='success' />
+                    </IconButton>
+                </TdMoney>
                 <TdComment>Yanvar oyi ish haqi</TdComment>
                 <TdMoney>
                     <Stack direction="row" spacing={2}>
@@ -96,7 +128,12 @@ function HiredWorkerTable() {
                 <TdComment>Ilhom Farmonov</TdComment>
                 <TdMoney>Cambridge</TdMoney>
                 <TdMoney>991234567</TdMoney>
-                <TdMoney>3 mln so'm</TdMoney>
+                <TdMoney>
+                    <Typography>3 mln so'm</Typography>
+                    <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
+                        <AddCircleIcon color='success' />
+                    </IconButton>
+                </TdMoney>
                 <TdComment>Yanvar oyi ish haqi</TdComment>
                 <TdMoney>
                     <Stack direction="row" spacing={2}>
@@ -114,7 +151,12 @@ function HiredWorkerTable() {
                 <TdComment>Ilhom Farmonov</TdComment>
                 <TdMoney>Cambridge</TdMoney>
                 <TdMoney>991234567</TdMoney>
-                <TdMoney>3 mln so'm</TdMoney>
+                <TdMoney>
+                    <Typography>3 mln so'm</Typography>
+                    <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
+                        <AddCircleIcon color='success' />
+                    </IconButton>
+                </TdMoney>
                 <TdComment>Yanvar oyi ish haqi</TdComment>
                 <TdMoney>
                     <Stack direction="row" spacing={2}>
@@ -132,7 +174,12 @@ function HiredWorkerTable() {
                 <TdComment>Ilhom Farmonov</TdComment>
                 <TdMoney>Cambridge</TdMoney>
                 <TdMoney>991234567</TdMoney>
-                <TdMoney>3 mln so'm</TdMoney>
+                <TdMoney>
+                    <Typography>3 mln so'm</Typography>
+                    <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
+                        <AddCircleIcon color='success' />
+                    </IconButton>
+                </TdMoney>
                 <TdComment>Yanvar oyi ish haqi</TdComment>
                 <TdMoney>
                     <Stack direction="row" spacing={2}>
@@ -150,25 +197,12 @@ function HiredWorkerTable() {
                 <TdComment>Ilhom Farmonov</TdComment>
                 <TdMoney>Cambridge</TdMoney>
                 <TdMoney>991234567</TdMoney>
-                <TdMoney>3 mln so'm</TdMoney>
-                <TdComment>Yanvar oyi ish haqi</TdComment>
                 <TdMoney>
-                    <Stack direction="row" spacing={2}>
-                        <IconButton onClick={() => navigate('/home/edit-hired-worker')} aria-label="delete">
-                            <EditIcon color='warning' />
-                        </IconButton>
-                        <IconButton aria-label="delete">
-                            <DeleteIcon color='danger' />
-                        </IconButton>
-                    </Stack>
+                    <Typography>3 mln so'm</Typography>
+                    <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
+                        <AddCircleIcon color='success' />
+                    </IconButton>
                 </TdMoney>
-            </TbodyWrapper>
-            <TbodyWrapper>
-                <TdId>1</TdId>
-                <TdComment>Ilhom Farmonov</TdComment>
-                <TdMoney>Cambridge</TdMoney>
-                <TdMoney>991234567</TdMoney>
-                <TdMoney>3 mln so'm</TdMoney>
                 <TdComment>Yanvar oyi ish haqi</TdComment>
                 <TdMoney>
                     <Stack direction="row" spacing={2}>
