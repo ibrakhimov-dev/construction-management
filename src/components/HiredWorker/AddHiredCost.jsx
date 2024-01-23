@@ -1,10 +1,13 @@
 import { Paper, Stack, Grid, Typography, FormControl, Button,  IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
-import React from 'react'
+import React, { useState } from 'react'
 
 function AddHiredCost(props) {
+    const [editCost, setEditCost] = useState(false);
+
     function clickDay() {
         props.closeModal()
     }
@@ -57,7 +60,7 @@ function AddHiredCost(props) {
                                 </Grid>
                                 <Grid item xl={2} display='flex' alignItems='center' justifyContent='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton aria-label="delete">
+                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
                                         <IconButton aria-label="delete">
@@ -213,7 +216,33 @@ function AddHiredCost(props) {
                         </Grid>
                     </Grid>
                 </Grid> 
-                <Grid item xl={6}>
+                {
+                    editCost ? <Grid item xl={6}>
+                    <Typography variant='h6' fontWeight={700}>Ilhom Farmonov</Typography>
+                    <Typography mt={2} variant='h6'>Xarajat ni tahrirlash</Typography>
+                    <Grid container spacing={3}>
+                        <Grid item xl={6}>
+                            <FormControl fullWidth>
+                                <Typography mt={2}>Bergan sanasi:</Typography>
+                                <input style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
+                            </FormControl>
+                        </Grid>
+                        <Grid item xl={6}>
+                            <FormControl  fullWidth>
+                                <Typography mt={2}>Summasi:</Typography>
+                                <input style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
+                            </FormControl>
+                        </Grid>
+                        <Grid item xl={12}>
+                            <FormControl  fullWidth>
+                                <Typography mb={2}>Izoh:</Typography>
+                                <textarea name="" id="" cols="30" rows="7"></textarea>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                    <Button onClick={clickDay} sx={{mt: 2}} variant='contained' color='warning'>Tahrirlash</Button>
+                    <Button onClick={() => setEditCost(false)} sx={{mt: 2, ml: 2}} variant='contained' color='success'><ArrowBackIcon /></Button>
+                </Grid> :  <Grid item xl={6}>
                     <Typography variant='h6' fontWeight={700}>Ilhom Farmonov</Typography>
                     <Typography mt={2} variant='h6'>Xarajat qo'shish</Typography>
                     <Grid container spacing={3}>
@@ -238,7 +267,8 @@ function AddHiredCost(props) {
                     </Grid>
                     <Button onClick={clickDay} sx={{mt: 2}} variant='contained' color='warning'>Qo'shish</Button>
                     <Button onClick={clickDay} sx={{mt: 2, ml: 2}} variant='contained' color='success'>Expert</Button>
-                </Grid>             
+                </Grid>
+                }                   
             </Grid>
         </Paper>
     </Stack>

@@ -13,16 +13,16 @@ function Cost() {
     const [objectSelect, setObjectSelect] = useState("");
     const navigate = useNavigate()
   return (
-    <Stack>
+    <Stack  pb='70px'>
         <Grid container p={3}>
-            <Grid item xl={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Xarajatlar</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
-            <Grid item xl={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
                 <Grid container spacing={3} >
-                    <Grid item xl={2}>
+                    <Grid item xl={2} md={4} sm={4} xs={12}>
                         <FormControl sx={{marginTop: 1 }} fullWidth >
                             <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Category</InputLabel>
                             <Select
@@ -39,7 +39,7 @@ function Cost() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xl={2}>
+                    <Grid item xl={2} md={4} sm={4} xs={12}>
                         <FormControl sx={{marginTop: 1 }} fullWidth >
                             <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Obyektlar</InputLabel>
                             <Select
@@ -56,7 +56,7 @@ function Cost() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xl={3}>
+                    <Grid item xl={3} md={4} sm={4} xs={12}>
                         <FormControl sx={{marginTop: 1 }} fullWidth >
                             <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Ish Boshqaruvchi</InputLabel>
                             <Select
@@ -73,7 +73,7 @@ function Cost() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xl={5} display='flex' justifyContent='flex-end' gap={2}>                      
+                    <Grid item xl={5} md={12} sm={12} xs={12} display='flex' flexWrap={{xl: 'nowrap', md: 'nowrap', sm: 'nowrap', xs: 'wrap'}} justifyContent={{xl: 'flex-end', md: 'flex-end', sm: 'flex-end', xs: 'center'}} gap={2}>                      
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker']}>
                                 <DatePicker label="Dan (kun)" />
@@ -85,7 +85,7 @@ function Cost() {
                             </DemoContainer>
                         </LocalizationProvider>
                     </Grid>
-                    <Grid item xl={12} display='flex' gap={1} justifyContent='flex-end' alignItems='center'>
+                    <Grid item xl={12} md={12} sm={12} xs={12} display='flex' flexWrap={{xl: 'nowrap', md: 'nowrap', sm: 'nowrap', xs: 'wrap'}} gap={1} justifyContent={{xl: 'flex-end', md: 'flex-end', sm: 'flex-end', xs: 'center'}} alignItems='center'>
                         <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
                             Export
                         </Button>
@@ -98,9 +98,9 @@ function Cost() {
         </Grid>
         <CostTable />
         <Grid container mt='-20px' p={3}>
-            <Grid item xl={12} display='flex' justifyContent='flex-end' p={3}>
+            <Grid item xl={12} md={12} sm={12} xs={12} display='flex' justifyContent={{xl: 'flex-end', md: 'flex-end', sm: 'flex-end', xs: 'center'}} p={3}>
                 <Stack spacing={2}>
-                    <Pagination color='warning' count={10} />
+                    <Pagination size='small' color='warning' count={10} />
                 </Stack>
             </Grid>
         </Grid>

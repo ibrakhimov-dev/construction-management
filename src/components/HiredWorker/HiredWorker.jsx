@@ -16,7 +16,7 @@ function HiredWorker() {
             </Grid>
         </Grid>
         <Grid container p={3}>
-            <Grid item xl={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
+            <Grid item xl={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px #b6b6b6d4'}}>
                 <Grid container spacing={3}>
                     <Grid item xl={4}>
                         <FormControl sx={{mt: 1}} fullWidth>

@@ -13,16 +13,16 @@ function EditCost() {
     const [currency, setCurrency] = useState("Usd")
     const navigate = useNavigate();
   return (
-    <Stack>
+    <Stack pb='70px'>
         <Grid container p={3}>
-            <Grid item xl={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Xarajatni Tahrilash</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
-            <Grid item p={3} xl={12} >
+            <Grid item p={3} xl={12} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}} >
                 <Grid container>
-                    <Grid xl={6} p={2}>
+                    <Grid xl={6} xm={12} sm={12} xs={12} p={2}>
                         <FormControl  fullWidth>
                             <Typography>Category:</Typography>
                             <Select
@@ -80,7 +80,7 @@ function EditCost() {
                         
                         
                     </Grid>
-                    <Grid xl={6} p={2}>
+                    <Grid xl={6} xm={12} sm={12} xs={12} p={2}>
                         <FormControl  fullWidth>
                             <Typography>To'lov Turini:</Typography>
                             <Select

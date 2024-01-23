@@ -16,16 +16,16 @@ function Dashboard() {
     'Iyun',
   ];
   return (
-    <Stack>
+    <Stack pb='80px'>
       <Grid container p={3}>
-        <Grid item xl={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
+        <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
           <Typography variant='h5' color='#fff' fontWeight='bold'>Dashboard</Typography>
         </Grid>
       </Grid>
       <Grid container >
-        <Grid p={3} item xl={8} >
-          <Box height='300px' sx={{borderRadius: '10px', background: `linear-gradient(to right bottom, #272d7b, #fe6529)`, boxShadow: '0 0 3px 3px #bebebe'}}>
-            <Typography variant='h6' color='#fff' p={2}>Oxirgi 6 oylik foyda (mln so'm)</Typography>
+        <Grid p={3} item xl={8} md={12} sm={12} >
+          <Box height={{xl: '300px', md: "300px", sm: "300px", xs: "350px"}} sx={{borderRadius: '10px', background: `linear-gradient(to right bottom, #272d7b, #fe6529)`, boxShadow: '0 0 3px 3px #bebebe'}}>
+            <Typography variant="h6" color='#fff' p={2}>Oxirgi 6 oylik foyda (mln so'm)</Typography>
             <LineChart
               series={[
                 { data: [200, 550, 200, 850, 150, 500]},
@@ -53,7 +53,7 @@ function Dashboard() {
             />
           </Box>
         </Grid>
-        <Grid item xl={4} p={3}>
+        <Grid item xl={4} md={12} sm={12} xs={12} p={3}>
           <Box height='300px' sx={{borderRadius: '10px', background: `linear-gradient(to right bottom, #272d7b, #fe6529)`, boxShadow: '0 0 3px 3px #bebebe'}}>
             <Typography variant='h6' color='#fff' p={2}>Aktiv ishchilar</Typography>
             <Box width='100%' display='flex' alignItems='center' justifyContent='center' textAlign='center'>
@@ -65,7 +65,7 @@ function Dashboard() {
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item xl={4} p={3}>
+        <Grid item xl={4} md={6} sm={6} xs={12} p={3}>
           <Box height='200px' sx={{borderRadius: '10px', background: `linear-gradient(to right bottom, #272d7b, #fe6529)`, boxShadow: '0 0 3px 3px #bebebe'}}>
             <Typography variant='h6' color='#fff' p={2}>Daromad</Typography>
             <Box width='100%' display='flex' alignItems='center' justifyContent='center' textAlign='center'>
@@ -74,7 +74,7 @@ function Dashboard() {
             </Box>
           </Box>
         </Grid>
-        <Grid item xl={4} p={3}>
+        <Grid item xl={4} md={6} sm={6} xs={12} p={3}>
           <Box height='200px' sx={{borderRadius: '10px', background: `linear-gradient(to right bottom, #272d7b, #fe6529)`, boxShadow: '0 0 3px 3px #bebebe'}}>
             <Typography variant='h6' color='#fff' p={2}>Xarajatlar</Typography>
             <Box width='100%' display='flex' alignItems='center' justifyContent='center' textAlign='center'>
@@ -83,7 +83,7 @@ function Dashboard() {
             </Box>
           </Box>
         </Grid>
-        <Grid item xl={4} p={3}>
+        <Grid item xl={4} md={6} sm={6} xs={12} p={3}>
           <Box height='200px' sx={{borderRadius: '10px', background: `linear-gradient(to right bottom, #272d7b, #fe6529)`, boxShadow: '0 0 3px 3px #bebebe'}}>
             <Typography variant='h6' color='#fff' p={2}>Tugallangan Obyektlar</Typography>
             <Box width='100%' display='flex' alignItems='center' justifyContent='center' textAlign='center'>
