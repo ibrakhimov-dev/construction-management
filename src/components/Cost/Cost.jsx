@@ -4,7 +4,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import AddIcon from '@mui/icons-material/Add';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
 import { useNavigate } from 'react-router-dom';
 import CostTable from './CostTable';
@@ -104,7 +104,6 @@ function Cost() {
                 </Stack>
             </Grid>
         </Grid>
-        
     </Stack>
   )
 }
