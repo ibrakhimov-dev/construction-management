@@ -23,7 +23,7 @@ function Dashboard() {
         </Grid>
       </Grid>
       <Grid container >
-        <Grid p={3} item xl={8} md={12} sm={12} >
+        <Grid p={3} item xl={8} md={12} sm={12} xs={12}>
           <Box height={{xl: '300px', md: "300px", sm: "300px", xs: "350px"}} sx={{borderRadius: '10px', background: `linear-gradient(to right bottom, #272d7b, #fe6529)`, boxShadow: '0 0 3px 3px #bebebe'}}>
             <Typography variant="h6" color='#fff' p={2}>Oxirgi 6 oylik foyda (mln so'm)</Typography>
             <LineChart

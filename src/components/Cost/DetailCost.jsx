@@ -27,7 +27,7 @@ function DetailCost() {
         </Grid>
         <Grid container p={3}>
             <Grid item p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4',  width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
-               <Stack sx={{ width: '1300px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
+               <Stack sx={{ minWidth: '1190px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
                 <TheadWrapper>
                         <ThId>T/r</ThId>
                         <ThMoney>Qayerga Ishlatgani</ThMoney>
