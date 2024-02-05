@@ -14,16 +14,16 @@ function CreateObject() {
         setValue(newValue)
     }
   return (
-    <Stack>
+    <Stack pb='70px'>
         <Grid container p={3}>
-            <Grid item xl={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Obyekt qo'shish</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
-            <Grid item p={3} xl={12} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
+            <Grid item p={3} xl={12} md={12} sm={12} xs={12} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
                 <Grid container>
-                    <Grid xl={6} p={2}>
+                    <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Obyekt Nomi:</Typography>
                             <TextField id="outlined-basic" color='warning' variant="outlined" />
@@ -33,7 +33,7 @@ function CreateObject() {
                             <MuiFileInput color='warning' value={value} onChange={handleChange} />
                         </FormControl>
                     </Grid>
-                    <Grid xl={6} p={2}>
+                    <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         
                         <FormControl  fullWidth>
                             <Typography>Holati:</Typography>

@@ -12,9 +12,9 @@ function EditWorker() {
     const [paymentType, setPaymentType] = useState('Naxt')
     const navigate = useNavigate();
   return (
-    <Stack>
+    <Stack pb='70px'>
         <Grid container p={3}>
-            <Grid item xl={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Xarajatlar (Umumiy Malumot)</Typography>
             </Grid>
         </Grid>
@@ -33,7 +33,7 @@ function EditWorker() {
         <Grid container p={3}>
             <Grid item p={3} xl={12} >
                 <Grid container>
-                    <Grid xl={6} p={2}>
+                    <Grid xl={6} md={6} sm={12} xs={12} p={2}>
                         <FormControl  fullWidth>
                             <Typography>Lavozimi:</Typography>
                             <Select
@@ -65,7 +65,7 @@ function EditWorker() {
                             </LocalizationProvider>
                         </FormControl>              
                     </Grid>
-                    <Grid xl={6} p={2}>
+                    <Grid xl={6} md={6} sm={12} xs={12} p={2}>
                         <FormControl  fullWidth>
                             <Typography>Obyekt:</Typography>
                             <Select
@@ -90,7 +90,7 @@ function EditWorker() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Avans:</Typography>
-                            <TextField color='warning' id="outlined-basic" type='number' variant="outlined" />
+                            <TextField sx={{mt: 1}} color='warning' id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                         <Button onClick={() => navigate('/home/worker')} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
                             Tahrirlash

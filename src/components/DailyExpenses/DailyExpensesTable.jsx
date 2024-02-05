@@ -9,96 +9,98 @@ function DailyExpensesTable() {
     const navigate = useNavigate();
   return (
     <Grid container p={3}>
-        <Grid item xl={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
-            <TheadWrapper>
-                <ThId>T/r</ThId>
-                <ThComment>Izoh:</ThComment>
-                <ThMoney>Sana</ThMoney>
-                <ThComment>Summa</ThComment>
-                <ThMoney>Boshqaruv</ThMoney>
-            </TheadWrapper>
-            <TbodyWrapper>
-                <TdId>1</TdId>
-                <TdComment>Mashina kridit uchun</TdComment>
-                <TdMoney>21.01.2024</TdMoney>
-                <TdComment>3 mln so'm</TdComment>
-                <TdMoney>
-                    <Stack direction="row" spacing={2}>
-                        <IconButton onClick={() => navigate('/home/edit-daily-expenses')} aria-label="delete">
-                            <EditIcon color='warning' />
-                        </IconButton>
-                        <IconButton aria-label="delete">
-                            <DeleteIcon color='danger' />
-                        </IconButton>
-                    </Stack>
-                </TdMoney>
-            </TbodyWrapper>
-            <TbodyWrapper>
-                <TdId>1</TdId>
-                <TdComment>Mashina kridit uchun</TdComment>
-                <TdMoney>21.01.2024</TdMoney>
-                <TdComment>3 mln so'm</TdComment>
-                <TdMoney>
-                    <Stack direction="row" spacing={2}>
-                        <IconButton onClick={() => navigate('/home/edit-daily-expenses')} aria-label="delete">
-                            <EditIcon color='warning' />
-                        </IconButton>
-                        <IconButton aria-label="delete">
-                            <DeleteIcon color='danger' />
-                        </IconButton>
-                    </Stack>
-                </TdMoney>
-            </TbodyWrapper>  
-            <TbodyWrapper>
-                <TdId>1</TdId>
-                <TdComment>Mashina kridit uchun</TdComment>
-                <TdMoney>21.01.2024</TdMoney>
-                <TdComment>3 mln so'm</TdComment>
-                <TdMoney>
-                    <Stack direction="row" spacing={2}>
-                        <IconButton onClick={() => navigate('/home/edit-daily-expenses')} aria-label="delete">
-                            <EditIcon color='warning' />
-                        </IconButton>
-                        <IconButton aria-label="delete">
-                            <DeleteIcon color='danger' />
-                        </IconButton>
-                    </Stack>
-                </TdMoney>
-            </TbodyWrapper>  
-            <TbodyWrapper>
-                <TdId>1</TdId>
-                <TdComment>Mashina kridit uchun</TdComment>
-                <TdMoney>21.01.2024</TdMoney>
-                <TdComment>3 mln so'm</TdComment>
-                <TdMoney>
-                    <Stack direction="row" spacing={2}>
-                        <IconButton onClick={() => navigate('/home/edit-daily-expenses')} aria-label="delete">
-                            <EditIcon color='warning' />
-                        </IconButton>
-                        <IconButton aria-label="delete">
-                            <DeleteIcon color='danger' />
-                        </IconButton>
-                    </Stack>
-                </TdMoney>
-            </TbodyWrapper>  
-            <TbodyWrapper>
-                <TdId>1</TdId>
-                <TdComment>Mashina kridit uchun</TdComment>
-                <TdMoney>21.01.2024</TdMoney>
-                <TdComment>3 mln so'm</TdComment>
-                <TdMoney>
-                    <Stack direction="row" spacing={2}>
-                        <IconButton onClick={() => navigate('/home/edit-daily-expenses')} aria-label="delete">
-                            <EditIcon color='warning' />
-                        </IconButton>
-                        <IconButton aria-label="delete">
-                            <DeleteIcon color='danger' />
-                        </IconButton>
-                    </Stack>
-                </TdMoney>
-            </TbodyWrapper>  
-            <Stack mt={2}>
-                <Typography variant='h6' fontWeight='bold'>Jami Summa: 13 mln so'm</Typography>
+        <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}}>
+            <Stack sx={{ minWidth: '1190px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
+                <TheadWrapper>
+                    <ThId>T/r</ThId>
+                    <ThComment>Izoh:</ThComment>
+                    <ThMoney>Sana</ThMoney>
+                    <ThComment>Summa</ThComment>
+                    <ThMoney>Boshqaruv</ThMoney>
+                </TheadWrapper>
+                <TbodyWrapper>
+                    <TdId>1</TdId>
+                    <TdComment>Mashina kridit uchun</TdComment>
+                    <TdMoney>21.01.2024</TdMoney>
+                    <TdComment>3 mln so'm</TdComment>
+                    <TdMoney>
+                        <Stack direction="row" spacing={2}>
+                            <IconButton onClick={() => navigate('/home/edit-daily-expenses')} aria-label="delete">
+                                <EditIcon color='warning' />
+                            </IconButton>
+                            <IconButton aria-label="delete">
+                                <DeleteIcon color='danger' />
+                            </IconButton>
+                        </Stack>
+                    </TdMoney>
+                </TbodyWrapper>
+                <TbodyWrapper>
+                    <TdId>1</TdId>
+                    <TdComment>Mashina kridit uchun</TdComment>
+                    <TdMoney>21.01.2024</TdMoney>
+                    <TdComment>3 mln so'm</TdComment>
+                    <TdMoney>
+                        <Stack direction="row" spacing={2}>
+                            <IconButton onClick={() => navigate('/home/edit-daily-expenses')} aria-label="delete">
+                                <EditIcon color='warning' />
+                            </IconButton>
+                            <IconButton aria-label="delete">
+                                <DeleteIcon color='danger' />
+                            </IconButton>
+                        </Stack>
+                    </TdMoney>
+                </TbodyWrapper>  
+                <TbodyWrapper>
+                    <TdId>1</TdId>
+                    <TdComment>Mashina kridit uchun</TdComment>
+                    <TdMoney>21.01.2024</TdMoney>
+                    <TdComment>3 mln so'm</TdComment>
+                    <TdMoney>
+                        <Stack direction="row" spacing={2}>
+                            <IconButton onClick={() => navigate('/home/edit-daily-expenses')} aria-label="delete">
+                                <EditIcon color='warning' />
+                            </IconButton>
+                            <IconButton aria-label="delete">
+                                <DeleteIcon color='danger' />
+                            </IconButton>
+                        </Stack>
+                    </TdMoney>
+                </TbodyWrapper>  
+                <TbodyWrapper>
+                    <TdId>1</TdId>
+                    <TdComment>Mashina kridit uchun</TdComment>
+                    <TdMoney>21.01.2024</TdMoney>
+                    <TdComment>3 mln so'm</TdComment>
+                    <TdMoney>
+                        <Stack direction="row" spacing={2}>
+                            <IconButton onClick={() => navigate('/home/edit-daily-expenses')} aria-label="delete">
+                                <EditIcon color='warning' />
+                            </IconButton>
+                            <IconButton aria-label="delete">
+                                <DeleteIcon color='danger' />
+                            </IconButton>
+                        </Stack>
+                    </TdMoney>
+                </TbodyWrapper>  
+                <TbodyWrapper>
+                    <TdId>1</TdId>
+                    <TdComment>Mashina kridit uchun</TdComment>
+                    <TdMoney>21.01.2024</TdMoney>
+                    <TdComment>3 mln so'm</TdComment>
+                    <TdMoney>
+                        <Stack direction="row" spacing={2}>
+                            <IconButton onClick={() => navigate('/home/edit-daily-expenses')} aria-label="delete">
+                                <EditIcon color='warning' />
+                            </IconButton>
+                            <IconButton aria-label="delete">
+                                <DeleteIcon color='danger' />
+                            </IconButton>
+                        </Stack>
+                    </TdMoney>
+                </TbodyWrapper>  
+                <Stack mt={2}>
+                    <Typography variant='h6' fontWeight='bold'>Jami Summa: 13 mln so'm</Typography>
+                </Stack>
             </Stack>            
         </Grid>
     </Grid>

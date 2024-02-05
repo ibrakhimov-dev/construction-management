@@ -23,30 +23,30 @@ function AddDayOff(props) {
         <Paper elevation={3} sx={{width: '80%', position: 'relative'}}>
             <Button color='danger' onClick={() => props.closeModal()} sx={{position: 'absolute', right: '10px', top: '10px'}}><CloseIcon/></Button>
             <Grid container p={4} spacing={3}>             
-                <Grid item xl={6} sx={{overflowY: 'scroll', height: '240px'}}>
-                    <Grid container > 
-                        <Grid item mt={2} textAlign='center' borderBottom='solid 2px #ed744466' xl={12}>
+                <Grid item xl={6} md={6} sm={12} xs={12} sx={{overflowY: 'scroll', height: '240px', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
+                    <Grid container sx={{ minWidth: '500px', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'}}} > 
+                        <Grid item mt={2} textAlign='center' borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container>
-                                <Grid item xl={1} fontWeight={600}>T/r</Grid>
-                                <Grid item xl={4} fontWeight={600}>
+                                <Grid item xl={1} md={1} sm={1} xs={1} fontWeight={600}>T/r</Grid>
+                                <Grid item xl={4} md={4} sm={4} xs={4} fontWeight={600}>
                                     Dam olgan kuni
                                 </Grid>
-                                <Grid item xl={5} fontWeight={600}>
+                                <Grid item xl={5} md={5} sm={5} xs={5} fontWeight={600}>
                                     Qancha vaqt dam olgani
                                 </Grid>
-                                <Grid item xl={2} fontWeight={600}>Boshqaruv:</Grid>
+                                <Grid item xl={2} md={2} sm={2} xs={2} fontWeight={600}>Boshqaruv:</Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={4}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={4} md={4} sm={4} xs={4}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     0.5 kun dam oldi
                                 </Grid>
-                                <Grid item xl={2} display='flex' justifyContent='center' alignItems='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' justifyContent='center' alignItems='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
                                         <IconButton aria-label="delete">
                                             <DeleteIcon color='danger' />
@@ -55,16 +55,16 @@ function AddDayOff(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={4}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={4} md={4} sm={4} xs={4}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     0.5 kun dam oldi
                                 </Grid>
-                                <Grid item xl={2} display='flex' justifyContent='center' alignItems='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' justifyContent='center' alignItems='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
                                         <IconButton aria-label="delete">
                                             <DeleteIcon color='danger' />
@@ -73,16 +73,16 @@ function AddDayOff(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={4}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={4} md={4} sm={4} xs={4}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     0.5 kun dam oldi
                                 </Grid>
-                                <Grid item xl={2} display='flex' justifyContent='center' alignItems='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' justifyContent='center' alignItems='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
                                         <IconButton aria-label="delete">
                                             <DeleteIcon color='danger' />
@@ -91,16 +91,16 @@ function AddDayOff(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={4}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={4} md={4} sm={4} xs={4}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     0.5 kun dam oldi
                                 </Grid>
-                                <Grid item xl={2} display='flex' justifyContent='center' alignItems='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' justifyContent='center' alignItems='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
                                         <IconButton aria-label="delete">
                                             <DeleteIcon color='danger' />
@@ -109,16 +109,34 @@ function AddDayOff(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={4}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={4} md={4} sm={4} xs={4}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     0.5 kun dam oldi
                                 </Grid>
-                                <Grid item xl={2} display='flex' justifyContent='center' alignItems='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' justifyContent='center' alignItems='center'>
+                                    <Stack direction="row" spacing={1} mt='-7px'>
+                                        <IconButton aria-label="delete">
+                                            <DeleteIcon color='danger' />
+                                        </IconButton>
+                                    </Stack>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
+                            <Grid container textAlign='center'>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={4} md={4} sm={4} xs={4}>
+                                    01.17.2024
+                                </Grid>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
+                                    0.5 kun dam oldi
+                                </Grid>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' justifyContent='center' alignItems='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
                                         <IconButton aria-label="delete">
                                             <DeleteIcon color='danger' />
@@ -129,17 +147,17 @@ function AddDayOff(props) {
                         </Grid>
                     </Grid>
                 </Grid> 
-                <Grid item xl={6}>
+                <Grid item xl={6} md={6} sm={12} xs={12}>
                     <Typography variant='h6' fontWeight={700}>Ilhom Farmonov</Typography>
                     <Typography mt={2} variant='h6'>Dam olish kuni qo'shish</Typography>
                     <Grid container spacing={3}>
-                        <Grid item xl={6}>
+                        <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl fullWidth>
                                 <Typography mt={2}>Dam olish kuni:</Typography>
                                 <input style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
                             </FormControl>
                         </Grid>
-                        <Grid item xl={6}>
+                        <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
                                 <Typography mt={2}>Qancha vaqt dam olgani (kun):</Typography>
                                 <select style={{height: '40px', marginTop: '10px'}} name="" id="">

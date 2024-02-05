@@ -12,16 +12,16 @@ import { useNavigate } from 'react-router-dom';
 function DailyExpenses() {
     const navigate = useNavigate()
   return (
-    <Stack>
+    <Stack pb='70px'>
         <Grid container p={3}>
-            <Grid item xl={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Uy Xarajatlar</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
-            <Grid item xl={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
                 <Grid container spacing={3}>
-                    <Grid item xl={3} display='flex' gap={1} justifyContent='flex-start' alignItems='center'>
+                    <Grid item xl={3} md={12} sm={12} xs={12} display='flex' gap={1} justifyContent={{xl: 'flex-start', md: 'flex-start', sm: "flex-start", xs: 'center' }} alignItems='center'>
                         <Button sx={{height: '55px', mt: 1}} size='large' variant='outlined' color='primary'>
                             10 kunlik
                         </Button>
@@ -29,7 +29,7 @@ function DailyExpenses() {
                             30 kunlik
                         </Button> 
                     </Grid>
-                    <Grid item xl={5} display='flex' justifyContent='flex-start' gap={2}>
+                    <Grid item xl={5} md={12} sm={12} xs={12} display='flex' justifyContent={{xl: 'flex-start', md: 'flex-start', sm: "flex-start", xs: 'center' }} flexWrap='wrap' gap={2}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker']}>
                                 <DatePicker label="Dan (kun)" />
@@ -41,7 +41,7 @@ function DailyExpenses() {
                             </DemoContainer>
                         </LocalizationProvider>
                     </Grid>
-                    <Grid item xl={4} display='flex' gap={1} justifyContent='flex-end' alignItems='center'>
+                    <Grid item xl={4} md={12} sm={12} xs={12} display='flex' gap={1} justifyContent={{xl: 'flex-start', md: 'flex-start', sm: "flex-start", xs: 'center' }} flexWrap='wrap' alignItems='center'>
                         <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
                             Export
                         </Button>
@@ -54,9 +54,9 @@ function DailyExpenses() {
         </Grid>
         <DailyExpensesTable />
         <Grid container mt='-20px' p={3}>
-            <Grid item xl={12} display='flex' justifyContent='flex-end' p={3}>
+            <Grid item xl={12} md={12} sm={12} xs={12} display='flex' justifyContent={{xl: 'flex-end', md: 'flex-end', sm: 'flex-end', xs: 'center'}} p={3}>
                 <Stack spacing={2}>
-                    <Pagination color='warning' count={10} />
+                    <Pagination size='small' color='warning' count={10} />
                 </Stack>
             </Grid>
         </Grid>

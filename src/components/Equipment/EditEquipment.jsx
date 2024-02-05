@@ -13,16 +13,16 @@ function EditEquipment() {
             setValue(newValue)
         }
   return (
-    <Stack>
+    <Stack pb='70px'>
         <Grid container p={3}>
-            <Grid item xl={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Uskunalar (umimiy malumot)</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
-            <Grid item xl={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
                 <Grid container spacing={3}>
-                    <Grid item xl={6} p={2}>
+                    <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Uskuna Nomi:</Typography>
                             <TextField id="outlined-basic" color='warning' variant="outlined" />
@@ -46,7 +46,7 @@ function EditEquipment() {
                             <TextField id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                     </Grid>
-                    <Grid item xl={6} p={2}>
+                    <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl  fullWidth>
                             <Typography>Holati:</Typography>
                             <Select

@@ -5,16 +5,16 @@ import { useNavigate } from 'react-router-dom'
 function Objects() {
     const navigate = useNavigate();
   return (
-    <Stack>
+    <Stack pb='70px'>
         <Grid container p={3}>
-            <Grid item xl={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Obyektlar</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
-            <Grid xl={12}>
+            <Grid xl={12} md={12} sm={12} xs={12}>
                 <Grid container spacing={3}>
-                    <Grid item xl={3}>
+                    <Grid item xl={3} md={6} sm={6} xs={12}>
                         <Card onClick = {() => navigate("/home/edit-object")} sx={{
                             borderRadius: '20px',
                             position: 'relative',
@@ -35,7 +35,7 @@ function Objects() {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xl={3}>
+                    <Grid item xl={3} md={6} sm={6} xs={12}>
                         <Card  sx={{
                             borderRadius: '20px',
                             position: 'relative',
@@ -56,7 +56,7 @@ function Objects() {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xl={3}>
+                    <Grid item xl={3} md={6} sm={6} xs={12}>
                         <Card  sx={{
                             borderRadius: '20px',
                             border: '3px solid var(--border-base-surface, #FFF)',
@@ -75,7 +75,7 @@ function Objects() {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xl={3}>
+                    <Grid item xl={3} md={6} sm={6} xs={12}>
                         <Card  sx={{
                             borderRadius: '20px',
                             border: '3px solid var(--border-base-surface, #FFF)',
@@ -94,7 +94,7 @@ function Objects() {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xl={3}>
+                    <Grid item xl={3} md={6} sm={6} xs={12}>
                         <Card  sx={{
                             borderRadius: '20px',
                             border: '3px solid var(--border-base-surface, #FFF)',
@@ -113,7 +113,7 @@ function Objects() {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xl={3}>
+                    <Grid item xl={3} md={6} sm={6} xs={12}>
                         <Card  sx={{
                             borderRadius: '20px',
                             border: '3px solid var(--border-base-surface, #FFF)',
@@ -132,7 +132,7 @@ function Objects() {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item xl={3}>
+                    <Grid item xl={3} md={6} sm={6} xs={12}>
                         <Card onClick = {() => navigate("/home/create-object")} sx={{
                             borderRadius: '20px',
                             border: '3px solid var(--border-base-surface, #FFF)',

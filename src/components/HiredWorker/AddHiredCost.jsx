@@ -24,41 +24,41 @@ function AddHiredCost(props) {
         justifyContent: 'center',
         alignItems: "center", 
         backgroundColor: '#000000c4'}}>
-        <Paper elevation={3} sx={{width: '80%', position: 'relative'}}>
+        <Paper elevation={3} sx={{width: '80%', overflowY: 'scroll', height: '600px', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},  position: 'relative'}}>
             <Button color='danger' onClick={() => props.closeModal()} sx={{position: 'absolute', right: '10px', top: '10px'}}><CloseIcon/></Button>
             <Grid container p={4} spacing={3}>             
-                <Grid item xl={6} sx={{overflowY: 'scroll', height: '400px'}}>
-                    <Grid container > 
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                <Grid item xl={6} md={6} sm={12} xs={12} sx={{overflowY: 'scroll', height: '400px', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
+                    <Grid container sx={{ minWidth: '500px', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}> 
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1} fontWeight={600}>T/r</Grid>
-                                <Grid item xl={2} fontWeight={600}>
+                                <Grid item xl={1} md={1} sm={1} xs={1} fontWeight={600}>T/r</Grid>
+                                <Grid item xl={2} md={2} sm={2} xs={2} fontWeight={600}>
                                     Sana:
                                 </Grid>
-                                <Grid item xl={2} fontWeight={600}>
+                                <Grid item xl={2} md={2} sm={2} xs={2} fontWeight={600}>
                                     Summa:
                                 </Grid>
-                                <Grid item xl={5} fontWeight={600}>
+                                <Grid item xl={5} md={5} sm={5} xs={5} fontWeight={600}>
                                     Izoh:
                                 </Grid>
-                                <Grid item xl={2} fontWeight={600}>
+                                <Grid item xl={2} md={2} sm={2} xs={2} fontWeight={600}>
                                     Boshqaruv:
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     3 mln so'm
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     Lorem ipsum dolor sit amet.
                                 </Grid>
-                                <Grid item xl={2} display='flex' alignItems='center' justifyContent='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
                                         <IconButton onClick={() => setEditCost(true)} aria-label="delete">
                                             <EditIcon color='warning' />
@@ -70,21 +70,21 @@ function AddHiredCost(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     3 mln so'm
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     Lorem ipsum dolor sit amet.
                                 </Grid>
-                                <Grid item xl={2} display='flex' alignItems='center' justifyContent='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton aria-label="delete">
+                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
                                         <IconButton aria-label="delete">
@@ -94,21 +94,21 @@ function AddHiredCost(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     3 mln so'm
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     Lorem ipsum dolor sit amet.
                                 </Grid>
-                                <Grid item xl={2} display='flex' alignItems='center' justifyContent='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton aria-label="delete">
+                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
                                         <IconButton aria-label="delete">
@@ -118,21 +118,21 @@ function AddHiredCost(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     3 mln so'm
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     Lorem ipsum dolor sit amet.
                                 </Grid>
-                                <Grid item xl={2} display='flex' alignItems='center' justifyContent='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton aria-label="delete">
+                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
                                         <IconButton aria-label="delete">
@@ -142,21 +142,21 @@ function AddHiredCost(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     3 mln so'm
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     Lorem ipsum dolor sit amet.
                                 </Grid>
-                                <Grid item xl={2} display='flex' alignItems='center' justifyContent='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton aria-label="delete">
+                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
                                         <IconButton aria-label="delete">
@@ -166,21 +166,21 @@ function AddHiredCost(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     3 mln so'm
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     Lorem ipsum dolor sit amet.
                                 </Grid>
-                                <Grid item xl={2} display='flex' alignItems='center' justifyContent='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton aria-label="delete">
+                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
                                         <IconButton aria-label="delete">
@@ -190,21 +190,21 @@ function AddHiredCost(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12}>
+                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1}>1</Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     01.17.2024
                                 </Grid>
-                                <Grid item xl={2}>
+                                <Grid item xl={2} md={2} sm={2} xs={2}>
                                     3 mln so'm
                                 </Grid>
-                                <Grid item xl={5}>
+                                <Grid item xl={5} md={5} sm={5} xs={5}>
                                     Lorem ipsum dolor sit amet.
                                 </Grid>
-                                <Grid item xl={2} display='flex' alignItems='center' justifyContent='center'>
+                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
                                     <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton aria-label="delete">
+                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
                                         <IconButton aria-label="delete">
@@ -217,23 +217,23 @@ function AddHiredCost(props) {
                     </Grid>
                 </Grid> 
                 {
-                    editCost ? <Grid item xl={6}>
+                    editCost ? <Grid item xl={6} md={6} sm={12} xs={12}>
                     <Typography variant='h6' fontWeight={700}>Ilhom Farmonov</Typography>
                     <Typography mt={2} variant='h6'>Xarajat ni tahrirlash</Typography>
                     <Grid container spacing={3}>
-                        <Grid item xl={6}>
+                        <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl fullWidth>
                                 <Typography mt={2}>Bergan sanasi:</Typography>
                                 <input style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
                             </FormControl>
                         </Grid>
-                        <Grid item xl={6}>
+                        <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
                                 <Typography mt={2}>Summasi:</Typography>
                                 <input style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
                             </FormControl>
                         </Grid>
-                        <Grid item xl={12}>
+                        <Grid item xl={12} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
                                 <Typography mb={2}>Izoh:</Typography>
                                 <textarea name="" id="" cols="30" rows="7"></textarea>
@@ -242,23 +242,23 @@ function AddHiredCost(props) {
                     </Grid>
                     <Button onClick={clickDay} sx={{mt: 2}} variant='contained' color='warning'>Tahrirlash</Button>
                     <Button onClick={() => setEditCost(false)} sx={{mt: 2, ml: 2}} variant='contained' color='success'><ArrowBackIcon /></Button>
-                </Grid> :  <Grid item xl={6}>
+                </Grid> :  <Grid item xl={6} md={6} sm={12} xs={12}>
                     <Typography variant='h6' fontWeight={700}>Ilhom Farmonov</Typography>
                     <Typography mt={2} variant='h6'>Xarajat qo'shish</Typography>
                     <Grid container spacing={3}>
-                        <Grid item xl={6}>
+                        <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl fullWidth>
                                 <Typography mt={2}>Bergan sanasi:</Typography>
                                 <input style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
                             </FormControl>
                         </Grid>
-                        <Grid item xl={6}>
+                        <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
                                 <Typography mt={2}>Summasi:</Typography>
                                 <input style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
                             </FormControl>
                         </Grid>
-                        <Grid item xl={12}>
+                        <Grid item xl={12} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
                                 <Typography mb={2}>Izoh:</Typography>
                                 <textarea name="" id="" cols="30" rows="7"></textarea>
