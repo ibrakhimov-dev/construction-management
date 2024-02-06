@@ -9,9 +9,13 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import GroupIcon from '@mui/icons-material/Group';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import logo from "../Assets/logo.png";
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import SettingsIcon from '@mui/icons-material/Settings';
+import HandshakeIcon from '@mui/icons-material/Handshake';
 import AddHomeIcon from '@mui/icons-material/AddHome';
+import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 
@@ -23,7 +27,7 @@ function Sidebar() {
   return (
     <Stack>
       <Grid container  spacing={0}>
-        <Grid item display={{xl: 'block', md: 'block', sm: 'none', xs: 'none'}} xl={2} md={3} height='100vh' position='sticky' top={0} left={0} p={2} borderRight='solid 2px #ed744466'>
+        <Grid item display={{xl: 'block', md: 'block', sm: 'none', xs: 'none'}} xl={2} md={3} sx={{overflowY: 'scroll', '&::-webkit-scrollbar': {width: 0}}} height='100vh' position='sticky' top={0} left={0} p={2} borderRight='solid 2px #ed744466'>
           <Box width='100%' textAlign='center'>
             <img src={logo} style={{marginTop: '20px', }} width='40%' alt='Garant Stroy' />
           </Box>
@@ -87,6 +91,22 @@ function Sidebar() {
                     <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Uskunalar" />
                   </ListItemButton>
                 </ListItem>
+                <ListItem onClick={() => navigate("agreement")}  sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <HandshakeIcon />
+                    </ListItemIcon>
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Kelishuv" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem onClick={() => navigate("home-sales")}  sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <HolidayVillageIcon />
+                    </ListItemIcon>
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Uy Savdosi" />
+                  </ListItemButton>
+                </ListItem>
                 <Divider sx={{mt: '20px'}} />
                 <ListItem onClick={() => navigate('daily-expenses')}  sx={{mt: '20px', '&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
                   <ListItemButton>
@@ -94,6 +114,22 @@ function Sidebar() {
                       <AddHomeIcon />
                     </ListItemIcon>
                     <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Uy Xarajatlari" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem onClick={() => navigate('car-expenses')}  sx={{mt: '20px', '&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <DirectionsCarIcon />
+                    </ListItemIcon>
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Mashina Xarajatlari" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem onClick={() => navigate('others-expenses')}  sx={{mt: '20px', '&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <CurrencyExchangeIcon />
+                    </ListItemIcon>
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Boshqa Xarajatlar" />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -126,8 +162,12 @@ function Sidebar() {
             <BottomNavigationAction onClick={() => navigate('object')}  sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Nearby" value="nearby" icon={<ApartmentIcon />} />
             <BottomNavigationAction onClick={() => navigate("hired-worker")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<GroupIcon />} />
             <BottomNavigationAction onClick={() => navigate("equipment")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Nearby" value="nearby" icon={<SettingsIcon />} />
+            <BottomNavigationAction onClick={() => navigate("agreement")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Nearby" value="nearby" icon={<HandshakeIcon />} />
+            <BottomNavigationAction onClick={() => navigate("home-sales")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Nearby" value="nearby" icon={<HolidayVillageIcon />} />
             <Divider orientation="vertical" variant="middle" flexItem />
             <BottomNavigationAction onClick={() => navigate('daily-expenses')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<AddHomeIcon />} />
+            <BottomNavigationAction onClick={() => navigate('car-expenses')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<DirectionsCarIcon />} />
+            <BottomNavigationAction onClick={() => navigate('others-expenses')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<CurrencyExchangeIcon />} />
           </BottomNavigation>
         </Grid>
       </Grid>

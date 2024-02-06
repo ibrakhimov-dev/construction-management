@@ -1,6 +1,6 @@
 import { Grid, Stack, Typography, TextField, Box, FormControl, FormGroup, Button } from '@mui/material'
 import logo from "../Assets/logo.png";
-import banner from "../Assets/image.webp"
+import banner from "../Assets/banner.jpg"
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
