@@ -29,6 +29,17 @@ import CreateDailyExpenses from './components/DailyExpenses/CreateDailyExpenses'
 import Agreement from './components/Agreement/Agrement';
 import DetailAgrement from './components/Agreement/DetailAgrement';
 import CreateAgreement from './components/Agreement/CreateAgreement';
+import HomeSales from './components/HomeSales/HomeSales';
+import CreateHomeSales from './components/HomeSales/CreateHomeSales';
+import DetailHomeSales from './components/HomeSales/DetaileHomeSales';
+import AddExpensesHome from './components/HomeSales/AddExpensesHome';
+import EditHomeSales from './components/HomeSales/EditHomeSales';
+import CarExpenses from './components/CarExpenses/CarExpenses';
+import CreateCarExpenses from './components/CarExpenses/CreateCarExpenses';
+import EditCarExpenses from './components/CarExpenses/EditCarExpenses';
+import OthersExpenses from './components/OthersExpenses/OtherExpenses';
+import CreateOthersExpenses from './components/OthersExpenses/CreateOthersExpenses';
+import EditOthersExpenses from './components/OthersExpenses/EditOthersExpenses';
 
 function App() {
   return (
@@ -65,6 +76,17 @@ function App() {
             <Route path='agreement' element={<Agreement />} />
             <Route path='detail-agreement' element={<DetailAgrement />} />
             <Route path='create-agreement' element={<CreateAgreement />} />
+            <Route path='home-sales' element={<HomeSales />} />
+            <Route path='create-home-sales' element={<CreateHomeSales />} />
+            <Route path='detail-home-sales' element={<DetailHomeSales />} />
+            <Route path='add-expenses-sales' element={<AddExpensesHome />} />
+            <Route path='edit-home-sales' element={<EditHomeSales />} />
+            <Route path='car-expenses' element={<CarExpenses />} />
+            <Route path='create-car-expenses' element={<CreateCarExpenses />} />
+            <Route path='edit-car-expenses' element={<EditCarExpenses />} />
+            <Route path='others-expenses' element={<OthersExpenses />} />
+            <Route path='create-others-expenses' element={<CreateOthersExpenses />} />
+            <Route path='edit-others-expenses' element={<EditOthersExpenses />} />
           </Route>
         </Routes>
       </BrowserRouter>
