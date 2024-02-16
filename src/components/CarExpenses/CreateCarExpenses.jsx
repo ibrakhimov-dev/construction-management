@@ -6,9 +6,39 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { base_url, create_car_expenses_api_url } from '../API/baseURL';
+import { useState } from 'react';
+import axios from 'axios';
 
 function CreateCarExpenses() {
+    const [comment, setComment] = useState('');
+    const [date, setDate] = useState('');
+    const [summa, setSumma] = useState(null);
     const navigate = useNavigate();
+    const token = localStorage.getItem('accessToken');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : `Bearer ${token}`,
+        "Access-Control-Allow-Origin": base_url
+    }
+
+    function correctDate (m) {
+        if (m > 9) {
+            return m
+        } else {
+            return `0${m}`;
+        }
+    }
+
+    function createCarExpenses () {
+        console.log(date)
+        axios.post(create_car_expenses_api_url(), {summa: summa, date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, comment: comment,}, {headers})
+        .then((res) => {
+            navigate('/home/car-expenses')
+        }).catch((err) => {
+
+        })
+    }
 
   return (
     <Stack pb='70px'>
@@ -23,13 +53,13 @@ function CreateCarExpenses() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Izoh:</Typography>
-                            <TextField id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Sana:</Typography>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
-                                    <DatePicker label="Sana" />
+                                    <DatePicker value={date} onChange={(e) => setDate(e)} label="Sana" />
                                 </DemoContainer>
                             </LocalizationProvider>
                         </FormControl>
@@ -38,9 +68,9 @@ function CreateCarExpenses() {
                         
                     <FormControl fullWidth>
                             <Typography>Summa (so'm):</Typography>
-                            <TextField id="outlined-basic" type='number' variant="outlined" />
+                            <TextField value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl> 
-                        <Button onClick={() => navigate('/home/car-expenses')} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                        <Button onClick={createCarExpenses} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Mashina xarajatlari qo'shish
                         </Button>               
                     </Grid>

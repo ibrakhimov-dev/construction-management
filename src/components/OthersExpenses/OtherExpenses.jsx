@@ -4,13 +4,85 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import AddIcon from '@mui/icons-material/Add';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import OthersExpensesTable from './OthersExpensesTable';
 import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
 import { useNavigate } from 'react-router-dom';
+import { base_url, others_expenses_api_url, others_expenses_day_api_url, delete_others_expense_api_url } from '../API/baseURL';
+import axios from 'axios';
 
 function OthersExpenses() {
+    const [othersExpensesDate, setOthersExpensesDate] = useState([]);
+    const [totalSumma, setTotalSumma] = useState(null);
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
     const navigate = useNavigate()
+    const [page, setPage] = React.useState(1);
+    const [defoultPage, setDefoultPage] = useState(1);
+    const [countPage, setCountPage] = useState(1);
+    const token = localStorage.getItem('accessToken');
+    const [isAgreeDelete, setIsAgreeDelete] = useState(false)
+
+    const handleChange = (event, value) => {
+      setPage(value);
+    };
+
+    const headers = {
+        'Content-Type': 'application/json',
+        // 'Authorization' : `Bearer ${token}`,
+        "Access-Control-Allow-Origin": base_url,
+    }
+
+    function correctDate (m) {
+        if (m > 9) {
+            return m
+        } else {
+            return `0${m}`;
+        }
+    }
+
+    useEffect (() => {
+        axios.post(others_expenses_api_url(), {page: page ,start_date: startDate?`${startDate.$y}-${correctDate(startDate.$M + 1)}-${startDate.$D}`:'', end_date: endDate?`${endDate.$y}-${correctDate(endDate.$M + 1)}-${endDate.$D}`:""  } , {headers})
+        .then((res) => {
+            console.log(res.data.data)
+            setOthersExpensesDate(res.data.data.data)
+            setTotalSumma(res.data.totalAmount)
+            setCountPage(res.data.data.last_page);
+            setPage(res.data.data.current_page);
+            defoultPage(res.data.data.current_page);
+        }).catch((err) => {
+            console.log(err)
+        })
+    }, [endDate, startDate, page, isAgreeDelete])
+
+    function deleteOthersExpenses (id) {
+        axios.delete(delete_others_expense_api_url(id), {headers})
+        setIsAgreeDelete(true);
+        setTimeout(() => {
+            setIsAgreeDelete(false)
+        }, 2500)
+    }
+
+    function tenDay() {
+        axios.get(others_expenses_day_api_url(10), {headers})
+        .then((res) => {
+            setOthersExpensesDate(res.data.data)
+            setTotalSumma(res.data.totalAmount)
+        }).catch((err) => {
+
+        })
+    }
+
+    function thirtyDay() {
+        axios.get(others_expenses_day_api_url(30), {headers})
+        .then((res) => {
+            setOthersExpensesDate(res.data.data)
+            setTotalSumma(res.data.totalAmount)
+        }).catch((err) => {
+
+        })
+    }
+
   return (
     <Stack pb='70px'>
         <Grid container p={3}>
@@ -22,22 +94,22 @@ function OthersExpenses() {
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
                 <Grid container spacing={3}>
                     <Grid item xl={3} md={12} sm={12} xs={12} display='flex' gap={1} justifyContent={{xl: 'flex-start', md: 'flex-start', sm: "flex-start", xs: 'center' }} alignItems='center'>
-                        <Button sx={{height: '55px', mt: 1}} size='large' variant='outlined' color='primary'>
+                        <Button onClick={tenDay} sx={{height: '55px', mt: 1}} size='large' variant='outlined' color='primary'>
                             10 kunlik
                         </Button>
-                        <Button  sx={{height: '55px', mt: 1}} size='large' variant='outlined' color='primary'>
+                        <Button onClick={thirtyDay}  sx={{height: '55px', mt: 1}} size='large' variant='outlined' color='primary'>
                             30 kunlik
                         </Button> 
                     </Grid>
                     <Grid item xl={5} md={12} sm={12} xs={12} display='flex' justifyContent={{xl: 'flex-start', md: 'flex-start', sm: "flex-start", xs: 'center' }} flexWrap={{xl: 'nowrap', md: 'wrap', sm: 'wrap', xs: "wrap"}} gap={2}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker']}>
-                                <DatePicker label="Dan (kun)" />
+                                <DatePicker value={startDate} onChange={(e) => setStartDate(e)} label="Dan (kun)" />
                             </DemoContainer>
                         </LocalizationProvider>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker']}>
-                                <DatePicker label="Gacha (kun)" />
+                                <DatePicker value={endDate} onChange={(e) => setEndDate(e)} label="Gacha (kun)" />
                             </DemoContainer>
                         </LocalizationProvider>
                     </Grid>
@@ -52,11 +124,11 @@ function OthersExpenses() {
                 </Grid>
             </Grid>
         </Grid>
-        <OthersExpensesTable />
+        <OthersExpensesTable deleteOthersExpenses={deleteOthersExpenses} totalSumma={totalSumma} othersExpensesDate={othersExpensesDate} />
         <Grid container mt='-20px' p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} display='flex' justifyContent={{xl: 'flex-end', md: 'flex-end', sm: 'flex-end', xs: 'center'}} p={3}>
                 <Stack spacing={2}>
-                    <Pagination size='small' color='warning' count={10} />
+                    <Pagination size='small' color='warning' count={countPage} defaultPage={defoultPage} page={page} onChange={handleChange} />
                 </Stack>
             </Grid>
         </Grid>

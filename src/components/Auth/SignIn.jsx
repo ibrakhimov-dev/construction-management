@@ -3,6 +3,8 @@ import logo from "../Assets/logo.png";
 import banner from "../Assets/banner.jpg"
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { login_api_url, base_url } from '../API/baseURL';
+import axios from 'axios';
 
 
 function SignIn() {
@@ -10,8 +12,23 @@ function SignIn() {
     const [parol , setParol] = useState('')
     const navigate = useNavigate();
 
+    const headers = {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": base_url
+    }
+
     function click () {
-        navigate('/home');
+        axios.post(login_api_url(), {
+            username: login,
+            password: parol
+        }, {headers})
+        .then((res) => {
+            console.log(res.data.token)
+            localStorage.setItem('accessToken', res.data.token)
+            navigate('/home');
+        }).catch((err) => {
+            console.log(err.message)
+        })
     }
   return (
     <Stack height='100vh'>
