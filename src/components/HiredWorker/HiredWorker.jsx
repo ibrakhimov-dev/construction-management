@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import HiredWorkerTable from './HiredWorkerTable';
+import { base_url } from '../API/baseURL';
+import axios from 'axios';
 
 function HiredWorker() {
     const [objectSelect, setObjectSelect] = useState("");
-    
+    const [worker, setWorker] = useState([]);
     const navigate = useNavigate();
   return (
     <Stack pb='70px'>

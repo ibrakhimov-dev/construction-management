@@ -1,18 +1,83 @@
 import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { MuiFileInput } from 'mui-file-input';
+import { base_url, upload_img_url_api, delete_img_api_url, edit_object_url_api, current_object_url_api, delete_object_api_url } from '../API/baseURL';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function EditObject() {
-    const [paymentType, setPaymentType] = useState('Naxt');
+    const [status, setStatus] = useState('active');
     const [value, setValue] = React.useState(null)
+    const [name, setName] = useState("");
+    const location = useLocation();
+    const [imgUrl, setImgUrl] = useState("");
+    const [imageName, setImageName] = useState("");
     const navigate = useNavigate();
+    const token = localStorage.getItem('accessToken');
+    const headers = {
+        'Content-Type': 'multipart/form-data',
+        'Authorization' : `Bearer ${token}`,
+        "Access-Control-Allow-Origin": base_url
+    }
 
     const handleChange = (newValue) => {
-        setValue(newValue)
+        setValue(newValue)   
     }
+
+    function uploadImg () {
+        const formData = new FormData();
+        formData.append('image', value);
+        axios.post(upload_img_url_api(), formData, {headers})
+        .then((res) => {
+            setImageName(res.data.image_name);
+            setImgUrl(res.data.image_url)     
+        })
+    }
+
+    useEffect (() => {
+        axios.get(current_object_url_api(location.state.id), {headers})
+        .then((res) => {
+            console.log(res.data)
+            setName(res.data.data.name);
+            setStatus(res.data.data.state);
+            setImageName(res.data.data.image_name);
+            setImgUrl(res.data.data.image_url);
+            let file = new File([res.data.data.image_url.doc], res.data.data.image_name);
+            setValue(file);
+        })
+    }, [])
+
+    function editObject () {
+        axios.put(edit_object_url_api(location.state.id), {
+            name: name,
+            state: status,
+            image_name: imageName,
+            image_url: imgUrl,
+        }, {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${token}`,
+            "Access-Control-Allow-Origin": base_url 
+        })
+        .then((res) => {
+            navigate('/home/object')
+        })
+    }
+
+    function deleteObject () {
+        axios.post(delete_img_api_url(), {image_name: imageName}, {headers})
+        .then((res) => {
+            axios.delete(delete_object_api_url(location.state.id), {headers})
+            .then((res) => {
+                navigate('/home/object')
+            })
+        })
+    }
+
   return (
     <Stack pb='70px'>
         <Grid container p={3}>
@@ -26,30 +91,37 @@ function EditObject() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Obyekt Nomi:</Typography>
-                            <TextField id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
-                        <FormControl fullWidth>
-                            <Typography mt={2}>Obyekt rasmini yuklang:</Typography>
-                            <MuiFileInput color='warning' value={value} onChange={handleChange} />
-                        </FormControl>
-                    </Grid>
-                    <Grid xl={6} md={6} sm={6} xs={12} p={2}>
-                        
                         <FormControl  fullWidth>
-                            <Typography>Holati:</Typography>
+                            <Typography mt={2}>Holati:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
                                 id="demo-select-small"
                                 color='warning'
-                                value={paymentType}
-                                onChange={(e) => setPaymentType(e.target.value) }
+                                value={status}
+                                onChange={(e) => setStatus(e.target.value) }
                             >
-                                <MenuItem value="Naxt">Tugallangan</MenuItem>
-                                <MenuItem value="O'tqazma">Tugallanmagan</MenuItem>
+                                <MenuItem value="finishing">Tugallangan</MenuItem>
+                                <MenuItem value="active">Tugallanmagan</MenuItem>
                             </Select>
-                        </FormControl>  
-                        <Button onClick={() => navigate('/home/object')} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
+                        </FormControl>
+                        
+                    </Grid>
+                    <Grid xl={6} md={6} sm={6} xs={12} p={2}>
+                        
+                        <FormControl fullWidth>
+                            <Typography>Obyekt rasmini yuklang:</Typography>
+                            <MuiFileInput color='warning' value={value} onChange={handleChange} />
+                        </FormControl>
+                        <Button onClick={uploadImg} sx={{height: '55px', mt: 5, mr: 2}} size='large' variant='contained' color='success' endIcon={<CloudUploadIcon />}>
+                            Upload Img
+                        </Button> 
+                        <Button onClick={deleteObject} sx={{height: '55px', mt: 5, mr: 2}} size='large' variant='contained' color='danger' endIcon={<DeleteIcon />}>
+                            Delete Object
+                        </Button> 
+                        <Button onClick={editObject} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
                             Tahrirlash
                         </Button>               
                     </Grid>

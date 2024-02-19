@@ -6,9 +6,40 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { base_url, add_home_sales_expenses_api_url } from '../API/baseURL';
+import { useState } from 'react';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 function AddExpensesHome() {
+    const [comment, setComment] = useState('');
+    const [date, setDate] = useState('');
+    const [summa, setSumma] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
+    const token = localStorage.getItem('accessToken');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : `Bearer ${token}`,
+        "Access-Control-Allow-Origin": base_url
+    }
+
+    function correctDate (m) {
+        if (m > 9) {
+            return m
+        } else {
+            return `0${m}`;
+        }
+    }
+
+    function addHomeSalesExpenses () {
+        axios.post(add_home_sales_expenses_api_url(), {house_trade_id: location.state.id_home, summa: summa, date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, comment: comment,}, {headers})
+        .then((res) => {
+            navigate('/home/detail-home-sales')
+        }).catch((err) => {
+
+        })
+    }
 
   return (
     <Stack pb='70px'>
@@ -23,13 +54,13 @@ function AddExpensesHome() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Izoh:</Typography>
-                            <TextField id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Sana:</Typography>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
-                                    <DatePicker label="Sana" />
+                                    <DatePicker value={date} onChange={(e) => setDate(e)} label="Sana" />
                                 </DemoContainer>
                             </LocalizationProvider>
                         </FormControl>
@@ -37,9 +68,9 @@ function AddExpensesHome() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>          
                         <FormControl fullWidth>
                             <Typography>Summa (so'm):</Typography>
-                            <TextField color='warning' id="outlined-basic" type='number' variant="outlined" />
+                            <TextField value={summa} onChange={(e) => setSumma(e.target.value)} color='warning' id="outlined-basic" type='number' variant="outlined" />
                         </FormControl> 
-                        <Button onClick={() => navigate('/home/detail-home-sales')} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                        <Button onClick={addHomeSalesExpenses} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             xarajatlari qo'shish
                         </Button>               
                     </Grid>

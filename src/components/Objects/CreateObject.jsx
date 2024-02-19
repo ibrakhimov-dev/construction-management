@@ -3,16 +3,54 @@ import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { MuiFileInput } from 'mui-file-input';
+import axios from 'axios';
+import { base_url, create_object_api_url, upload_img_url_api } from '../API/baseURL';
 
 function CreateObject() {
-    const [paymentType, setPaymentType] = useState('Naxt');
+    const [status, setStatus] = useState('active');
     const [value, setValue] = React.useState(null)
+    const [name, setName] = useState("");
+    const [imgUrl, setImgUrl] = useState("");
+    const [imageName, setImageName] = useState("");
     const navigate = useNavigate();
+    const token = localStorage.getItem('accessToken');
+    const headers = {
+        'Content-Type': 'multipart/form-data',
+        'Authorization' : `Bearer ${token}`,
+        "Access-Control-Allow-Origin": base_url
+    }
+
 
     const handleChange = (newValue) => {
-        setValue(newValue)
+        setValue(newValue)   
     }
+
+    function uploadImg () {
+        const formData = new FormData();
+        formData.append('image', value);
+        axios.post(upload_img_url_api(), formData, {headers})
+        .then((res) => {
+            setImageName(res.data.image_name);
+            setImgUrl(res.data.image_url)
+            
+        })
+    }
+
+
+    function createObject () {      
+        axios.post(create_object_api_url(), {
+            name: name,
+            state: status,
+            image_name: imageName,
+            image_url: imgUrl,
+        }, {headers})
+        .then((res) => {
+            navigate('/home/object')
+        })
+    }
+
   return (
     <Stack pb='70px'>
         <Grid container p={3}>
@@ -26,30 +64,33 @@ function CreateObject() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Obyekt Nomi:</Typography>
-                            <TextField id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
-                        <FormControl fullWidth>
-                            <Typography mt={2}>Obyekt rasmini yuklang:</Typography>
-                            <MuiFileInput color='warning' value={value} onChange={handleChange} />
-                        </FormControl>
-                    </Grid>
-                    <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         
                         <FormControl  fullWidth>
-                            <Typography>Holati:</Typography>
+                            <Typography mt={2}>Holati:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
                                 id="demo-select-small"
                                 color='warning'
-                                value={paymentType}
-                                onChange={(e) => setPaymentType(e.target.value) }
+                                value={status}
+                                onChange={(e) => setStatus(e.target.value) }
                             >
-                                <MenuItem value="Naxt">Tugallangan</MenuItem>
-                                <MenuItem value="O'tqazma">Tugallanmagan</MenuItem>
+                                <MenuItem value="finishing">Tugallangan</MenuItem>
+                                <MenuItem value="active">Tugallanmagan</MenuItem>
                             </Select>
-                        </FormControl>  
-                        <Button onClick={() => navigate('/home/object')} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                        </FormControl> 
+                    </Grid>
+                    <Grid xl={6} md={6} sm={6} xs={12} p={2}>
+                        <FormControl fullWidth>
+                            <Typography>Obyekt rasmini yuklang:</Typography>
+                            <MuiFileInput color='warning' value={value} onChange={handleChange} />
+                        </FormControl>
+                        <Button onClick={uploadImg} sx={{height: '55px', mt: 5, mr: 2}} size='large' variant='contained' color='success' endIcon={<CloudUploadIcon />}>
+                            Upload Img
+                        </Button>
+                        <Button onClick={createObject} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Obyekt qo'shish
                         </Button>               
                     </Grid>

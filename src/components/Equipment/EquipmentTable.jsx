@@ -5,8 +5,21 @@ import { useNavigate } from 'react-router-dom'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-function EquipmentTable() {
+function EquipmentTable(props) {
     const navigate = useNavigate();
+
+    function currencyFormat(num) {
+        let arrNum = [];
+        for (let i = num.toString().length; i >= 0 ; i = i - 3){
+            arrNum.unshift(num.toString().substring(i - 3, i));
+        }
+        return arrNum.join(" ");
+     }
+
+    function deleteTools (id) {
+        props.deleteTools(id);
+    }
+
   return (
     <Grid container p={3}>
         <Grid item p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
@@ -20,146 +33,32 @@ function EquipmentTable() {
                     <ThComment>Obyekt Nomi</ThComment>
                     <ThMoney>Boshqaruv</ThMoney>
                 </TheadWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Balgarka</TdComment>
-                    <TdMoney>
-                        <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
-                    </TdMoney>
-                    <TdMoney>1 mlrd so'm</TdMoney>
-                    <TdMoney>Ishlaydi</TdMoney>
-                    <TdComment>Cambridge</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-equipment')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Balgarka</TdComment>
-                    <TdMoney>
-                        <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
-                    </TdMoney>
-                    <TdMoney>1 mlrd so'm</TdMoney>
-                    <TdMoney>Ishlaydi</TdMoney>
-                    <TdComment>Cambridge</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-equipment')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Balgarka</TdComment>
-                    <TdMoney>
-                        <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
-                    </TdMoney>
-                    <TdMoney>1 mlrd so'm</TdMoney>
-                    <TdMoney>Ishlaydi</TdMoney>
-                    <TdComment>Cambridge</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-equipment')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Balgarka</TdComment>
-                    <TdMoney>
-                        <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
-                    </TdMoney>
-                    <TdMoney>1 mlrd so'm</TdMoney>
-                    <TdMoney>Ishlaydi</TdMoney>
-                    <TdComment>Cambridge</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-equipment')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Balgarka</TdComment>
-                    <TdMoney>
-                        <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
-                    </TdMoney>
-                    <TdMoney>1 mlrd so'm</TdMoney>
-                    <TdMoney>Ishlaydi</TdMoney>
-                    <TdComment>Cambridge</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-equipment')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Balgarka</TdComment>
-                    <TdMoney>
-                        <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
-                    </TdMoney>
-                    <TdMoney>1 mlrd so'm</TdMoney>
-                    <TdMoney>Ishlaydi</TdMoney>
-                    <TdComment>Cambridge</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-equipment')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Balgarka</TdComment>
-                    <TdMoney>
-                        <img src="https://olcha.uz/image/600x600/products/2022-04-20/elektricheskiy-balgarka-ag7106-2-48697-0.jpeg" width={60} alt="" />
-                    </TdMoney>
-                    <TdMoney>1 mlrd so'm</TdMoney>
-                    <TdMoney>Ishlaydi</TdMoney>
-                    <TdComment>Cambridge</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-equipment')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
+                {
+                    props.tools.map((item, index) => {
+                        return (
+                            <TbodyWrapper key={index + 1}>
+                                <TdId>{index + 1}</TdId>
+                                <TdComment>{item.name}</TdComment>
+                                <TdMoney>
+                                    <img src={item.image_url} width={60} alt={item.name} />
+                                </TdMoney>
+                                <TdMoney>{currencyFormat(item.price)} so'm</TdMoney>
+                                <TdMoney>{item.state === "active" ? `Ishlaydi` : "Ishlamaydi"}</TdMoney>
+                                <TdComment>{item.project_name}</TdComment>
+                                <TdMoney>
+                                    <Stack direction="row" spacing={2}>
+                                        <IconButton onClick={() => navigate('/home/edit-equipment', {state: {id: item.id}})} aria-label="delete">
+                                            <EditIcon color='warning' />
+                                        </IconButton>
+                                        <IconButton onClick={() => deleteTools(item.id)} aria-label="delete">
+                                            <DeleteIcon color='danger' />
+                                        </IconButton>
+                                    </Stack>
+                                </TdMoney>
+                            </TbodyWrapper>
+                        )
+                    })
+                }  
             </Stack>
         </Grid>
     </Grid>
