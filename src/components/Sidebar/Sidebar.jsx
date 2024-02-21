@@ -40,7 +40,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <SpeedIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Dashboard" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Дашбоард" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem onClick={() => navigate("income")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
@@ -48,7 +48,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <AddCircleOutlineIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Daromad" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Даромад" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem onClick={() => navigate("cost")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
@@ -56,7 +56,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <RemoveCircleOutlineIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Xarajatlar" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Харажатлар" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem onClick={() => navigate("worker")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
@@ -64,7 +64,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <EngineeringIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Ishchilar" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Ишчилар" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem onClick={() => navigate('object')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
@@ -72,7 +72,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <ApartmentIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Obyektlar" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Обектлар" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem onClick={() => navigate("hired-worker")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
@@ -80,7 +80,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <GroupIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Yollanma Ishchilar" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Ёлланма Ишчилар" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem onClick={() => navigate("equipment")}  sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
@@ -88,7 +88,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <SettingsIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Uskunalar" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Ускуналар" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem onClick={() => navigate("agreement")}  sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
@@ -96,7 +96,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <HandshakeIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Kelishuv" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Келишув" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem onClick={() => navigate("home-sales")}  sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
@@ -104,7 +104,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <HolidayVillageIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Uy Savdosi" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Уй Савдоси" />
                   </ListItemButton>
                 </ListItem>
                 <Divider sx={{mt: '20px'}} />
@@ -113,7 +113,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <AddHomeIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Uy Xarajatlari" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Уй Харажатлари" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem onClick={() => navigate('car-expenses')}  sx={{mt: '20px', '&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
@@ -121,7 +121,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <DirectionsCarIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Mashina Xarajatlari" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Машина Харажатлари" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem onClick={() => navigate('others-expenses')}  sx={{mt: '20px', '&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
@@ -129,7 +129,7 @@ function Sidebar() {
                     <ListItemIcon>
                       <CurrencyExchangeIcon />
                     </ListItemIcon>
-                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Boshqa Xarajatlar" />
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Бошқа Харажатлар" />
                   </ListItemButton>
                 </ListItem>
               </List>
@@ -144,6 +144,7 @@ function Sidebar() {
         width: '100%',
         height: '70px',
         position: 'fixed',
+        zIndex: 111,
         boxShadow: '0 0 3px 3px #b6b6b6d4',
         bottom: 0,
         left: 0,

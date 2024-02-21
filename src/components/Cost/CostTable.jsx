@@ -14,17 +14,17 @@ function CostTable() {
             <Grid item p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
                <Stack sx={{ minWidth: '1190px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}} >
                 <TheadWrapper>
-                    <ThId>T/r</ThId>
-                    <ThMoney>Category</ThMoney>
-                    <ThMoney>Obyekt Nomi</ThMoney>
-                    <ThComment>Ish Boshqaruvchi</ThComment>
-                    <ThMoney>Summa (so'm)</ThMoney>
-                    <ThComment>Izoh</ThComment>
-                    <ThMoney>To'lov turi</ThMoney>
-                    <ThId>Valyuta</ThId>
-                    <ThMoney>Valyuta kursi</ThMoney>
-                    <ThMoney>Sana</ThMoney>
-                    <ThMoney>Boshqaruv</ThMoney>
+                    <ThId>Т/р:</ThId>
+                    <ThMoney>Категория:</ThMoney>
+                    <ThMoney>Обект Номи:</ThMoney>
+                    <ThComment>Иш Бошқарувчи:</ThComment>
+                    <ThMoney>Сумма (сўм):</ThMoney>
+                    <ThComment>Изоҳ:</ThComment>
+                    <ThMoney>Тўлов тури:</ThMoney>
+                    <ThId>Валюта:</ThId>
+                    <ThMoney>Валюта курси:</ThMoney>
+                    <ThMoney>Сана:</ThMoney>
+                    <ThMoney>Бошқарув:</ThMoney>
                 </TheadWrapper>
                 <TbodyWrapper>
                     <TdId>1</TdId>
@@ -177,7 +177,7 @@ function CostTable() {
                     </TdMoney>
                 </TbodyWrapper>
                 <Stack mt={2}>
-                    <Typography variant='h6' fontWeight='bold'>Jami Summa: 3 mld so'm</Typography>
+                    <Typography variant='h6' fontWeight='bold'>Жами Сумма: 3 млд сўм</Typography>
                 </Stack>
                </Stack>
             </Grid>

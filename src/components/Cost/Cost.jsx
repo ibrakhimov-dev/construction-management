@@ -16,7 +16,7 @@ function Cost() {
     <Stack  pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Xarajatlar</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Харажатлар</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
@@ -24,7 +24,7 @@ function Cost() {
                 <Grid container spacing={3} >
                     <Grid item xl={2} md={4} sm={4} xs={12}>
                         <FormControl sx={{marginTop: 1 }} fullWidth >
-                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Category</InputLabel>
+                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Cатегорй</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -41,13 +41,13 @@ function Cost() {
                     </Grid>
                     <Grid item xl={2} md={4} sm={4} xs={12}>
                         <FormControl sx={{marginTop: 1 }} fullWidth >
-                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Obyektlar</InputLabel>
+                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Обектлар</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 color='warning'
                                 value={objectSelect}
-                                label="Obyektlar"
+                                label="Обектлар"
                                 onChange={(e) => setObjectSelect(e.target.value)}
                             >
                                 <MenuItem value={10}>Object 1</MenuItem>
@@ -58,7 +58,7 @@ function Cost() {
                     </Grid>
                     <Grid item xl={3} md={4} sm={4} xs={12}>
                         <FormControl sx={{marginTop: 1 }} fullWidth >
-                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Ish Boshqaruvchi</InputLabel>
+                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Иш Бошқарувчи</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -76,12 +76,12 @@ function Cost() {
                     <Grid item xl={5} md={12} sm={12} xs={12} display='flex' flexWrap={{xl: 'nowrap', md: 'nowrap', sm: 'nowrap', xs: 'wrap'}} justifyContent={{xl: 'flex-end', md: 'flex-end', sm: 'flex-end', xs: 'center'}} gap={2}>                      
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker']}>
-                                <DatePicker label="Dan (kun)" />
+                                <DatePicker label="Дан (кун)" />
                             </DemoContainer>
                         </LocalizationProvider>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker']}>
-                                <DatePicker label="Gacha (kun)" />
+                                <DatePicker label="Гача (кун)" />
                             </DemoContainer>
                         </LocalizationProvider>
                     </Grid>
@@ -90,7 +90,7 @@ function Cost() {
                             Export
                         </Button>
                         <Button onClick={() => navigate('/home/create-cost')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
-                            Xarajat qo'shish
+                            Харажат қўшиш
                         </Button>
                     </Grid>
                 </Grid>

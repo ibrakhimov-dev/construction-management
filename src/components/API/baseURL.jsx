@@ -93,6 +93,9 @@ export const create_home_sales_api_url = () => `${base_url}/api/house-trades`;
 // detail home sales api url
 export const detail_home_sales_api_url = (id) => `${base_url}/api/house-trades/${id}`;
 
+// delete home sales api url
+export const delete_home_sales_api_url = (id) => `${base_url}/api/house-trades/${id}`
+
 // home sales expenses api url
 export const home_sales_expenses_api_url = (id) => `${base_url}/api/trade-expenses/${id}`;
 
@@ -101,6 +104,12 @@ export const delete_home_sales_expenses_api_url = (id) => `${base_url}/api/house
 
 // add home sales expenses api url
 export const add_home_sales_expenses_api_url = () => `${base_url}/api/house-trade-expenses`;
+
+// edit home sales expenses api url
+export const edit_home_sales_expenses_api_url = (id) => `${base_url}/api/house-trade-expenses/${id}`;
+
+// current home sales expenses api url
+export const current_home_sales_expense_api_url = (id) =>  `${base_url}/api/house-trade-expenses/${id}`
 
 //! Tools 
 // create tools api url
@@ -126,4 +135,66 @@ export const current_tools_api_url = (id) => `${base_url}/api/tools/${id}`;
 export const create_hired_worker_api_url = () => `${base_url}/api/hired-workers`;
 
 // hired worker api url
-export const hired_worker_api_url = () => `${base_url}/api/hired-workers`;
+export const hired_worker_api_url = () => `${base_url}/api/filter/hired-workers`;
+
+// delete hired worker api url
+export const delete_hired_worker_api_url = (id) => `${base_url}/api/hired-workers/${id}`;
+
+// edit hired worker api url
+export const edit_hired_worker_api_url = (id) => `${base_url}/api/hired-workers/${id}`;
+
+// current hired worker api url
+export const current_hired_worker_api_url = (id) => `${base_url}/api/hired-workers/${id}`
+
+// create hired worker expenses api url
+export const create_hired_worker_expenses_api_url = () => `${base_url}/api/hired-worker-expenses`;
+
+// hired worker expenses api url
+export const hired_worker_expenses_api_url = (id) => `${base_url}/api/hired-expenses/${id}`;
+
+// delete hired worker expenses api url
+export const delete_hired_worker_expenses_api_url = (id) => `${base_url}/api/hired-worker-expenses/${id}`;
+
+// edit hired worker expenses api url
+export const edit_hired_worker_expenses_api_url = (id) => `${base_url}/api/hired-worker-expenses/${id}`;
+
+//! Contract
+// create contract api url
+export const create_contract_api_url = () => `${base_url}/api/contracts`;
+
+// contract api url
+export const contract_api_url = () => `${base_url}/api/filter/contracts`;
+
+// current contract api url
+export const current_contract_api_url = (id) => `${base_url}/api/contracts/${id}`;
+
+// delete cotract api url
+export const delete_contract_api_url = (id) => `${base_url}/api/contracts/${id}`;
+
+// contract expenses api url
+export const contract_expenses_api_url = (id) => `${base_url}/api/contract-floors/${id}`;
+
+// create contarct expenses api url
+export const create_contract_expenses_api_url = () => `${base_url}/api/floors`;
+
+// delete contract expenses api url
+export const delete_contract_expenses_api_url = (id) => `${base_url}/api/floors/${id}`;
+
+// edit contract expenses api url
+export const edit_contract_expenses_api_url = (id) => `${base_url}/api/floors/${id}`;
+
+//! Income
+// create income api url
+export const create_income_api_url = () => `${base_url}/api/incomes`;
+
+// income api url
+export const income_api_url = () => `${base_url}/api/filter/incomes`;
+
+// delete income api url
+export const delete_income_api_url = (id) => `${base_url}/api/incomes/${id}`;
+
+// current income api url
+export const current_income_api_url = (id) => `${base_url}/api/incomes/${id}`;
+
+// edit income api url
+export const edit_income_api_url = (id) => `${base_url}/api/incomes/${id}`;

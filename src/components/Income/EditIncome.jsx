@@ -1,22 +1,81 @@
 import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
+import { base_url, all_object_api_url, current_income_api_url, edit_income_api_url } from '../API/baseURL';
+import axios from 'axios';
+import dayjs from 'dayjs';
+import { useLocation } from 'react-router-dom';
+
 
 function EditIncome() {
-    const [paymentType, setPaymentType] = useState('Naxt')
-    const [currency, setCurrency] = useState("Usd")
+    const token = localStorage.getItem('accessToken');
+    const [date, setDate] = useState('');
+    const [object, setObject] = useState(null);
+    const [allObject, setAllObject] = useState([]);
+    const [summa, setSumma] = useState(0);
+    const [comment, setComment] = useState("");
+    const [paymentType, setPaymentType] = useState('cash');
+    const [currency, setCurrency] = useState("sum");
+    const [currencyRate, setCurrencyRate] = useState(1);
     const navigate = useNavigate();
+    const location = useLocation()
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : `Bearer ${token}`,
+        "Access-Control-Allow-Origin": base_url
+    }
+
+    useEffect(() => {
+        axios.get(all_object_api_url(), {headers})
+        .then((res) => {
+            setAllObject(res.data.data);
+        })
+
+        axios.get(current_income_api_url(location.state.id), {headers})
+        .then((res) => {
+            setComment(res.data.data.comment);
+            setCurrency(res.data.data.currency);
+            setCurrencyRate(res.data.data.currency_rate);
+            setDate(dayjs(res.data.data.date));
+            setPaymentType(res.data.data.income_type);
+            setSumma(res.data.data.summa);
+            setObject(res.data.data.project_id);
+        })
+    }, [])
+
+    function correctDate (m) {
+        if (m > 9) {
+            return m
+        } else {
+            return `0${m}`;
+        }
+    }
+
+    function editIncome() {
+        axios.put(edit_income_api_url(location.state.id), {
+            "project_id": object,
+            "summa": summa,
+            "date": `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`,
+            "comment": comment,
+            "income_type": paymentType,
+            "currency": currency ,
+            "currency_rate": currencyRate
+        }, {headers}).then((res) => {
+            navigate('/home/income')
+        })
+    }
+
   return (
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Daromadni Tahrirlash</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Даромадни Таҳрирлаш</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
@@ -24,32 +83,37 @@ function EditIncome() {
                 <Grid container>
                     <Grid xl={6} md={12} sm={12} xs={12} p={2}>
                         <FormControl  fullWidth>
-                            <Typography>Obyekt:</Typography>
+                            <Typography>Обект:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
                                 id="demo-select-small"
                                 color='warning'
-                                value={paymentType}
-                                onChange={(e) => setPaymentType(e.target.value) }
+                                value={object}
+                                onChange={(e) => setObject(e.target.value) }
                             >
-                                <MenuItem value="Naxt">Obyekt 1</MenuItem>
-                                <MenuItem value="O'tqazma">Obyekt 2</MenuItem>
+                                {
+                                    allObject.map((item, index) => {
+                                        return (
+                                            <MenuItem key={index + 1} value={item.id}>{item.name}</MenuItem>
+                                        )
+                                    })
+                                }
                             </Select>
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Summa (so'm):</Typography>
-                            <TextField id="outlined-basic" type='number' variant="outlined" />
+                            <Typography mt={2}>Сумма:</Typography>
+                            <TextField value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                        </FormControl>
+                        <FormControl fullWidth> 
+                            <Typography mt={2}>Изоҳ:</Typography>
+                            <TextField  value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Izoh:</Typography>
-                            <TextField id="outlined-basic" variant="outlined" />
-                        </FormControl>
-                        <FormControl fullWidth>
-                            <Typography mt={2}>Sana:</Typography>
+                            <Typography mt={2}>Сана:</Typography>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
-                                    <DatePicker label="Sana" />
+                                    <DatePicker value={date} onChange={(e) => setDate(e)} label="Сана:" />
                                 </DemoContainer>
                             </LocalizationProvider>
                         </FormControl>
@@ -57,7 +121,7 @@ function EditIncome() {
                     </Grid>
                     <Grid xl={6} md={12} sm={12} xs={12} p={2}>
                         <FormControl  fullWidth>
-                            <Typography>To'lov Turini:</Typography>
+                            <Typography>Тўлов Турини:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -66,31 +130,34 @@ function EditIncome() {
                                 value={paymentType}
                                 onChange={(e) => setPaymentType(e.target.value) }
                             >
-                                <MenuItem value="Naxt">Naxt</MenuItem>
-                                <MenuItem value="O'tqazma">O'tqazma</MenuItem>
+                                <MenuItem value="cash">Нахт</MenuItem>
+                                <MenuItem value="transfer">Ўтқазма</MenuItem>
                             </Select>
                         </FormControl>
-                        <FormControl  fullWidth >
-                            <Typography mt={2}>Valyuta:</Typography>
-                            <Select
-                                sx={{padding: 0, paddingLeft: 0}}
-                                labelId="demo-select-small-label"
-                                id="demo-select-small"
-                                value={currency}
-                                color='warning'
-                                onChange={(e) => setCurrency(e.target.value) }
-                            >
-                                <MenuItem value='Usd'>Usd</MenuItem>
-                                <MenuItem value='Rub'>Rub</MenuItem>
-                                <MenuItem value="So'm">So'm</MenuItem>
-                            </Select>
-                        </FormControl>
-                        <FormControl fullWidth>
-                            <Typography mt={2}>Valyuta kursi (so'm):</Typography>
-                            <TextField id="outlined-basic" type='number' variant="outlined" />
-                        </FormControl>
-                        <Button onClick={() => navigate('/home/income')} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
-                            Taxrirlash
+                        {
+                            paymentType === "cash" ? <>
+                                <FormControl  fullWidth >
+                                    <Typography mt={2}>Валюта:</Typography>
+                                    <Select
+                                        sx={{padding: 0, paddingLeft: 0}}
+                                        labelId="demo-select-small-label"
+                                        id="demo-select-small"
+                                        value={currency}
+                                        color='warning'
+                                        onChange={(e) => setCurrency(e.target.value) }
+                                    >
+                                        <MenuItem value='dollar'>Usd</MenuItem>
+                                        <MenuItem value="sum">Сўм</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <Typography mt={2}>Валюта курси (сўм):</Typography>
+                                    <TextField value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                                </FormControl>
+                            </> : <></>
+                        }
+                        <Button onClick={editIncome} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
+                            Таҳрирлаш
                         </Button>
                     </Grid>
                 </Grid>

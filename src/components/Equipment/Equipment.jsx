@@ -54,7 +54,7 @@ function Equipment() {
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Uskunalar</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Ускуналар</Typography>
             </Grid>
         </Grid>
         <Grid container p={3} >
@@ -62,29 +62,29 @@ function Equipment() {
                 <Grid container spacing={3}>
                     <Grid item xl={3} md={6} sm={6} xs={12}>
                         <FormControl sx={{marginTop: 1 }} fullWidth >
-                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Holati</InputLabel>
+                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Ҳолати</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 color='warning'
                                 value={state}
-                                label="Holati"
+                                label="Ҳолати"
                                 onChange={(e) => setState(e.target.value)}
                             >
-                                <MenuItem value="active">Ishlaydi</MenuItem>
-                                <MenuItem value="inactive">Ishlamaydi</MenuItem>
+                                <MenuItem value="active">Ишлайди</MenuItem>
+                                <MenuItem value="inactive">Ишламайди</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
                     <Grid item xl={3} md={6} sm={6} xs={12}>
                         <FormControl sx={{marginTop: 1 }} fullWidth >
-                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Obyekt</InputLabel>
+                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Обект</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 color='warning'
                                 value={objectSelect}
-                                label="Obyekt"
+                                label="Обект"
                                 onChange={(e) => setObjectSelect(e.target.value)}
                             >
                                {
@@ -99,7 +99,7 @@ function Equipment() {
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12} display='flex' justifyContent='flex-end'>
                         <Button onClick={() => navigate('/home/create-equipment')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
-                            Uskuna qo'shish
+                            Ускуна қўшиш
                         </Button>
                     </Grid>
                 </Grid>

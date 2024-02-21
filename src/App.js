@@ -27,7 +27,7 @@ import DailyExpenses from './components/DailyExpenses/DailyExpenses';
 import EditDailyExpenses from './components/DailyExpenses/EditDailyExpenses';
 import CreateDailyExpenses from './components/DailyExpenses/CreateDailyExpenses';
 import Agreement from './components/Agreement/Agrement';
-import DetailAgrement from './components/Agreement/DetailAgrement';
+import DetailAgreement from './components/Agreement/DetailAgreement';
 import CreateAgreement from './components/Agreement/CreateAgreement';
 import HomeSales from './components/HomeSales/HomeSales';
 import CreateHomeSales from './components/HomeSales/CreateHomeSales';
@@ -74,7 +74,7 @@ function App() {
             <Route path='edit-daily-expenses' element={<EditDailyExpenses />} />
             <Route path='create-daily-expenses' element={<CreateDailyExpenses />} />
             <Route path='agreement' element={<Agreement />} />
-            <Route path='detail-agreement' element={<DetailAgrement />} />
+            <Route path='detail-agreement' element={<DetailAgreement />} />
             <Route path='create-agreement' element={<CreateAgreement />} />
             <Route path='home-sales' element={<HomeSales />} />
             <Route path='create-home-sales' element={<CreateHomeSales />} />

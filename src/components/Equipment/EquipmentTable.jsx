@@ -25,13 +25,13 @@ function EquipmentTable(props) {
         <Grid item p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
             <Stack sx={{ minWidth: '1190px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
                 <TheadWrapper>
-                    <ThId>T/r</ThId>
-                    <ThComment>Uskuna Nomi</ThComment>
-                    <ThMoney>Rasm</ThMoney>
-                    <ThMoney>Narxi</ThMoney>
-                    <ThMoney>Holati</ThMoney>
-                    <ThComment>Obyekt Nomi</ThComment>
-                    <ThMoney>Boshqaruv</ThMoney>
+                    <ThId>Т/р</ThId>
+                    <ThComment>Ускуна Номи</ThComment>
+                    <ThMoney>Расм</ThMoney>
+                    <ThMoney>Нархи</ThMoney>
+                    <ThMoney>Ҳолати</ThMoney>
+                    <ThComment>Обект Номи</ThComment>
+                    <ThMoney>Бошқарув</ThMoney>
                 </TheadWrapper>
                 {
                     props.tools.map((item, index) => {

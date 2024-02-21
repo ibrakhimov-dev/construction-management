@@ -8,14 +8,14 @@ function DetailCost() {
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Xarajatlar (Umumiy Malumot)</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Харажатлар (Умумий Малумот)</Typography>
             </Grid>
         </Grid>
         <Grid p={3} container>
             <Grid p={3} item xl={12} md={12} sm={12} xs={12}  sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
                 <Grid container>
                     <Grid item xl={6} md={8} sm={8} xs={12} display='flex' alignItems='center'>
-                        <Typography variant='h6'>Ish boshqaruvchi: Ilhom Farmonov</Typography>
+                        <Typography variant='h6'>Иш бошқарувчи: Илҳом Фармонов</Typography>
                     </Grid>
                     <Grid item xl={6} md={4} sm={4} xs={12} display='flex' justifyContent='flex-end'>
                         <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
@@ -29,10 +29,10 @@ function DetailCost() {
             <Grid item p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4',  width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
                <Stack sx={{ minWidth: '1190px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
                 <TheadWrapper>
-                        <ThId>T/r</ThId>
-                        <ThMoney>Qayerga Ishlatgani</ThMoney>
-                        <ThMoney>Summasi</ThMoney>  
-                        <ThMoney>Sana</ThMoney>  
+                        <ThId>Т/р</ThId>
+                        <ThMoney>Қаерга Ишлатгани</ThMoney>
+                        <ThMoney>Суммаси</ThMoney>  
+                        <ThMoney>Сана</ThMoney>  
                     </TheadWrapper>
                     <TbodyWrapper>
                         <TdId>1</TdId>
@@ -65,7 +65,7 @@ function DetailCost() {
                         <TdMoney>18.01.2024</TdMoney>  
                     </TbodyWrapper>
                     <Stack mt={2}>
-                        <Typography variant='h6' fontWeight='bold'>Jami Summa: 3 mld so'm</Typography>
+                        <Typography variant='h6' fontWeight='bold'>Жами Сумма: 3 млд сўм</Typography>
                     </Stack>
                </Stack>
             </Grid>

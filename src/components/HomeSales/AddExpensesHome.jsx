@@ -35,7 +35,8 @@ function AddExpensesHome() {
     function addHomeSalesExpenses () {
         axios.post(add_home_sales_expenses_api_url(), {house_trade_id: location.state.id_home, summa: summa, date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, comment: comment,}, {headers})
         .then((res) => {
-            navigate('/home/detail-home-sales')
+            localStorage.setItem('home_id', location.state.id_home)
+            navigate('/home/detail-home-sales');
         }).catch((err) => {
 
         })
@@ -45,7 +46,7 @@ function AddExpensesHome() {
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Xarajat qo'shish</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Харажат қўшиш</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
@@ -53,25 +54,25 @@ function AddExpensesHome() {
                 <Grid container>
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
-                            <Typography>Izoh:</Typography>
+                            <Typography>Изоҳ:</Typography>
                             <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Sana:</Typography>
+                            <Typography mt={2}>Сана:</Typography>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
-                                    <DatePicker value={date} onChange={(e) => setDate(e)} label="Sana" />
+                                    <DatePicker value={date} onChange={(e) => setDate(e)} label="Сана:" />
                                 </DemoContainer>
                             </LocalizationProvider>
                         </FormControl>
                     </Grid>
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>          
                         <FormControl fullWidth>
-                            <Typography>Summa (so'm):</Typography>
+                            <Typography>Сумма (сўм):</Typography>
                             <TextField value={summa} onChange={(e) => setSumma(e.target.value)} color='warning' id="outlined-basic" type='number' variant="outlined" />
                         </FormControl> 
                         <Button onClick={addHomeSalesExpenses} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
-                            xarajatlari qo'shish
+                            Харажатлари қўшиш
                         </Button>               
                     </Grid>
                 </Grid>

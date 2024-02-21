@@ -1,304 +1,143 @@
-import { Stack, Grid, Typography, Card, CardContent, Fab } from '@mui/material'
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { Stack, Grid, Typography, FormControl, Button, MenuItem, Select, InputLabel, Pagination } from '@mui/material';
+import { base_url, all_object_api_url, contract_api_url } from '../API/baseURL';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Agreement() {
     const navigate = useNavigate();
+    const [contracts, setContracts] = useState([]);
+    const [objectSelect, setObjectSelect] = useState(null);
+    const [allObject, setAllObject] = useState([]);
+    const [page, setPage] = React.useState(1);
+    const [defoultPage, setDefoultPage] = useState(1);
+    const [countPage, setCountPage] = useState(1);
+    const token = localStorage.getItem('accessToken');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : `Bearer ${token}`,
+        "Access-Control-Allow-Origin": base_url
+    }
+
+    function currencyFormat(num) {
+        let arrNum = [];
+        for (let i = num.toString().length; i >= 0 ; i = i - 3){
+            arrNum.unshift(num.toString().substring(i - 3, i));
+        }
+        return arrNum.join(" ");
+     }
+
+    useEffect(() => {
+        axios.post(contract_api_url(), {
+            "project_id": objectSelect,
+            page: page,
+        } ,{headers}).then((res) => {
+            setContracts(res.data.data)
+            setCountPage(res.data.meta?.last_page);
+            setPage(res.data.meta?.current_page);
+            setDefoultPage(res.data.meta?.current_page)
+        })
+    }, [page, objectSelect])
+
+    const handleChange = (event, value) => {
+        setPage(value);
+      };
+
+    useEffect(() => {
+        axios.get(all_object_api_url(), {headers})
+        .then((res) => {
+            setAllObject(res.data.data);
+        })
+    }, [])
   return (
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Kelishuvlar</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Келишувлар</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
-            <Grid xl={12} md={12} sm={12} xs={12}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px #b6b6b6d4'}}>
                 <Grid container spacing={3}>
-                    <Grid item xl={3} md={6} sm={6} xs={12}>
-                        <Card onClick = {() => navigate("/home/detail-agreement")} sx={{
-                            borderRadius: '20px',
-                            position: 'relative',
-                            border: '3px solid var(--border-base-surface, #FFF)',
-                            background: '#F5F5F5',
-                            boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px -2px rgba(0, 0, 0, 0.04)',
-                            padding: '14px',
-                            '&:hover': {
-                            boxShadow: '0px 10px 10px -10px rgba(0,0,0,0.75)',
-                            },
-                        }}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/748/748504.png" style={{width: '40px', position: "absolute", top: '5px', right: '5px', zIndex: '111'}} alt="" />
-                            <CardContent sx={{height: '250px', padding: 0, overflow: 'hidden', '&:hover img': {transform: "scale(1.5)", transition: '0.5s'}}}>
-                                <img src='https://frankfurt.apollo.olxcdn.com/v1/files/5j3yxowa09c61-UZ/image;s=1280x853' style={{width: '100%', height: '100%', objectFit: 'cover' }} alt='birnima'/>
-                            </CardContent>
-                            <CardContent>
-                                <Typography pt={1} fontWeight={600} textAlign='center' variant='h6'>Samarqand Avinyu</Typography>
-                            </CardContent>
-                            <CardContent sx={{display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap', p: 0, m: 0}}>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AccessTimeIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    05.02.2024
-                                </Fab>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AttachMoneyIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    300 mln so'm
-                                </Fab>
-                            </CardContent>
-                        </Card>
+                    <Grid item xl={4} md={4} sm={6} xs={12}>
+                        <FormControl sx={{marginTop: 1 }} fullWidth >
+                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Обект</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                color='warning'
+                                value={objectSelect}
+                                label="Obyekt"
+                                onChange={(e) => setObjectSelect(e.target.value)}
+                            >
+                                {
+                                    allObject.map((item, index) => {
+                                        return (
+                                            <MenuItem key={index + 1} value={item.id}>{item.name}</MenuItem>
+                                        )
+                                    })
+                                }
+                            </Select>
+                        </FormControl>
                     </Grid>
-                    <Grid item xl={3} md={6} sm={6} xs={12}>
-                        <Card  sx={{
-                            borderRadius: '20px',
-                            position: 'relative',
-                            border: '3px solid var(--border-base-surface, #FFF)',
-                            background: '#F5F5F5',
-                            boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px -2px rgba(0, 0, 0, 0.04)',
-                            padding: '14px',
-                            '&:hover': {
-                            boxShadow: '0px 10px 10px -10px rgba(0,0,0,0.75)',
-                            },
-                        }}>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Circle-icons-hourglass.svg/768px-Circle-icons-hourglass.svg.png" style={{width: '40px', position: "absolute", top: '5px', right: '5px', zIndex: '111'}} alt="" />
-                            <CardContent sx={{height: '250px', padding: 0, overflow: 'hidden', '&:hover img': {transform: "scale(1.5)", transition: '0.5s'}}}>
-                                <img src='https://stroyka.uz/upload/iblock/e76/e760511844f10fb8b1e642dc6f716a72.png' style={{width: '100%', height: '100%', objectFit: 'cover' }} alt='birnima'/>
-                            </CardContent>
-                            <CardContent>
-                                <Typography pt={1} fontWeight={600} textAlign='center' variant='h6'>GC - Tower</Typography>
-                            </CardContent>
-                            <CardContent sx={{display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap', p: 0, m: 0}}>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AccessTimeIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    05.02.2024
-                                </Fab>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AttachMoneyIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    300 mln so'm
-                                </Fab>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xl={3} md={6} sm={6} xs={12}>
-                        <Card  sx={{
-                            borderRadius: '20px',
-                            border: '3px solid var(--border-base-surface, #FFF)',
-                            background: '#F5F5F5',
-                            boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px -2px rgba(0, 0, 0, 0.04)',
-                            padding: '14px',
-                            '&:hover': {
-                            boxShadow: '0px 10px 10px -10px rgba(0,0,0,0.75)',
-                            },
-                        }}>
-                            <CardContent sx={{height: '250px', padding: 0, overflow: 'hidden', '&:hover img': {transform: "scale(1.5)", transition: '0.5s'}}}>
-                                <img src='https://domtut.uz/resources/uploads/property/orsquozbegim/main_8.jpg' style={{width: '100%', height: '100%', objectFit: 'cover' }} alt='birnima'/>
-                            </CardContent>
-                            <CardContent>
-                                <Typography pt={1} fontWeight={600} textAlign='center' variant='h6'>Jiloy Kompleks</Typography>
-                            </CardContent>
-                            <CardContent sx={{display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap', p: 0, m: 0}}>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AccessTimeIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    05.02.2024
-                                </Fab>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AttachMoneyIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    300 mln so'm
-                                </Fab>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xl={3} md={6} sm={6} xs={12}>
-                        <Card  sx={{
-                            borderRadius: '20px',
-                            border: '3px solid var(--border-base-surface, #FFF)',
-                            background: '#F5F5F5',
-                            boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px -2px rgba(0, 0, 0, 0.04)',
-                            padding: '14px',
-                            '&:hover': {
-                            boxShadow: '0px 10px 10px -10px rgba(0,0,0,0.75)',
-                            },
-                        }}>
-                            <CardContent sx={{height: '250px', padding: 0, overflow: 'hidden', '&:hover img': {transform: "scale(1.5)", transition: '0.5s'}}}>
-                                <img src='https://domtut.uz/resources/uploads/property/koh-ota/main_12.jpg' style={{width: '100%', height: '100%', objectFit: 'cover' }} alt='birnima'/>
-                            </CardContent>
-                            <CardContent>
-                                <Typography pt={1} fontWeight={600} textAlign='center' variant='h6'>Koh Ota City</Typography>
-                            </CardContent>
-                            <CardContent sx={{display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap', p: 0, m: 0}}>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AccessTimeIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    05.02.2024
-                                </Fab>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AttachMoneyIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    300 mln so'm
-                                </Fab>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xl={3} md={6} sm={6} xs={12}>
-                        <Card  sx={{
-                            borderRadius: '20px',
-                            border: '3px solid var(--border-base-surface, #FFF)',
-                            background: '#F5F5F5',
-                            boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px -2px rgba(0, 0, 0, 0.04)',
-                            padding: '14px',
-                            '&:hover': {
-                            boxShadow: '0px 10px 10px -10px rgba(0,0,0,0.75)',
-                            },
-                        }}>
-                            <CardContent sx={{height: '250px', padding: 0, overflow: 'hidden', '&:hover img': {transform: "scale(1.5)", transition: '0.5s'}}}>
-                                <img src='https://domtut.uz/resources/uploads/thumbs/koh-ota/main_16.webp?r=1675668328' style={{width: '100%', height: '100%', objectFit: 'cover' }} alt='birnima'/>
-                            </CardContent>
-                            <CardContent>
-                                <Typography pt={1} fontWeight={600} textAlign='center' variant='h6'>Koh Ota City</Typography>
-                            </CardContent>
-                            <CardContent sx={{display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap', p: 0, m: 0}}>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AccessTimeIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    05.02.2024
-                                </Fab>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AttachMoneyIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    300 mln so'm
-                                </Fab>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xl={3} md={6} sm={6} xs={12}>
-                        <Card  sx={{
-                            borderRadius: '20px',
-                            border: '3px solid var(--border-base-surface, #FFF)',
-                            background: '#F5F5F5',
-                            boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px -2px rgba(0, 0, 0, 0.04)',
-                            padding: '14px',
-                            '&:hover': {
-                            boxShadow: '0px 10px 10px -10px rgba(0,0,0,0.75)',
-                            },
-                        }}>
-                            <CardContent sx={{height: '250px', padding: 0, overflow: 'hidden', '&:hover img': {transform: "scale(1.5)", transition: '0.5s'}}}>
-                                <img src='https://frankfurt.apollo.olxcdn.com/v1/files/p65ipu97i9pr3-UZ/image;s=2000x1333' style={{width: '100%', height: '100%', objectFit: 'cover' }} alt='birnima'/>
-                            </CardContent>
-                            <CardContent>
-                                <Typography pt={1} fontWeight={600} textAlign='center' variant='h6'>Yangibozor</Typography>
-                            </CardContent>
-                            <CardContent sx={{display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap', p: 0, m: 0}}>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AccessTimeIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    05.02.2024
-                                </Fab>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AttachMoneyIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    300 mln so'm
-                                </Fab>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xl={3} md={6} sm={6} xs={12}>
-                        <Card onClick = {() => navigate("/home/create-agreement")} sx={{
-                            borderRadius: '20px',
-                            border: '3px solid var(--border-base-surface, #FFF)',
-                            background: '#ed744466',
-                            cursor: 'pointer',
-                            boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px -2px rgba(0, 0, 0, 0.04)',
-                            padding: '14px',
-                            '&:hover': {
-                            boxShadow: '0px 10px 10px -10px rgba(0,0,0,0.75)',
-                            },
-                        }}>
-                            <CardContent sx={{height: '250px', padding: 0}}>
-                                <img src='https://play-lh.googleusercontent.com/qlIDfFiFKSeoawoihQlWv-BtnWrGphURKx3EfrnrqfO5toLDDvERs38E7AMqkX_euA' style={{width: '100%', height: '100%', objectFit: 'cover' }} alt='birnima'/>
-                            </CardContent>
-                            <CardContent>
-                                <Typography pt={1} fontWeight={600} textAlign='center' variant='h6'>Yangi Kelishuv qo'shish</Typography>
-                            </CardContent>
-                            <CardContent sx={{display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap', p: 0, m: 0}}>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AccessTimeIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    05.02.2024
-                                </Fab>
-                                <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none' }}
-                                variant="extended"
-                                size="small"
-                                aria-label="date"
-                                >
-                                    <AttachMoneyIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    0 so'm
-                                </Fab>
-                            </CardContent>
-                        </Card>
+                    <Grid item xl={8} md={8} sm={6} xs={12} display="flex" justifyContent={{xl: 'flex-end', md: 'flex-end', sm: "flex-end", xs: 'center'}}>
+                        <Button onClick={() => navigate('/home/create-agreement')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                            Келишув қўшиш
+                        </Button>
                     </Grid>
                 </Grid>
+            </Grid>
+        </Grid>
+        <Grid container p={3} fontSize={14}>
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px #b6b6b6d4'}}>
+                <Grid container padding={3} fontWeight={600} color='#fff' textAlign="center" display={{xl: 'flex', md: "flex", sm: 'none', xs: 'none'}}>
+                    <Grid item xl={1} md={1} sm={12} xs={12} p={1} borderRight={4}borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Т/р:</Grid>
+                    <Grid item xl={3} md={3} sm={12} xs={12}p={1} borderRight={4}borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Обект Номи:</Grid>
+                    <Grid item xl={2} md={2} sm={12} xs={12} p={1} borderRight={4}borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Блок:</Grid>
+                    <Grid Item xl={3} md={3} sm={12} xs={12} p={1} borderRight={4}borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Сумма:</Grid>
+                    <Grid item xl={3} md={3} sm={12} xs={12} p={1} borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Detail:</Grid>
+                </Grid>
+                {
+                    contracts.map((item,index) => {
+                        return (
+                            <Grid container key={index + 1} p={3} borderBottom='solid 2px #ed744466' alignItems="center" textAlign={{xl: 'center', md: "center", sm: 'left', xs: 'left'}}>                    
+                                <Grid item xl={1} md={1} sm={12} xs={12}>
+                                    <Typography pt={2} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Т/р</Typography>
+                                    {index + 1}
+                                </Grid>
+                                <Grid item xl={3} md={3} sm={12} xs={12}>
+                                    <Typography pt={1} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Обект Номи:</Typography>
+                                    {item.project_name}
+                                </Grid>
+                                <Grid item xl={2} md={2} sm={12} xs={12}>
+                                    <Typography pt={1} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Блок:</Typography>
+                                    {item.block}
+                                </Grid>
+                                <Grid Item xl={3} md={3} sm={12} xs={12}>
+                                    <Typography pt={1} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Summa:</Typography>
+                                    {currencyFormat(item.total_amount)} {item.currency}
+                                </Grid>
+                                <Grid item xl={3} md={3} sm={12} xs={12}>
+                                    <Typography pt={1} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Detail:</Typography>
+                                    <Button onClick={() => navigate("/home/detail-agreement", {state: {id: item.id}})} size='large' variant='contained' color='success' endIcon={<RemoveRedEyeIcon />}>Detail</Button>
+                                </Grid>
+                            </Grid>
+                        );
+                    })
+                }
+            </Grid>
+        </Grid>
+        <Grid container mt='-20px' p={3}>
+            <Grid item xl={12} md={12} sm={12} xs={12} display='flex' justifyContent={{xl: 'flex-end', md: 'flex-end', sm: 'flex-end', xs: 'center'}} p={3}>
+                <Stack spacing={2}>
+                    <Pagination size='small' color='warning' count={countPage} defaultPage={defoultPage} page={page} onChange={handleChange} />
+                </Stack>
             </Grid>
         </Grid>
     </Stack>
   )
 }
 
-export default Agreement
+export default Agreement;

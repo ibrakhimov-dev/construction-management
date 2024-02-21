@@ -25,11 +25,11 @@ function DailyExpensesTable(props) {
         <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}}>
             <Stack sx={{ minWidth: '1190px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
                 <TheadWrapper>
-                    <ThId>T/r</ThId>
-                    <ThComment>Izoh:</ThComment>
-                    <ThMoney>Sana</ThMoney>
-                    <ThComment>Summa</ThComment>
-                    <ThMoney>Boshqaruv</ThMoney>
+                    <ThId>Т/р</ThId>
+                    <ThComment>Изоҳ:</ThComment>
+                    <ThMoney>Сана</ThMoney>
+                    <ThComment>Сумма</ThComment>
+                    <ThMoney>Бошқарув</ThMoney>
                 </TheadWrapper>
                 {
                     props.houseExpensesData?.map((item, index) => {
@@ -54,7 +54,7 @@ function DailyExpensesTable(props) {
                     })
                 }
                 <Stack mt={2}>
-                    <Typography variant='h6' fontWeight='bold'>Jami Summa: {props.totalSumma} so'm</Typography>
+                    <Typography variant='h6' fontWeight='bold'>Жами Сумма: {props.totalSumma} сўм</Typography>
                 </Stack>
             </Stack>            
         </Grid>

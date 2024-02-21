@@ -11,7 +11,7 @@ function Worker() {
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Ishchilar</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Ишчилар</Typography>
             </Grid>
         </Grid>
         <Grid container p={3} >
@@ -19,18 +19,18 @@ function Worker() {
                 <Grid container spacing={3}>
                     <Grid item xl={3} md={6} sm={6} xs={12}>
                         <FormControl sx={{mt: 1}} fullWidth>
-                            <TextField color='warning' label='Ism Familiya' variant='outlined' />
+                            <TextField color='warning' label='Исм Фамилия' variant='outlined' />
                         </FormControl>
                     </Grid>
                     <Grid item xl={3} md={6} sm={6} xs={12}>
                         <FormControl sx={{marginTop: 1 }} fullWidth >
-                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Lavozimi</InputLabel>
+                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Лавозими</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 color='warning'
                                 value={objectSelect}
-                                label="Lavozimi"
+                                label="Лавозими"
                                 onChange={(e) => setObjectSelect(e.target.value)}
                             >
                                 <MenuItem value={10}>Lavozimi 1</MenuItem>
@@ -41,13 +41,13 @@ function Worker() {
                     </Grid>
                     <Grid item xl={3} md={6} sm={6} xs={12}>
                         <FormControl sx={{marginTop: 1 }} fullWidth >
-                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Obyekt</InputLabel>
+                            <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Обект</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
                                 color='warning'
                                 value={objectSelect}
-                                label="Obyekt"
+                                label="Обект"
                                 onChange={(e) => setObjectSelect(e.target.value)}
                             >
                                 <MenuItem value={10}>Obyekt 1</MenuItem>
@@ -58,7 +58,7 @@ function Worker() {
                     </Grid>
                     <Grid item xl={3} md={6} sm={6} xs={12} display='flex' justifyContent='flex-end'>
                         <Button onClick={() => navigate('/home/create-worker')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
-                            Ishchi qo'shish
+                            Ишчи қўшиш
                         </Button>
                     </Grid>
                 </Grid>

@@ -20,6 +20,6 @@ export const themeOptions = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Public Sans',
+    fontFamily: 'sans-serif',
   },
 });

@@ -16,7 +16,7 @@ function EditCost() {
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Xarajatni Tahrilash</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Харажатни Таҳрилаш</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
@@ -24,7 +24,7 @@ function EditCost() {
                 <Grid container>
                     <Grid xl={6} xm={12} sm={12} xs={12} p={2}>
                         <FormControl  fullWidth>
-                            <Typography>Category:</Typography>
+                            <Typography>Cатегорй:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -38,7 +38,7 @@ function EditCost() {
                             </Select>
                         </FormControl> 
                         <FormControl  fullWidth>
-                            <Typography mt={2}>Obyekt:</Typography>
+                            <Typography mt={2}>Обект:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -52,7 +52,7 @@ function EditCost() {
                             </Select>
                         </FormControl>
                         <FormControl  fullWidth>
-                            <Typography mt={2}>Ish Boshqaruvchi:</Typography>
+                            <Typography mt={2}>Иш Бошқарувчи:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -66,14 +66,14 @@ function EditCost() {
                             </Select>
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Summa (so'm):</Typography>
+                            <Typography mt={2}>Сумма (сўм):</Typography>
                             <TextField id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Sana:</Typography>
+                            <Typography mt={2}>Сана:</Typography>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
-                                    <DatePicker label="Sana" />
+                                    <DatePicker label="Сана" />
                                 </DemoContainer>
                             </LocalizationProvider>
                         </FormControl>
@@ -82,7 +82,7 @@ function EditCost() {
                     </Grid>
                     <Grid xl={6} xm={12} sm={12} xs={12} p={2}>
                         <FormControl  fullWidth>
-                            <Typography>To'lov Turini:</Typography>
+                            <Typography>Тўлов Турини:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -91,12 +91,12 @@ function EditCost() {
                                 value={paymentType}
                                 onChange={(e) => setPaymentType(e.target.value) }
                             >
-                                <MenuItem value="Naxt">Naxt</MenuItem>
-                                <MenuItem value="O'tqazma">O'tqazma</MenuItem>
+                                <MenuItem value="Naxt">Нахт</MenuItem>
+                                <MenuItem value="O'tqazma">Ўтқазма</MenuItem>
                             </Select>
                         </FormControl>
                         <FormControl  fullWidth >
-                            <Typography mt={2}>Valyuta:</Typography>
+                            <Typography mt={2}>Валюта:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -106,22 +106,20 @@ function EditCost() {
                                 onChange={(e) => setCurrency(e.target.value) }
                             >
                                 <MenuItem value='Usd'>Usd</MenuItem>
-                                <MenuItem value='Rub'>Rub</MenuItem>
-                                <MenuItem value="So'm">So'm</MenuItem>
+                                <MenuItem value="So'm">Сўм</MenuItem>
                             </Select>
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Valyuta kursi (so'm):</Typography>
+                            <Typography mt={2}>Валюта курси (сўм):</Typography>
                             <TextField id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Izoh:</Typography>
+                            <Typography mt={2}>Изоҳ:</Typography>
                             <TextField id="outlined-basic" variant="outlined" />
                         </FormControl>
-                        
-                            <Button onClick={() => navigate('/home/cost')} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
-                                Tahrirlash
-                            </Button>               
+                        <Button onClick={() => navigate('/home/cost')} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
+                            Таҳрирлаш
+                        </Button>               
                     </Grid>
                 </Grid>
             </Grid>

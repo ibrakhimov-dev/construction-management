@@ -42,7 +42,7 @@ function EditHiredWorker() {
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Yollanma ishchilar qo'shish</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Ёлланма ишчилар қўшиш</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
@@ -50,11 +50,11 @@ function EditHiredWorker() {
                 <Grid container spacing={3}>
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
-                            <Typography>Ism Familiya:</Typography>
+                            <Typography>Исм Фамилия:</Typography>
                             <TextField value={fullName} onChange={(e) => setFullName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
-                            <Typography mt={2}>Obyekt:</Typography>
+                            <Typography mt={2}>Обект:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -73,17 +73,17 @@ function EditHiredWorker() {
                             </Select>
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Izoh:</Typography>
+                            <Typography mt={2}>Изоҳ:</Typography>
                             <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                     <FormControl fullWidth>
-                            <Typography>Telofon raqami:</Typography>
+                            <Typography>Телофон рақами:</Typography>
                             <TextField value={phone} onChange={(e) => setPhone(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                             <Button onClick={createHiredWorker} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
-                                Ishchi qo'shish
+                                Ишчи қўшиш
                             </Button>  
                     </Grid>
                 </Grid>

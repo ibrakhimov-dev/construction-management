@@ -15,7 +15,7 @@ function CreateWorker() {
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Ishchi qo'shish</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Ишчи қўшиш</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
@@ -23,11 +23,11 @@ function CreateWorker() {
                 <Grid container>
                     <Grid xl={6} md={6} sm={12} xs={12} p={2}>
                         <FormControl fullWidth>
-                            <Typography>Ism Familiya:</Typography>
+                            <Typography>Исм Фамилия:</Typography>
                             <TextField id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
-                            <Typography mt={2}>Lavozimi:</Typography>
+                            <Typography mt={2}>Лавозими:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -41,15 +41,15 @@ function CreateWorker() {
                             </Select>
                         </FormControl> 
                         <FormControl fullWidth>
-                            <Typography mt={2}>Login:</Typography>
+                            <Typography mt={2}>Логин:</Typography>
                             <TextField sx={{mt: 1}} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Parol:</Typography>
+                            <Typography mt={2}>Парол:</Typography>
                             <TextField id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
-                            <Typography mt={2}>Obyekt:</Typography>
+                            <Typography mt={2}>Обект:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -65,15 +65,15 @@ function CreateWorker() {
                     </Grid>
                     <Grid xl={6} md={6} sm={12} xs={12} p={2}>
                         <FormControl fullWidth>
-                            <Typography>Telofon raqami:</Typography>
+                            <Typography>Телофон рақами:</Typography>
                             <TextField id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Kunlik Ish Haqi:</Typography>
+                            <Typography mt={2}>Кунлик Иш Ҳақи:</Typography>
                             <TextField id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Ish boshlagan sanasi:</Typography>
+                            <Typography mt={2}>Иш бошлаган санаси:</Typography>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
                                     <DatePicker label="Sana" />
@@ -82,7 +82,7 @@ function CreateWorker() {
                         </FormControl>
                                             
                             <Button onClick={() => navigate('/home/worker')} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
-                                Ishchi qo'shish
+                                Ишчи қўшиш
                             </Button>               
                     </Grid>
                 </Grid>

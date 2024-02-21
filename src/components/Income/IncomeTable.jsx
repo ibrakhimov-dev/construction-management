@@ -5,329 +5,68 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 
-function IncomeTable() {
+function IncomeTable(props) {
     const navigate = useNavigate();
+
+    function currencyFormat(num) {
+        let arrNum = [];
+        for (let i = ("" + num).length; i >= 0 ; i = i - 3){
+            arrNum.unshift(("" + num).substring(i - 3, i));
+        }
+        return arrNum.join(" ");
+     }
+
+    function deleteIncome (id) {
+        props.deleteIncome(id);
+    }
 
   return (
         <Grid container p={3}>
             <Grid item  p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
                 <Stack sx={{ minWidth: '1190px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
                     <TheadWrapper>
-                        <ThId>T/r</ThId>
-                        <ThObj>Obyekt Nomi</ThObj>
-                        <ThMoney>Summa (so'm)</ThMoney>
-                        <ThMoney>Sana</ThMoney>
-                        <ThComment>Izoh</ThComment>
-                        <ThMoney>To'lov turi</ThMoney>
-                        <ThMoney>Valyuta</ThMoney>
-                        <ThMoney>Valyuta kursi</ThMoney>
-                        <ThMoney>Boshqaruv</ThMoney>
+                        <ThId>Т/р:</ThId>
+                        <ThObj>Обект Номи:</ThObj>
+                        <ThMoney>Сумма:</ThMoney>
+                        <ThMoney>Сана:</ThMoney>
+                        <ThComment>Изоҳ:</ThComment>
+                        <ThMoney>Тўлов тури:</ThMoney>
+                        <ThMoney>Валюта:</ThMoney>
+                        <ThMoney>Валюта курси:</ThMoney>
+                        <ThMoney>Бошқарув:</ThMoney>
                     </TheadWrapper>
-                    <TbodyWrapper>
-                        <TdId>1</TdId>
-                        <TdObj>Cambridge</TdObj>
-                        <TdMoney>800 mln</TdMoney>
-                        <TdMoney>13.01.2023</TdMoney>
-                        <TdComment>A bino uchun to'lov</TdComment>
-                        <TdMoney>
-                            Naxt
-                        </TdMoney>
-                        <TdMoney>
-                            Usd
-                        </TdMoney>
-                        <TdMoney>12300 so'm</TdMoney>
-                        <TdMoney>
-                            <Stack direction="row" spacing={1}>
-                                <IconButton onClick={() => navigate('/home/edit-income')} aria-label="delete">
-                                    <EditIcon color='warning' />
-                                </IconButton>
-                                <IconButton aria-label="delete">
-                                    <DeleteIcon color='danger' />
-                                </IconButton>
-                            </Stack>
-                        </TdMoney>
-                    </TbodyWrapper>
-                    <TbodyWrapper>
-                        <TdId>1</TdId>
-                        <TdObj>Cambridge</TdObj>
-                        <TdMoney>800 mln</TdMoney>
-                        <TdMoney>13.01.2023</TdMoney>
-                        <TdComment>A bino uchun to'lov</TdComment>
-                        <TdMoney>
-                            {/* <FormControl  fullWidth size="small">
-                                <Select
-                                    sx={{padding: 0, paddingLeft: 0}}
-                                    labelId="demo-select-small-label"
-                                    id="demo-select-small"
-                                    color='warning'
-                                    value={paymentType}
-                                    onChange={(e) => setPaymentType(e.target.value) }
-                                >
-                                    <MenuItem value="Naxt">Naxt</MenuItem>
-                                    <MenuItem value="O'tqazma">O'tqazma</MenuItem>
-                                </Select>
-                            </FormControl> */}
-                            Naxt
-                        </TdMoney>
-                        <TdMoney>
-                            {/* <FormControl  fullWidth size="small">
-                                <Select
-                                    sx={{padding: 0, paddingLeft: 0}}
-                                    labelId="demo-select-small-label"
-                                    id="demo-select-small"
-                                    value={currency}
-                                    color='warning'
-                                    onChange={(e) => setCurrency(e.target.value) }
-                                >
-                                    <MenuItem value='Usd'>Usd</MenuItem>
-                                    <MenuItem value='Rub'>Rub</MenuItem>
-                                    <MenuItem value="So'm">So'm</MenuItem>
-                                </Select>
-                            </FormControl> */}
-                            Usd
-                        </TdMoney>
-                        <TdMoney>12300 so'm</TdMoney>
-                        <TdMoney>
-                            <Stack direction="row" spacing={1}>
-                                <IconButton aria-label="delete">
-                                    <EditIcon color='warning' />
-                                </IconButton>
-                                <IconButton aria-label="delete">
-                                    <DeleteIcon color='danger' />
-                                </IconButton>
-                            </Stack>
-                        </TdMoney>
-                    </TbodyWrapper>
-                    <TbodyWrapper>
-                        <TdId>1</TdId>
-                        <TdObj>Cambridge</TdObj>
-                        <TdMoney>800 mln</TdMoney>
-                        <TdMoney>13.01.2023</TdMoney>
-                        <TdComment>A bino uchun to'lov</TdComment>
-                        <TdMoney>
-                            {/* <FormControl  fullWidth size="small">
-                                <Select
-                                    sx={{padding: 0, paddingLeft: 0}}
-                                    labelId="demo-select-small-label"
-                                    id="demo-select-small"
-                                    color='warning'
-                                    value={paymentType}
-                                    onChange={(e) => setPaymentType(e.target.value) }
-                                >
-                                    <MenuItem value="Naxt">Naxt</MenuItem>
-                                    <MenuItem value="O'tqazma">O'tqazma</MenuItem>
-                                </Select>
-                            </FormControl> */}
-                            Naxt
-                        </TdMoney>
-                        <TdMoney>
-                            {/* <FormControl  fullWidth size="small">
-                                <Select
-                                    sx={{padding: 0, paddingLeft: 0}}
-                                    labelId="demo-select-small-label"
-                                    id="demo-select-small"
-                                    value={currency}
-                                    color='warning'
-                                    onChange={(e) => setCurrency(e.target.value) }
-                                >
-                                    <MenuItem value='Usd'>Usd</MenuItem>
-                                    <MenuItem value='Rub'>Rub</MenuItem>
-                                    <MenuItem value="So'm">So'm</MenuItem>
-                                </Select>
-                            </FormControl> */}
-                            Usd
-                        </TdMoney>
-                        <TdMoney>12300 so'm</TdMoney>
-                        <TdMoney>
-                            <Stack direction="row" spacing={1}>
-                                <IconButton aria-label="delete">
-                                    <EditIcon color='warning' />
-                                </IconButton>
-                                <IconButton aria-label="delete">
-                                    <DeleteIcon color='danger' />
-                                </IconButton>
-                            </Stack>
-                        </TdMoney>
-                    </TbodyWrapper>
-                    <TbodyWrapper>
-                        <TdId>1</TdId>
-                        <TdObj>Cambridge</TdObj>
-                        <TdMoney>800 mln</TdMoney>
-                        <TdMoney>13.01.2023</TdMoney>
-                        <TdComment>A bino uchun to'lov</TdComment>
-                        <TdMoney>
-                            {/* <FormControl  fullWidth size="small">
-                                <Select
-                                    sx={{padding: 0, paddingLeft: 0}}
-                                    labelId="demo-select-small-label"
-                                    id="demo-select-small"
-                                    color='warning'
-                                    value={paymentType}
-                                    onChange={(e) => setPaymentType(e.target.value) }
-                                >
-                                    <MenuItem value="Naxt">Naxt</MenuItem>
-                                    <MenuItem value="O'tqazma">O'tqazma</MenuItem>
-                                </Select>
-                            </FormControl> */}
-                            Naxt
-                        </TdMoney>
-                        <TdMoney>
-                            {/* <FormControl  fullWidth size="small">
-                                <Select
-                                    sx={{padding: 0, paddingLeft: 0}}
-                                    labelId="demo-select-small-label"
-                                    id="demo-select-small"
-                                    value={currency}
-                                    color='warning'
-                                    onChange={(e) => setCurrency(e.target.value) }
-                                >
-                                    <MenuItem value='Usd'>Usd</MenuItem>
-                                    <MenuItem value='Rub'>Rub</MenuItem>
-                                    <MenuItem value="So'm">So'm</MenuItem>
-                                </Select>
-                            </FormControl> */}
-                            Usd
-                        </TdMoney>
-                        <TdMoney>12300 so'm</TdMoney>
-                        <TdMoney>
-                            <Stack direction="row" spacing={1}>
-                                <IconButton aria-label="delete">
-                                    <EditIcon color='warning' />
-                                </IconButton>
-                                <IconButton aria-label="delete">
-                                    <DeleteIcon color='danger' />
-                                </IconButton>
-                            </Stack>
-                        </TdMoney>
-                    </TbodyWrapper>
-                    <TbodyWrapper>
-                        <TdId>1</TdId>
-                        <TdObj>Cambridge</TdObj>
-                        <TdMoney>800 mln</TdMoney>
-                        <TdMoney>13.01.2023</TdMoney>
-                        <TdComment>A bino uchun to'lov</TdComment>
-                        <TdMoney>
-                            Naxt
-                        </TdMoney>
-                        <TdMoney>
-                            Usd
-                        </TdMoney>
-                        <TdMoney>12300 so'm</TdMoney>
-                        <TdMoney>
-                            <Stack direction="row" spacing={1}>
-                                <IconButton aria-label="delete">
-                                    <EditIcon color='warning' />
-                                </IconButton>
-                                <IconButton aria-label="delete">
-                                    <DeleteIcon color='danger' />
-                                </IconButton>
-                            </Stack>
-                        </TdMoney>
-                    </TbodyWrapper>
-                    <TbodyWrapper>
-                        <TdId>1</TdId>
-                        <TdObj>Cambridge</TdObj>
-                        <TdMoney></TdMoney>
-                        <TdMoney>13.01.2023</TdMoney>
-                        <TdComment>A bino uchun to'lov</TdComment>
-                        <TdMoney>
-                            {/* <FormControl  fullWidth size="small">
-                                <Select
-                                    sx={{padding: 0, paddingLeft: 0}}
-                                    labelId="demo-select-small-label"
-                                    id="demo-select-small"
-                                    color='warning'
-                                    value={paymentType}
-                                    onChange={(e) => setPaymentType(e.target.value) }
-                                >
-                                    <MenuItem value="Naxt">Naxt</MenuItem>
-                                    <MenuItem value="O'tqazma">O'tqazma</MenuItem>
-                                </Select>
-                            </FormControl> */}
-                            Naxt
-                        </TdMoney>
-                        <TdMoney>
-                            {/* <FormControl  fullWidth size="small">
-                                <Select
-                                    sx={{padding: 0, paddingLeft: 0}}
-                                    labelId="demo-select-small-label"
-                                    id="demo-select-small"
-                                    value={currency}
-                                    color='warning'
-                                    onChange={(e) => setCurrency(e.target.value) }
-                                >
-                                    <MenuItem value='Usd'>Usd</MenuItem>
-                                    <MenuItem value='Rub'>Rub</MenuItem>
-                                    <MenuItem value="So'm">So'm</MenuItem>
-                                </Select>
-                            </FormControl> */}
-                            Usd
-                        </TdMoney>
-                        <TdMoney>12300 so'm</TdMoney>
-                        <TdMoney>
-                            <Stack direction="row" spacing={1}>
-                                <IconButton aria-label="delete">
-                                    <EditIcon color='warning' />
-                                </IconButton>
-                                <IconButton aria-label="delete">
-                                    <DeleteIcon color='danger' />
-                                </IconButton>
-                            </Stack>
-                        </TdMoney>
-                    </TbodyWrapper>
-                    <TbodyWrapper>
-                        <TdId>1</TdId>
-                        <TdObj>Cambridge</TdObj>
-                        <TdMoney>{}</TdMoney>
-                        <TdMoney>13.01.2023</TdMoney>
-                        <TdComment>A bino uchun to'lov</TdComment>
-                        <TdMoney>
-                            {/* <FormControl  fullWidth size="small">
-                                <Select
-                                    sx={{padding: 0, paddingLeft: 0}}
-                                    labelId="demo-select-small-label"
-                                    id="demo-select-small"
-                                    color='warning'
-                                    value={paymentType}
-                                    onChange={(e) => setPaymentType(e.target.value) }
-                                >
-                                    <MenuItem value="Naxt">Naxt</MenuItem>
-                                    <MenuItem value="O'tqazma">O'tqazma</MenuItem>
-                                </Select>
-                            </FormControl> */}
-                            Naxt
-                        </TdMoney>
-                        <TdMoney>
-                            {/* <FormControl  fullWidth size="small">
-                                <Select
-                                    sx={{padding: 0, paddingLeft: 0}}
-                                    labelId="demo-select-small-label"
-                                    id="demo-select-small"
-                                    value={currency}
-                                    color='warning'
-                                    onChange={(e) => setCurrency(e.target.value) }
-                                >
-                                    <MenuItem value='Usd'>Usd</MenuItem>
-                                    <MenuItem value='Rub'>Rub</MenuItem>
-                                    <MenuItem value="So'm">So'm</MenuItem>
-                                </Select>
-                            </FormControl> */}
-                            Usd
-                        </TdMoney>
-                        <TdMoney>12300 so'm</TdMoney>
-                        <TdMoney>
-                            <Stack direction="row" spacing={1}>
-                                <IconButton aria-label="delete">
-                                    <EditIcon color='warning' />
-                                </IconButton>
-                                <IconButton aria-label="delete">
-                                    <DeleteIcon color='danger' />
-                                </IconButton>
-                            </Stack>
-                        </TdMoney>
-                    </TbodyWrapper>
+                    {
+                        props.income.map((item, index) => {
+                            return (
+                                <TbodyWrapper key={index + 1}>
+                                    <TdId>{index + 1}</TdId>
+                                    <TdObj>{item.project_name}</TdObj>
+                                    <TdMoney>{currencyFormat(item.summa)} {item.currency}</TdMoney>
+                                    <TdMoney>{item.date}</TdMoney>
+                                    <TdComment>{item.comment}</TdComment>
+                                    <TdMoney>
+                                        {item.income_type === 'cash' ? `Naxt` : "O'tqazma"}
+                                    </TdMoney>
+                                    <TdMoney>
+                                        {item.currency}
+                                    </TdMoney>
+                                    <TdMoney>{item.currency_rate} so'm</TdMoney>
+                                    <TdMoney>
+                                        <Stack direction="row" spacing={1}>
+                                            <IconButton onClick={() => navigate('/home/edit-income', {state: {id : item.id}})} aria-label="delete">
+                                                <EditIcon color='warning' />
+                                            </IconButton>
+                                            <IconButton onClick={() => deleteIncome(item.id)} aria-label="delete">
+                                                <DeleteIcon color='danger' />
+                                            </IconButton>
+                                        </Stack>
+                                    </TdMoney>
+                                </TbodyWrapper>
+                            )
+                        })
+                    }
                     <Stack mt={2}>
-                        <Typography variant='h6' fontWeight='bold'>Jami Summa: 3 mld so'm</Typography>
+                        <Typography variant='h6' fontWeight='bold'>Жами Сумма: {currencyFormat(props.totalSumma)} сўм</Typography>
                     </Stack>
                 </Stack>
             </Grid>

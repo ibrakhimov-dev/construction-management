@@ -89,7 +89,7 @@ function DailyExpenses() {
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Uy Xarajatlar</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Уй Харажатлар</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
@@ -97,21 +97,21 @@ function DailyExpenses() {
                 <Grid container spacing={3}>
                     <Grid item xl={3} md={12} sm={12} xs={12} display='flex' gap={1} justifyContent={{xl: 'flex-start', md: 'flex-start', sm: "flex-start", xs: 'center' }} alignItems='center'>
                         <Button onClick={tenDay} sx={{height: '55px', mt: 1}} size='large' variant='outlined' color='primary'>
-                            10 kunlik
+                            10 кунлик
                         </Button>
                         <Button onClick={thirtyDay} sx={{height: '55px', mt: 1}} size='large' variant='outlined' color='primary'>
-                            30 kunlik
+                            30 кунлик
                         </Button> 
                     </Grid>
                     <Grid item xl={5} md={12} sm={12} xs={12} display='flex' justifyContent={{xl: 'flex-start', md: 'flex-start', sm: "flex-start", xs: 'center' }} flexWrap={{xl: 'nowrap', md: 'wrap', sm: 'wrap', xs: "wrap"}} gap={2}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker']}>
-                                <DatePicker value={startDate} onChange={(e) => setStartDate(e)} label="Dan (kun)" />
+                                <DatePicker value={startDate} onChange={(e) => setStartDate(e)} label="Дан (кун)" />
                             </DemoContainer>
                         </LocalizationProvider>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker']}>
-                                <DatePicker value={endDate} onChange={(e) => setEndDate(e)} label="Gacha (kun)" />
+                                <DatePicker value={endDate} onChange={(e) => setEndDate(e)} label="Гача (кун)" />
                             </DemoContainer>
                         </LocalizationProvider>
                     </Grid>
@@ -120,7 +120,7 @@ function DailyExpenses() {
                             Export
                         </Button>
                         <Button onClick={() => navigate('/home/create-daily-expenses')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
-                            Xarajat qo'shish
+                            Харажат қўшиш
                         </Button>
                     </Grid>
                 </Grid>

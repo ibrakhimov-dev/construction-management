@@ -38,7 +38,7 @@ function HomeSales() {
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Uy Savdosi</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Уй Савдоси</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
@@ -67,7 +67,7 @@ function HomeSales() {
                                         </CardContent>
                                         <CardContent sx={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap', p: 0, m: 0}}>
                                             <Fab
-                                            sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none', width: '100%' }}
+                                            sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none', width: '100%', zIndex: 2, }}
                                             variant="extended"
                                             size="small"
                                             aria-label="date"
@@ -82,7 +82,7 @@ function HomeSales() {
                                             aria-label="date"
                                             >
                                                 <AttachMoneyIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                                {currencyFormat(item.total_amount)} so'm
+                                                {currencyFormat(item.total_amount)} сўм
                                             </Fab>
                                         </CardContent>
                                     </Card>
@@ -110,22 +110,22 @@ function HomeSales() {
                             </CardContent>
                             <CardContent sx={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap', p: 0, m: 0}}>
                                 <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none', width: '100%' }}
+                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none', width: '100%', zIndex: 2 }}
                                 variant="extended"
                                 size="small"
                                 aria-label="date"
                                 >
                                     <LocationOnIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    Uyningizning Qayerda joylahgan:
+                                    Уйнингизнинг Қаерда жойлаҳган:
                                 </Fab>
                                 <Fab
-                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none', width: '100%' }}
+                                sx={{ fontSize: '12px', mr: 1, mt: 1, textTransform: 'none', width: '100%', zIndex: 2 }}
                                 variant="extended"
                                 size="small"
                                 aria-label="date"
                                 >
                                     <AttachMoneyIcon sx={{ mr: 1 }} color="warning" fontSize="small" />
-                                    0 mln so'm
+                                    0 млн сўм
                                 </Fab>
                             </CardContent>
                         </Card>

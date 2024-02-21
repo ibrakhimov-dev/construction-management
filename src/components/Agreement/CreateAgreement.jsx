@@ -1,114 +1,97 @@
-import React, { useEffect } from 'react'
-import AddIcon from '@mui/icons-material/Add';
-import { useState } from 'react';
-import { Grid, Stack, Typography, FormControl, Autocomplete, TextField, Button } from '@mui/material'
+import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import { MuiFileInput } from 'mui-file-input';
+import AddIcon from '@mui/icons-material/Add';
+import { Grid, Button, TextField, FormControl, Typography, Stack, MenuItem, Select } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { base_url, all_object_api_url, create_contract_api_url } from '../API/baseURL';
+import axios from 'axios';
 
 function CreateAgreement() {
+    const [object, setObject] = useState(null);
+    const [allObject, setAllObject] = useState([]);
+    const [block, setBlock] = useState("");
+    const [moneyValue, setMoneyValue] = useState("sum");
     const navigate = useNavigate();
-    const [options, setOptions] = useState([]); 
-    const [value, setValue] = React.useState(options[0]);
-    const [summ, setSumm] = useState("");
-    const [inputValue, setInputValue] = React.useState('');
-    const [summObj, setSummObj] = useState({
-        qavat: '',
-        summa: '',
-    })
-    const [summDate, setSummDate] = useState([{
-        qavat: '',
-        summa: '',
-    }])
-    const length = summDate.length;
-    console.log(value, inputValue);
-    console.log(summ)
-
-    console.log(summDate)
-
-    if (summDate[length - 1].qavat !== "" && summDate[length - 1].summa !== ""){
-        setSummObj({
-            qavat: inputValue,
-            summa: summ,
-        })
-        summDate.push(summObj);
-        setSummDate(summDate);
+    const token = localStorage.getItem('accessToken');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : `Bearer ${token}`,
+        "Access-Control-Allow-Origin": base_url
     }
-
 
     useEffect(() => {
-        const options = ['1 - qavat', '2 - qavat'];
-        setOptions(options);
+        axios.get(all_object_api_url(), {headers})
+        .then((res) => {
+            setAllObject(res.data.data);
+        })
     }, [])
 
-    const handleChange = (newValue) => {
-        setValue(newValue)
+    function createAgreement () {
+        axios.post(create_contract_api_url(), {
+            "block": block ,
+            "currency" : moneyValue,
+            "project_id": object,
+        }, {headers}).then((res) => {
+            navigate("/home/agreement")
+        })
+
     }
+
   return (
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Kelishuv qo'shish</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Келишув қўшиш</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
-            <Grid item p={3} xl={12} md={12} sm={12} xs={12} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
-                <Grid container>
-                    <Grid xl={6} md={6} sm={6} xs={12} p={2}>
-                        <FormControl fullWidth>
-                            <Typography>Obyekt Nomi:</Typography>
-                            <TextField id="outlined-basic" color='warning' variant="outlined" />
+            <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
+                <Grid container spacing={3}>
+                    <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
+                        <FormControl  fullWidth>
+                            <Typography mt={2}>Обект:</Typography>
+                            <Select
+                                sx={{padding: 0, paddingLeft: 0}}
+                                labelId="demo-select-small-label"
+                                id="demo-select-small"
+                                color='warning'
+                                value={object}
+                                onChange={(e) => setObject(e.target.value) }
+                            >
+                                {
+                                    allObject.map((item, index) => {
+                                        return (
+                                            <MenuItem key={index + 1} value={item.id}>{item.name}</MenuItem>
+                                        )
+                                    })
+                                }
+                            </Select>
                         </FormControl>
-                        
+                        <FormControl fullWidth>
+                            <Typography mt={2}>Блоcк:</Typography>
+                            <TextField value={block} onChange={(e) => setBlock(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                        </FormControl>
                     </Grid>
-                    <Grid xl={6} md={6} sm={6} xs={12} p={2}>
-                        <FormControl fullWidth>
-                            <Typography>Obyekt rasmini yuklang:</Typography>
-                            <MuiFileInput color='warning' value={value} onChange={handleChange} />
+                    <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
+                        <FormControl  fullWidth>
+                            <Typography mt={2}>Валютани танланг:</Typography>
+                            <Select
+                                sx={{padding: 0, paddingLeft: 0}}
+                                labelId="demo-select-small-label"
+                                id="demo-select-small"
+                                color='warning'
+                                value={moneyValue}
+                                onChange={(e) => setMoneyValue(e.target.value) }
+                            >
+                                <MenuItem value="sum">Сўм</MenuItem>
+                                <MenuItem value="dollar">Доллар</MenuItem>
+                            </Select>
                         </FormControl>
-                         
-                                     
+                        <Button onClick={createAgreement} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                            Келишув қўшиш
+                        </Button>  
                     </Grid>
                 </Grid>
-                {
-                    summDate.map((item) => {
-                        return (
-                            <Grid container>
-                                <Grid xl={6} md={6} sm={6} xs={12} p={2}>
-                                <FormControl  fullWidth>
-                                        <Typography>Qavat</Typography>
-                                        <Autocomplete
-                                            value={item.qavat}
-                                            onChange={(event, newValue) => {
-                                            setSummObj({qavat: newValue});
-                                            }}
-                                            inputValue={inputValue}
-                                            onInputChange={(event, newInputValue) => {
-                                            setInputValue(newInputValue);
-                                            }}
-                                            id="free-solo-demo"
-                                            freeSolo
-                                            options={options}
-                                            sx={{ width: '100%' }}
-                                            renderInput={(params) => <TextField {...params} />}
-                                        />
-                                    </FormControl> 
-                                    
-                                </Grid>
-                                <Grid xl={6} md={6} sm={6} xs={12} p={2}>
-                                    <FormControl fullWidth>
-                                        <Typography>Summasi (metr kv):</Typography>
-                                        <TextField value={summ} onChange={(e) => setSumm(e.target.value)} type='number' id="outlined-basic" color='warning' label="So'm" variant="outlined" />
-                                    </FormControl>
-                                </Grid>
-                            </Grid>
-                        )
-                    })
-                }
-                <Stack>
-                    <Button  onClick={() => navigate('/home/agreement')} sx={{height: '55px', mt: 5, width: '250px'}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
-                        Kelishuv Qo'shish
-                    </Button>  
-                </Stack>
             </Grid>
         </Grid>
     </Stack>

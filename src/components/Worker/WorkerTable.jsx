@@ -27,18 +27,18 @@ function WorkerTable() {
         <Grid item p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
             <Stack sx={{ minWidth: '1190px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
                 <TheadWrapper>
-                    <ThId>Check</ThId>
-                    <ThId>T/r</ThId>
-                    <ThComment>Ism Familiya</ThComment>
-                    <ThMoney>Lavozimi</ThMoney>
-                    <ThMoney>Obyekt Nomi</ThMoney>
-                    <ThMoney>Telefon</ThMoney>
-                    <ThMoney>Ish haqi(kunlik)</ThMoney>
-                    <ThMoney>Ish kuni(start)</ThMoney>
-                    <ThId>Dam</ThId>
-                    <ThMoney>Ish haqi(jami)</ThMoney>
-                    <ThMoney>Avans</ThMoney>
-                    <ThMoney>Boshqaruv</ThMoney>
+                    <ThId>Чеcк:</ThId>
+                    <ThId>Т/р:</ThId>
+                    <ThComment>Исм Фамилия:</ThComment>
+                    <ThMoney>Лавозими:</ThMoney>
+                    <ThMoney>Обект Номи:</ThMoney>
+                    <ThMoney>Телефон:</ThMoney>
+                    <ThMoney>Иш ҳақи:</ThMoney>
+                    <ThMoney>Иш куни(старт):</ThMoney>
+                    <ThId>Дам:</ThId>
+                    <ThMoney>Иш ҳақи(жами):</ThMoney>
+                    <ThMoney>Аванс:</ThMoney>
+                    <ThMoney>Бошқарув:</ThMoney>
                 </TheadWrapper>
                 <TbodyWrapper>
                     <TdId>
@@ -272,7 +272,7 @@ function WorkerTable() {
                     </TdMoney>
                 </TbodyWrapper>
                 <Stack mt={2}>
-                    <Typography variant='h6' fontWeight='bold'>Jami Ish haqi: 3 mld so'm</Typography>
+                    <Typography variant='h6' fontWeight='bold'>Жами Иш ҳақи: 3 млд сўм</Typography>
                 </Stack>
             </Stack>
         </Grid>

@@ -10,7 +10,7 @@ import { base_url, create_object_api_url, upload_img_url_api } from '../API/base
 
 function CreateObject() {
     const [status, setStatus] = useState('active');
-    const [value, setValue] = React.useState(null)
+    const [value, setValue] = React.useState(null);
     const [name, setName] = useState("");
     const [imgUrl, setImgUrl] = useState("");
     const [imageName, setImageName] = useState("");
@@ -55,7 +55,7 @@ function CreateObject() {
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Obyekt qo'shish</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Обект қўшиш</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
@@ -63,12 +63,12 @@ function CreateObject() {
                 <Grid container>
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
-                            <Typography>Obyekt Nomi:</Typography>
+                            <Typography>Обект Номи:</Typography>
                             <TextField value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         
                         <FormControl  fullWidth>
-                            <Typography mt={2}>Holati:</Typography>
+                            <Typography mt={2}>Ҳолати:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -77,21 +77,21 @@ function CreateObject() {
                                 value={status}
                                 onChange={(e) => setStatus(e.target.value) }
                             >
-                                <MenuItem value="finishing">Tugallangan</MenuItem>
-                                <MenuItem value="active">Tugallanmagan</MenuItem>
+                                <MenuItem value="finishing">Тугалланган</MenuItem>
+                                <MenuItem value="active">Тугалланмаган</MenuItem>
                             </Select>
                         </FormControl> 
                     </Grid>
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
-                            <Typography>Obyekt rasmini yuklang:</Typography>
+                            <Typography>Обект расмини юкланг:</Typography>
                             <MuiFileInput color='warning' value={value} onChange={handleChange} />
                         </FormControl>
                         <Button onClick={uploadImg} sx={{height: '55px', mt: 5, mr: 2}} size='large' variant='contained' color='success' endIcon={<CloudUploadIcon />}>
                             Upload Img
                         </Button>
                         <Button onClick={createObject} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
-                            Obyekt qo'shish
+                            Обект қўшиш
                         </Button>               
                     </Grid>
                 </Grid>

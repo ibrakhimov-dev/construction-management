@@ -8,214 +8,78 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddHiredCost from './AddHiredCost'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-function HiredWorkerTable() {
+function HiredWorkerTable(props) {
     const navigate = useNavigate();
+    const [workerId, setWorkerId] = useState(null);
     const [isAgreeCost, setIsAgreeCost] = useState(false);
 
     function closeModal() {
         setIsAgreeCost(false);
+        props.refreshData()
     }
+
+    function workerDetail (id) {
+        setIsAgreeCost(true);
+        setWorkerId(id);
+    }
+
+    function deleteHiredWorker (id) {
+        props.deleteHiredWorker(id)
+    }
+
+    function currencyFormat(num) {
+        let arrNum = [];
+        for (let i = num.toString().length; i >= 0 ; i = i - 3){
+            arrNum.unshift(num.toString().substring(i - 3, i));
+        }
+        return arrNum.join(" ");
+     }
 
   return (
     <Grid container p={3}>
         {
-            isAgreeCost ? <AddHiredCost closeModal = {closeModal} /> : <></>
+            isAgreeCost ? <AddHiredCost closeModal = {closeModal} workerId={workerId} /> : <></>
         }
         <Grid item p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
             <Stack sx={{ minWidth: '1190px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
                 <TheadWrapper>
-                    <ThId>T/r</ThId>
-                    <ThComment>Ism Familiya</ThComment>
-                    <ThMoney>Obyekt Nomi</ThMoney>
-                    <ThMoney>Telefon</ThMoney>
-                    <ThMoney>Umumiy Summa</ThMoney>
-                    <ThComment>Izoh</ThComment>
-                    <ThMoney>Boshqaruv</ThMoney>
+                    <ThId>Т/р</ThId>
+                    <ThComment>Исм Фамилия</ThComment>
+                    <ThMoney>Обект Номи</ThMoney>
+                    <ThMoney>Телефон</ThMoney>
+                    <ThMoney>Умумий Сумма</ThMoney>
+                    <ThComment>Изоҳ</ThComment>
+                    <ThMoney>Бошқарув</ThMoney>
                 </TheadWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>
-                        <Typography>3 mln so'm</Typography>
-                        <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
-                            <AddCircleIcon color='success' />
-                        </IconButton>
-                    </TdMoney>
-                    <TdComment>Yanvar oyi ish haqi</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-hired-worker')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>
-                        <Typography>3 mln so'm</Typography>
-                        <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
-                            <AddCircleIcon color='success' />
-                        </IconButton>
-                    </TdMoney>
-                    <TdComment>Yanvar oyi ish haqi</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-hired-worker')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>
-                        <Typography>3 mln so'm</Typography>
-                        <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
-                            <AddCircleIcon color='success' />
-                        </IconButton>
-                    </TdMoney>
-                    <TdComment>Yanvar oyi ish haqi</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-hired-worker')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>
-                        <Typography>3 mln so'm</Typography>
-                        <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
-                            <AddCircleIcon color='success' />
-                        </IconButton>
-                    </TdMoney>
-                    <TdComment>Yanvar oyi ish haqi</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-hired-worker')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>
-                        <Typography>3 mln so'm</Typography>
-                        <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
-                            <AddCircleIcon color='success' />
-                        </IconButton>
-                    </TdMoney>
-                    <TdComment>Yanvar oyi ish haqi</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-hired-worker')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>
-                        <Typography>3 mln so'm</Typography>
-                        <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
-                            <AddCircleIcon color='success' />
-                        </IconButton>
-                    </TdMoney>
-                    <TdComment>Yanvar oyi ish haqi</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-hired-worker')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>
-                        <Typography>3 mln so'm</Typography>
-                        <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
-                            <AddCircleIcon color='success' />
-                        </IconButton>
-                    </TdMoney>
-                    <TdComment>Yanvar oyi ish haqi</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-hired-worker')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>
-                        <Typography>3 mln so'm</Typography>
-                        <IconButton onClick={() => setIsAgreeCost(true)} sx={{mt: '-7px', ml: '5px'}} aria-label="delete">
-                            <AddCircleIcon color='success' />
-                        </IconButton>
-                    </TdMoney>
-                    <TdComment>Yanvar oyi ish haqi</TdComment>
-                    <TdMoney>
-                        <Stack direction="row" spacing={2}>
-                            <IconButton onClick={() => navigate('/home/edit-hired-worker')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
+                {
+                    props.hiredWorker.map((item, index) => {
+                        return (
+                            <TbodyWrapper key={index + 1}>
+                                <TdId>{index + 1}</TdId>
+                                <TdComment>{item.name}</TdComment>
+                                <TdMoney>{item.project_name}</TdMoney>
+                                <TdMoney>{item.phone_number}</TdMoney>
+                                <TdMoney>
+                                    <Typography>{currencyFormat(item.total_amount)} сўм</Typography>
+                                    <IconButton onClick={() => workerDetail(item.id)} sx={{ ml: '5px', width: '20px', height: '20px'}} aria-label="delete">
+                                        <AddCircleIcon color='success' />
+                                    </IconButton>
+                                </TdMoney>
+                                <TdComment>{item.comment}</TdComment>
+                                <TdMoney>
+                                    <Stack direction="row" spacing={2}>
+                                        <IconButton onClick={() => navigate('/home/edit-hired-worker', {state: {id: item.id}})} aria-label="delete">
+                                            <EditIcon color='warning' />
+                                        </IconButton>
+                                        <IconButton onClick={() => deleteHiredWorker(item.id)} aria-label="delete">
+                                            <DeleteIcon color='danger' />
+                                        </IconButton>
+                                    </Stack>
+                                </TdMoney>
+                            </TbodyWrapper>  
+                        )
+                    })
+                } 
             </Stack>
         </Grid>
     </Grid>
@@ -271,7 +135,9 @@ const TbodyWrapper = styled.div`
 const TdMoney = styled.div`
     width: 13%;
     padding: 10px 5px;
+    font-size: 13px;
     display: flex;
+    align-items: center;
     justify-content: center;
 `
 const TdComment = styled.div`

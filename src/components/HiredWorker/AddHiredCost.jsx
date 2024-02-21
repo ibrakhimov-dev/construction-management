@@ -3,13 +3,108 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { base_url, 
+    create_hired_worker_expenses_api_url, 
+    hired_worker_expenses_api_url, 
+    delete_hired_worker_expenses_api_url, 
+    edit_hired_worker_expenses_api_url } from '../API/baseURL';
+import axios from 'axios';
+import { useNavigate, } from 'react-router-dom';
 
 function AddHiredCost(props) {
     const [editCost, setEditCost] = useState(false);
+    const [expensesId, setExpensesId] = useState(null);
+    const [isAgreeDelete, setIsAgreeDelete] = useState(false);
+    const [comment, setComment] = useState('');
+    const [date, setDate] = useState("");
+    const [summa, setSumma] = useState(0);
+    const [editComment, setEditComment] = useState('');
+    const [editDate, setEditDate] = useState("");
+    const [editSumma, setEditSumma] = useState(null);
+    const [expenses, setExpenses] = useState([]);
+    const navigate = useNavigate();
+    const token = localStorage.getItem('accessToken');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : `Bearer ${token}`,
+        "Access-Control-Allow-Origin": base_url
+    }
+
+    useEffect (() => {
+        axios.get(hired_worker_expenses_api_url(props.workerId), {headers})
+        .then((res) => {
+            setExpenses(res.data.data);
+        })
+    }, [isAgreeDelete])
+
+    function currencyFormat(num) {
+        let arrNum = [];
+        for (let i = num.toString().length; i >= 0 ; i = i - 3){
+            arrNum.unshift(num.toString().substring(i - 3, i));
+        }
+        return arrNum.join(" ");
+     }
 
     function clickDay() {
         props.closeModal()
+    }
+
+    function deleteExpenses (id) {
+        axios.delete(delete_hired_worker_expenses_api_url(id), {headers})
+        setIsAgreeDelete(true);
+        setTimeout(() => {
+            setIsAgreeDelete(false)
+        }, 2500)
+    }
+
+    function createHiredWorkerExpenses () {
+        axios.post(create_hired_worker_expenses_api_url(), {
+            summa: summa,
+            date: date,
+            comment: comment, 
+            hired_worker_id: props.workerId,
+         }, {headers}).then((res) => {
+             axios.get(hired_worker_expenses_api_url(props.workerId), {headers})
+             .then((res) => {
+                 console.log(res.data.data);
+                 setExpenses(res.data.data);
+                 setDate("");
+                 setComment("");
+                 setSumma(0);
+            })
+         })
+    }
+
+    function editClickButton (id) {
+        let currentExpenses = expenses.filter((item) => {
+            return item.id === id;
+        });
+        setEditCost(true);
+        setExpensesId(id);
+        setEditComment(currentExpenses[0].comment);
+        setEditDate(currentExpenses[0].date);
+        setEditSumma(currentExpenses[0].summa);
+    }
+
+    function editHiredWorker () {
+        axios.put(edit_hired_worker_expenses_api_url(expensesId), {
+            summa: editSumma,
+            date: editDate,
+            comment: editComment, 
+            hired_worker_id: props.workerId,
+        }, {headers})
+        .then((res) => {
+            setEditCost(false);
+            axios.get(hired_worker_expenses_api_url(props.workerId), {headers})
+             .then((res) => {
+                 console.log(res.data.data);
+                 setExpenses(res.data.data);
+                 setDate("");
+                 setComment("");
+                 setSumma(0);
+            })
+        })
     }
 
   return (
@@ -31,241 +126,103 @@ function AddHiredCost(props) {
                     <Grid container sx={{ minWidth: '500px', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}> 
                         <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
                             <Grid container textAlign='center'>
-                                <Grid item xl={1} md={1} sm={1} xs={1} fontWeight={600}>T/r</Grid>
+                                <Grid item xl={1} md={1} sm={1} xs={1} fontWeight={600}>Т/р</Grid>
                                 <Grid item xl={2} md={2} sm={2} xs={2} fontWeight={600}>
-                                    Sana:
+                                    Сана:
                                 </Grid>
                                 <Grid item xl={2} md={2} sm={2} xs={2} fontWeight={600}>
-                                    Summa:
+                                    Сумма:
                                 </Grid>
                                 <Grid item xl={5} md={5} sm={5} xs={5} fontWeight={600}>
-                                    Izoh:
+                                    Изоҳ:
                                 </Grid>
                                 <Grid item xl={2} md={2} sm={2} xs={2} fontWeight={600}>
-                                    Boshqaruv:
+                                    Бошқарув:
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
-                            <Grid container textAlign='center'>
-                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    01.17.2024
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    3 mln so'm
-                                </Grid>
-                                <Grid item xl={5} md={5} sm={5} xs={5}>
-                                    Lorem ipsum dolor sit amet.
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
-                                    <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
-                                            <EditIcon color='warning' />
-                                        </IconButton>
-                                        <IconButton aria-label="delete">
-                                            <DeleteIcon color='danger' />
-                                        </IconButton>
-                                    </Stack>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
-                            <Grid container textAlign='center'>
-                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    01.17.2024
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    3 mln so'm
-                                </Grid>
-                                <Grid item xl={5} md={5} sm={5} xs={5}>
-                                    Lorem ipsum dolor sit amet.
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
-                                    <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
-                                            <EditIcon color='warning' />
-                                        </IconButton>
-                                        <IconButton aria-label="delete">
-                                            <DeleteIcon color='danger' />
-                                        </IconButton>
-                                    </Stack>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
-                            <Grid container textAlign='center'>
-                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    01.17.2024
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    3 mln so'm
-                                </Grid>
-                                <Grid item xl={5} md={5} sm={5} xs={5}>
-                                    Lorem ipsum dolor sit amet.
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
-                                    <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
-                                            <EditIcon color='warning' />
-                                        </IconButton>
-                                        <IconButton aria-label="delete">
-                                            <DeleteIcon color='danger' />
-                                        </IconButton>
-                                    </Stack>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
-                            <Grid container textAlign='center'>
-                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    01.17.2024
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    3 mln so'm
-                                </Grid>
-                                <Grid item xl={5} md={5} sm={5} xs={5}>
-                                    Lorem ipsum dolor sit amet.
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
-                                    <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
-                                            <EditIcon color='warning' />
-                                        </IconButton>
-                                        <IconButton aria-label="delete">
-                                            <DeleteIcon color='danger' />
-                                        </IconButton>
-                                    </Stack>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
-                            <Grid container textAlign='center'>
-                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    01.17.2024
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    3 mln so'm
-                                </Grid>
-                                <Grid item xl={5} md={5} sm={5} xs={5}>
-                                    Lorem ipsum dolor sit amet.
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
-                                    <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
-                                            <EditIcon color='warning' />
-                                        </IconButton>
-                                        <IconButton aria-label="delete">
-                                            <DeleteIcon color='danger' />
-                                        </IconButton>
-                                    </Stack>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
-                            <Grid container textAlign='center'>
-                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    01.17.2024
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    3 mln so'm
-                                </Grid>
-                                <Grid item xl={5} md={5} sm={5} xs={5}>
-                                    Lorem ipsum dolor sit amet.
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
-                                    <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
-                                            <EditIcon color='warning' />
-                                        </IconButton>
-                                        <IconButton aria-label="delete">
-                                            <DeleteIcon color='danger' />
-                                        </IconButton>
-                                    </Stack>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item mt={2} borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
-                            <Grid container textAlign='center'>
-                                <Grid item xl={1} md={1} sm={1} xs={1}>1</Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    01.17.2024
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2}>
-                                    3 mln so'm
-                                </Grid>
-                                <Grid item xl={5} md={5} sm={5} xs={5}>
-                                    Lorem ipsum dolor sit amet.
-                                </Grid>
-                                <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
-                                    <Stack direction="row" spacing={1} mt='-7px'>
-                                        <IconButton onClick={() => setEditCost(true)} aria-label="delete">
-                                            <EditIcon color='warning' />
-                                        </IconButton>
-                                        <IconButton aria-label="delete">
-                                            <DeleteIcon color='danger' />
-                                        </IconButton>
-                                    </Stack>
-                                </Grid>
-                            </Grid>
-                        </Grid>
+                        {
+                            expenses.map((item, index) => {
+                                return (
+                                    <Grid key={index + 1} item mt={2} fontSize='13px'  borderBottom='solid 2px #ed744466' xl={12} md={12} sm={12} xs={12}>
+                                        <Grid container textAlign='center'>
+                                            <Grid item xl={1} md={1} sm={1} xs={1}>{index + 1}</Grid>
+                                            <Grid item xl={2} md={2} sm={2} xs={2}>
+                                                {item.date}
+                                            </Grid>
+                                            <Grid item xl={2} md={2} sm={2} xs={2}>
+                                                {currencyFormat(item.summa)} so'm
+                                            </Grid>
+                                            <Grid item xl={5} md={5} sm={5} xs={5}>
+                                                {item.comment}
+                                            </Grid>
+                                            <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
+                                                <Stack direction="row" spacing={1} mt='-7px'>
+                                                    <IconButton onClick={() => editClickButton(item.id)} aria-label="delete">
+                                                        <EditIcon color='warning' />
+                                                    </IconButton>
+                                                    <IconButton onClick={() => deleteExpenses(item.id)} aria-label="delete">
+                                                        <DeleteIcon color='danger' />
+                                                    </IconButton>
+                                                </Stack>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                )
+                            })
+                        }
                     </Grid>
                 </Grid> 
                 {
                     editCost ? <Grid item xl={6} md={6} sm={12} xs={12}>
-                    <Typography variant='h6' fontWeight={700}>Ilhom Farmonov</Typography>
-                    <Typography mt={2} variant='h6'>Xarajat ni tahrirlash</Typography>
+                    <Typography variant='h6' fontWeight={700}>Илҳом Фармонов</Typography>
+                    <Typography mt={2} variant='h6'>Харажат ни таҳрирлаш</Typography>
                     <Grid container spacing={3}>
                         <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl fullWidth>
-                                <Typography mt={2}>Bergan sanasi:</Typography>
-                                <input style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
+                                <Typography mt={2}>Берган санаси:</Typography>
+                                <input value={editDate} onChange={(e) => setEditDate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
                             </FormControl>
                         </Grid>
                         <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
-                                <Typography mt={2}>Summasi:</Typography>
-                                <input style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
+                                <Typography mt={2}>Суммаси:</Typography>
+                                <input value={editSumma} onChange={(e) => setEditSumma(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
                             </FormControl>
                         </Grid>
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
-                                <Typography mb={2}>Izoh:</Typography>
-                                <textarea name="" id="" cols="30" rows="7"></textarea>
+                                <Typography mb={2}>Изоҳ:</Typography>
+                                <textarea value={editComment} onChange={(e) => setEditComment(e.target.value)} name="" id="" cols="30" rows="7"></textarea>
                             </FormControl>
                         </Grid>
                     </Grid>
-                    <Button onClick={clickDay} sx={{mt: 2}} variant='contained' color='warning'>Tahrirlash</Button>
+                    <Button onClick={editHiredWorker} sx={{mt: 2}} variant='contained' color='warning'>Tahrirlash</Button>
                     <Button onClick={() => setEditCost(false)} sx={{mt: 2, ml: 2}} variant='contained' color='success'><ArrowBackIcon /></Button>
                 </Grid> :  <Grid item xl={6} md={6} sm={12} xs={12}>
-                    <Typography variant='h6' fontWeight={700}>Ilhom Farmonov</Typography>
-                    <Typography mt={2} variant='h6'>Xarajat qo'shish</Typography>
+                    <Typography variant='h6' fontWeight={700}>Илҳом Фармонов</Typography>
+                    <Typography mt={2} variant='h6'>Харажат қўшиш</Typography>
                     <Grid container spacing={3}>
                         <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl fullWidth>
-                                <Typography mt={2}>Bergan sanasi:</Typography>
-                                <input style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
+                                <Typography mt={2}>Берган санаси:</Typography>
+                                <input value={date} onChange={(e) => setDate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
                             </FormControl>
                         </Grid>
                         <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
-                                <Typography mt={2}>Summasi:</Typography>
-                                <input style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
+                                <Typography mt={2}>Суммаси:</Typography>
+                                <input value={summa} onChange={(e) => setSumma(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
                             </FormControl>
                         </Grid>
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
-                                <Typography mb={2}>Izoh:</Typography>
-                                <textarea name="" id="" cols="30" rows="7"></textarea>
+                                <Typography mb={2}>Изоҳ:</Typography>
+                                <textarea value={comment} onChange={(e) => setComment(e.target.value)} name="" id="" cols="30" rows="7"></textarea>
                             </FormControl>
                         </Grid>
                     </Grid>
-                    <Button onClick={clickDay} sx={{mt: 2}} variant='contained' color='warning'>Qo'shish</Button>
+                    <Button onClick={createHiredWorkerExpenses} sx={{mt: 2}} variant='contained' color='warning'>Қўшиш</Button>
                     <Button onClick={clickDay} sx={{mt: 2, ml: 2}} variant='contained' color='success'>Expert</Button>
                 </Grid>
                 }                   

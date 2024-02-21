@@ -22,11 +22,12 @@ function Objects() {
             setObject(res.data.data);
         })
     }, [])
+    
   return (
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Obyektlar</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Обектлар</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>

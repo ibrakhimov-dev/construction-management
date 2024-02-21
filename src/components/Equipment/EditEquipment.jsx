@@ -81,7 +81,7 @@ function EditEquipment() {
     <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
-                <Typography variant='h5' color='#fff' fontWeight='bold'>Uskunalar (umimiy malumot)</Typography>
+                <Typography variant='h5' color='#fff' fontWeight='bold'>Ускуналар (умимий малумот)</Typography>
             </Grid>
         </Grid>
         <Grid container p={3}>
@@ -89,11 +89,11 @@ function EditEquipment() {
                 <Grid container spacing={3}>
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
-                            <Typography>Uskuna Nomi:</Typography>
+                            <Typography>Ускуна Номи:</Typography>
                             <TextField value={toolsName} onChange={(e) => setToolsName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
-                            <Typography mt={2}>Obyekt:</Typography>
+                            <Typography mt={2}>Обект:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -112,13 +112,13 @@ function EditEquipment() {
                             </Select>
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Narxi:</Typography>
+                            <Typography mt={2}>Нархи:</Typography>
                             <TextField value={price} onChange={(e) => setPrice(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl  fullWidth>
-                            <Typography>Holati:</Typography>
+                            <Typography>Ҳолати:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
                                 labelId="demo-select-small-label"
@@ -127,19 +127,19 @@ function EditEquipment() {
                                 value={state}
                                 onChange={(e) => setState(e.target.value) }
                             >
-                                <MenuItem value="active">Ishlaydi</MenuItem>
-                                <MenuItem value="inactive">Ishlamaydi</MenuItem>
+                                <MenuItem value="active">Ишлайди</MenuItem>
+                                <MenuItem value="inactive">Ишламайди</MenuItem>
                             </Select>
                         </FormControl>
                         <FormControl fullWidth>
-                            <Typography mt={2}>Obyekt rasmini yuklang:</Typography>
+                            <Typography mt={2}>Обект расмини юкланг:</Typography>
                             <MuiFileInput color='warning' value={value} onChange={handleChange} />
                         </FormControl>
                             <Button onClick={uploadImg} sx={{height: '55px', mt: 5, mr:2}} size='large' variant='contained' color='success' endIcon={<CloudUploadIcon />}>
                                 Upload Img
                             </Button>
                             <Button onClick={editTools} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
-                                Tahrirlash
+                                Таҳрирлаш
                             </Button>  
                     </Grid>
                 </Grid>
