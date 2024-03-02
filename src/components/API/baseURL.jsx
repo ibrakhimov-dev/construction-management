@@ -1,4 +1,4 @@
-export const base_url = 'http://garant.jdu.uz';
+export const base_url = 'https://garant.jdu.uz';
 
 //! Auth 
 // login api

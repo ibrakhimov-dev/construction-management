@@ -1,4 +1,4 @@
-import { Paper, Stack, Grid, Typography, FormControl, Button,  IconButton } from '@mui/material';
+import { Paper, Stack, Grid, Typography, FormControl, Button,  IconButton, Select, MenuItem, TextField  } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -13,6 +13,8 @@ import axios from 'axios';
 import { useNavigate, } from 'react-router-dom';
 
 function AddHiredCost(props) {
+    const [currency, setCurrency] = useState('sum');
+    const [currencyRate, setCurrencyRate] = useState(1);
     const [editCost, setEditCost] = useState(false);
     const [expensesId, setExpensesId] = useState(null);
     const [isAgreeDelete, setIsAgreeDelete] = useState(false);
@@ -22,6 +24,8 @@ function AddHiredCost(props) {
     const [editComment, setEditComment] = useState('');
     const [editDate, setEditDate] = useState("");
     const [editSumma, setEditSumma] = useState(null);
+    const [editCurrency, setEditCurrency] = useState('sum');
+    const [editCurrencyRate, setEditCurrencyRate] = useState(1);
     const [expenses, setExpenses] = useState([]);
     const navigate = useNavigate();
     const token = localStorage.getItem('accessToken');
@@ -67,6 +71,8 @@ function AddHiredCost(props) {
                 date: date,
                 comment: comment, 
                 hired_worker_id: props.workerId,
+                currency: currency,
+                currency_rate: currencyRate,
              }, {headers}).then((res) => {
                  axios.get(hired_worker_expenses_api_url(props.workerId), {headers})
                  .then((res) => {
@@ -75,6 +81,8 @@ function AddHiredCost(props) {
                      setDate("");
                      setComment("");
                      setSumma(0);
+                     setCurrency('sum');
+                     setCurrencyRate(1);
                 })
              })
         }
@@ -89,6 +97,8 @@ function AddHiredCost(props) {
         setEditComment(currentExpenses[0].comment);
         setEditDate(currentExpenses[0].date);
         setEditSumma(currentExpenses[0].summa);
+        setEditCurrency(currentExpenses[0].currency);
+        setEditCurrencyRate(currentExpenses[0].currency_rate);
     }
 
     function editHiredWorker () {
@@ -97,6 +107,8 @@ function AddHiredCost(props) {
             date: editDate,
             comment: editComment, 
             hired_worker_id: props.workerId,
+            currency: editCurrency,
+            currency_rate: editCurrencyRate,
         }, {headers})
         .then((res) => {
             setEditCost(false);
@@ -107,6 +119,8 @@ function AddHiredCost(props) {
                  setDate("");
                  setComment("");
                  setSumma(0);
+                 setCurrency('sum');
+                 setCurrencyRate(1);
             })
         })
     }
@@ -123,7 +137,7 @@ function AddHiredCost(props) {
         justifyContent: 'center',
         alignItems: "center", 
         backgroundColor: '#000000c4'}}>
-        <Paper elevation={3} sx={{width: '80%', overflowY: 'scroll', height: '600px', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},  position: 'relative'}}>
+        <Paper elevation={3} sx={{width: '90%', overflowY: 'scroll', height: '600px', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},  position: 'relative'}}>
             <Button color='danger' onClick={() => props.closeModal()} sx={{position: 'absolute', right: '10px', top: '10px'}}><CloseIcon/></Button>
             <Grid container p={4} spacing={3}>             
                 <Grid item xl={6} md={6} sm={12} xs={12} sx={{overflowY: 'scroll', height: '400px', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
@@ -137,7 +151,13 @@ function AddHiredCost(props) {
                                 <Grid item xl={2} md={2} sm={2} xs={2} fontWeight={600}>
                                     Сумма:
                                 </Grid>
-                                <Grid item xl={5} md={5} sm={5} xs={5} fontWeight={600}>
+                                <Grid item xl={2} md={2} sm={2} xs={2} fontWeight={600}>
+                                    Валюта:
+                                </Grid>
+                                <Grid item xl={1} md={1} sm={1} xs={1} fontWeight={600}>
+                                    Kурси:
+                                </Grid>
+                                <Grid item xl={2} md={2} sm={2} xs={2} fontWeight={600}>
                                     Изоҳ:
                                 </Grid>
                                 <Grid item xl={2} md={2} sm={2} xs={2} fontWeight={600}>
@@ -155,9 +175,11 @@ function AddHiredCost(props) {
                                                 {item.date}
                                             </Grid>
                                             <Grid item xl={2} md={2} sm={2} xs={2}>
-                                                {currencyFormat(item.summa)} so'm
+                                                {currencyFormat(item.amount)} сўм
                                             </Grid>
-                                            <Grid item xl={5} md={5} sm={5} xs={5}>
+                                            <Grid item xl={2} md={2} sm={2} xs={2}>{item.currency === 'sum' ? "Cўм": "$"}</Grid>
+                                            <Grid item xl={1} md={1} sm={1} xs={1}>{item.currency_rate} сўм</Grid>
+                                            <Grid item xl={2} md={2} sm={2} xs={2}>
                                                 {item.comment}
                                             </Grid>
                                             <Grid item xl={2} md={2} sm={2} xs={2} display='flex' alignItems='center' justifyContent='center'>
@@ -187,11 +209,22 @@ function AddHiredCost(props) {
                                 <Typography mt={2}>Берган санаси:</Typography>
                                 <input value={editDate} onChange={(e) => setEditDate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
                             </FormControl>
+                            <FormControl fullWidth>
+                                <Typography mt={2}>Валюта:</Typography>
+                                <select style={{height: '40px', marginTop: '10px'}} value={currency} onChange={(e) => setCurrency(e.target.value)} name="" id="">
+                                    <option value="dollar">Usd</option>
+                                    <option value="sum">Сўм</option>
+                                </select>
+                            </FormControl>
                         </Grid>
                         <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
-                                <Typography mt={2}>Суммаси:</Typography>
+                                <Typography mt={2}>Суммаси: ({currency})</Typography>
                                 <input value={editSumma} onChange={(e) => setEditSumma(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
+                            </FormControl>
+                            <FormControl  fullWidth>
+                                <Typography mt={2}>Валюта курси (сўм):</Typography>
+                                <input value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
                             </FormControl>
                         </Grid>
                         <Grid item xl={12} md={12} sm={12} xs={12}>
@@ -212,11 +245,22 @@ function AddHiredCost(props) {
                                 <Typography mt={2}>Берган санаси:</Typography>
                                 <input value={date} onChange={(e) => setDate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
                             </FormControl>
+                            <FormControl fullWidth>
+                                <Typography mt={2}>Валюта:</Typography>
+                                <select style={{height: '40px', marginTop: '10px'}} value={currency} onChange={(e) => setCurrency(e.target.value)} name="" id="">
+                                    <option value="dollar">Usd</option>
+                                    <option value="sum">Сўм</option>
+                                </select>
+                            </FormControl>
                         </Grid>
                         <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
-                                <Typography mt={2}>Суммаси:</Typography>
+                                <Typography mt={2}>Суммаси: ({currency})</Typography>
                                 <input value={summa} onChange={(e) => setSumma(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
+                            </FormControl>
+                            <FormControl  fullWidth>
+                                <Typography mt={2}>Валюта курси (сўм):</Typography>
+                                <input value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
                             </FormControl>
                         </Grid>
                         <Grid item xl={12} md={12} sm={12} xs={12}>

@@ -29,6 +29,8 @@ function DailyExpensesTable(props) {
                     <ThComment>Изоҳ:</ThComment>
                     <ThMoney>Сана</ThMoney>
                     <ThComment>Сумма</ThComment>
+                    <ThMoney>Валюта:</ThMoney>
+                    <ThMoney>Валюта курси:</ThMoney>
                     <ThMoney>Бошқарув</ThMoney>
                 </TheadWrapper>
                 {
@@ -38,7 +40,9 @@ function DailyExpensesTable(props) {
                                 <TdId>{index + 1}</TdId>
                                 <TdComment>{item.comment}</TdComment>
                                 <TdMoney>{item.date}</TdMoney>
-                                <TdComment>{currencyFormat(+item.summa)} so'm</TdComment>
+                                <TdComment>{currencyFormat(+item.amount)} сўм</TdComment>
+                                <TdMoney>{item.currency === 'sum' ? "Cўм": "$"}</TdMoney>
+                                <TdMoney>{item.currency_rate} сўм</TdMoney>
                                 <TdMoney>
                                     <Stack direction="row" spacing={2}>
                                         <IconButton onClick={() => navigate('/home/edit-daily-expenses', {state: {id: item.id}})} aria-label="delete">
@@ -73,7 +77,7 @@ const TheadWrapper = styled.div`
     text-align: center;
 `
 const ThMoney = styled.div`
-    width: 15%;
+    width: 12%;
     background-color: #272d7b;
     padding: 10px 0;
     color: #fff;
@@ -81,7 +85,7 @@ const ThMoney = styled.div`
     border-left: solid 1px #fff;
 `
 const ThComment = styled.div`
-    width: 32.5%;
+    width: 23.5%;
     background-color: #272d7b;
     padding: 10px 0;
     color: #fff;
@@ -109,13 +113,13 @@ const TbodyWrapper = styled.div`
 `
 
 const TdMoney = styled.div`
-    width: 15%;
+    width: 12%;
     padding: 10px 5px;
     display: flex;
     justify-content: center;
 `
 const TdComment = styled.div`
-    width: 32.5%;
+    width: 23.5%;
     padding: 10px 5px;
     display: flex;
     justify-content: center;
