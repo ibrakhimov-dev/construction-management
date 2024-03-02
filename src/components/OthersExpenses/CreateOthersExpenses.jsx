@@ -30,13 +30,16 @@ function CreateOthersExpenses() {
     }
 
     function createOtherExpenses () {
-        console.log(date)
-        axios.post(create_others_expenses_api_url(), {summa: summa, date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, comment: comment,}, {headers})
-.then((res) => {
-            navigate('/home/others-expenses')
-        }).catch((err) => {
+        if (comment === "" || date === "" || summa === null) {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        }else {
+            axios.post(create_others_expenses_api_url(), {summa: summa, date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, comment: comment,}, {headers})
+            .then((res) => {
+                navigate('/home/others-expenses')
+            }).catch((err) => {
 
-        })
+            })
+        }
     }
 
   return (

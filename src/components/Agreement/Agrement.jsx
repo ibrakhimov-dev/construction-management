@@ -117,7 +117,7 @@ function Agreement() {
                                 </Grid>
                                 <Grid Item xl={3} md={3} sm={12} xs={12}>
                                     <Typography pt={1} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Summa:</Typography>
-                                    {currencyFormat(item.total_amount)} {item.currency}
+                                    {item.currency === 'sum' ? `${currencyFormat(item.total_amount)} ${item.currency}` : `$ ${currencyFormat(item.total_amount)}`}
                                 </Grid>
                                 <Grid item xl={3} md={3} sm={12} xs={12}>
                                     <Typography pt={1} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Detail:</Typography>

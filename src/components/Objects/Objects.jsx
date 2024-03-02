@@ -36,9 +36,10 @@ function Objects() {
                     {
                         object.map((item, index) => {
                             return (
-                                <Grid key={index + 1} item xl={3} md={6} sm={6} xs={12}>
+                                <Grid key={index + 1}  item xl={3} md={6} sm={6} xs={12}>
                                     <Card onClick = {() => navigate("/home/edit-object", {state: {id: item.id}})} sx={{
                                         borderRadius: '20px',
+                                        height: '400px',
                                         position: 'relative',
                                         border: '3px solid var(--border-base-surface, #FFF)',
                                         background: '#F5F5F5',
@@ -48,7 +49,8 @@ function Objects() {
                                         boxShadow: '0px 10px 10px -10px rgba(0,0,0,0.75)',
                                         },
                                     }}>
-                                        <img src="https://www.pngall.com/wp-content/uploads/2017/03/Gold-Medal-PNG-Images.png" style={{width: '40px', position: "absolute", top: '5px', right: '5px', zIndex: '111'}} alt="" />
+                                        <img src={`${item.state === 'finished' ? 'https://www.pngall.com/wp-content/uploads/2017/03/Gold-Medal-PNG-Images.png' :
+                                        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Circle-icons-hourglass.svg/2048px-Circle-icons-hourglass.svg.png'}`} style={{width: '40px', position: "absolute", top: '5px', right: '5px', zIndex: '111'}} alt="" />
                                         <CardContent sx={{height: '250px', padding: 0, overflow: 'hidden', '&:hover img': {transform: "scale(1.5)", transition: '0.5s'}}}>
                                             <img src={item.image_url} style={{width: '100%', height: '100%', objectFit: 'cover' }} alt={item.image_name} />
                                         </CardContent>
@@ -66,6 +68,7 @@ function Objects() {
                             border: '3px solid var(--border-base-surface, #FFF)',
                             background: '#ed744466',
                             cursor: 'pointer',
+                            height: '400px',
                             boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px -2px rgba(0, 0, 0, 0.04)',
                             padding: '14px',
                             '&:hover': {
@@ -73,7 +76,7 @@ function Objects() {
                             },
                         }}>
                             <CardContent sx={{height: '250px', padding: 0}}>
-                                <img src='https://play-lh.googleusercontent.com/qlIDfFiFKSeoawoihQlWv-BtnWrGphURKx3EfrnrqfO5toLDDvERs38E7AMqkX_euA' style={{width: '100%', height: '100%', objectFit: 'cover' }} alt='birnima'/>
+                                <img src='https://www.shareicon.net/download/2016/06/27/623904_add.ico' style={{width: '100%', height: '100%', objectFit: 'cover' }} alt='birnima'/>
                             </CardContent>
                             <CardContent>
                                 <Typography pt={1} fontWeight={600} textAlign='center' variant='h6'>Yangi Obyekt qo'shish</Typography>

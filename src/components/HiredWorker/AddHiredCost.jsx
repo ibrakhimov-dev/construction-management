@@ -59,21 +59,25 @@ function AddHiredCost(props) {
     }
 
     function createHiredWorkerExpenses () {
-        axios.post(create_hired_worker_expenses_api_url(), {
-            summa: summa,
-            date: date,
-            comment: comment, 
-            hired_worker_id: props.workerId,
-         }, {headers}).then((res) => {
-             axios.get(hired_worker_expenses_api_url(props.workerId), {headers})
-             .then((res) => {
-                 console.log(res.data.data);
-                 setExpenses(res.data.data);
-                 setDate("");
-                 setComment("");
-                 setSumma(0);
-            })
-         })
+        if (date === "" || comment === "") {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        } else {
+            axios.post(create_hired_worker_expenses_api_url(), {
+                summa: summa,
+                date: date,
+                comment: comment, 
+                hired_worker_id: props.workerId,
+             }, {headers}).then((res) => {
+                 axios.get(hired_worker_expenses_api_url(props.workerId), {headers})
+                 .then((res) => {
+                     console.log(res.data.data);
+                     setExpenses(res.data.data);
+                     setDate("");
+                     setComment("");
+                     setSumma(0);
+                })
+             })
+        }
     }
 
     function editClickButton (id) {

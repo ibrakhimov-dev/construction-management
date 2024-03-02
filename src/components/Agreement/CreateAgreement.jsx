@@ -27,13 +27,17 @@ function CreateAgreement() {
     }, [])
 
     function createAgreement () {
-        axios.post(create_contract_api_url(), {
-            "block": block ,
-            "currency" : moneyValue,
-            "project_id": object,
-        }, {headers}).then((res) => {
-            navigate("/home/agreement")
-        })
+        if (block === "" || moneyValue === "" || object === null) {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        } else {
+            axios.post(create_contract_api_url(), {
+                "block": block ,
+                "currency" : moneyValue,
+                "project_id": object,
+            }, {headers}).then((res) => {
+                navigate("/home/agreement")
+            })
+        }
 
     }
 

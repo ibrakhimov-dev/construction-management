@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
-import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button } from '@mui/material'
+import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button, Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import LinearProgress from '@mui/material/LinearProgress';
 import { base_url, create_tools_api_url, all_object_api_url, upload_img_url_api } from '../API/baseURL';
 import { MuiFileInput } from 'mui-file-input';
 import axios from 'axios';
 
 function CreateEquipment() {
+    const [upload, setUpload] = useState(false);
     const [object, setObject] = useState(null);
     const [allObject, setAllObject] = useState([]);
     const [imgUrl, setImgUrl] = useState("");
@@ -26,7 +27,19 @@ function CreateEquipment() {
     }
 
     const handleChange = (newValue) => {
-        setValue(newValue)
+        setValue(newValue) 
+        setUpload(true);      
+    }
+
+    if (upload) {
+        const formData = new FormData();
+        formData.append('image', value);
+        axios.post(upload_img_url_api(), formData, {headers})
+        .then((res) => {
+            setImgName(res.data.image_name);
+            setImgUrl(res.data.image_url)
+            setUpload(false)
+        })  
     }
 
     useEffect(() => {
@@ -36,28 +49,22 @@ function CreateEquipment() {
         })
     }, [])
 
-    function uploadImg () {
-        const formData = new FormData();
-        formData.append('image', value);
-        axios.post(upload_img_url_api(), formData, {headers})
-        .then((res) => {
-            setImgName(res.data.image_name);
-            setImgUrl(res.data.image_url)
-            
-        })
-    }
 
     function createTools () {
-        axios.post(create_tools_api_url(), {
-            "name": toolsName , 
-            "state": state,
-            "image_name": imgName,
-            "image_url": imgUrl,
-            "price": price,
-            "project_id": object
-        }, {headers}).then((res) => {
-            navigate('/home/equipment')
-        })
+        if (toolsName === "" || imgName === "" || imgUrl === "" || object === null) {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        }else {
+            axios.post(create_tools_api_url(), {
+                "name": toolsName , 
+                "state": state,
+                "image_name": imgName,
+                "image_url": imgUrl,
+                "price": price,
+                "project_id": object
+            }, {headers}).then((res) => {
+                navigate('/home/equipment')
+            })
+        }
     }   
 
   return (
@@ -118,9 +125,12 @@ function CreateEquipment() {
                             <Typography mt={2}>Обект расмини юкланг:</Typography>
                             <MuiFileInput color='warning' value={value} onChange={handleChange} />
                         </FormControl>
-                            <Button onClick={uploadImg} sx={{height: '55px', mt: 5, mr:2}} size='large' variant='contained' color='success' endIcon={<CloudUploadIcon />}>
-                                Upload Img
-                            </Button>  
+                        {
+                            upload ? 
+                            <Box mt={1} sx={{ width: '100%' }}>
+                                <LinearProgress color='warning' />
+                            </Box> : <></>
+                        }  
                             <Button onClick={createTools} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                                 Ускуна қўшиш
                             </Button>  

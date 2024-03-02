@@ -82,16 +82,16 @@ function DetailHomeSales () {
                 <Grid p={3} item xl={12} md={12} sm={12} xs={12}  sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
                     <Grid container>
                         <Grid item xl={6} md={4} sm={4} xs={12} display='flex' alignItems='center'>
-                            <Typography variant='h6'>Жами Сумма: {currencyFormat(home.total_amount)} сўм</Typography>
+                            <Typography fontWeight={600} variant='h6'>Жами Сумма: {currencyFormat(home.total_amount)} сўм</Typography>
                         </Grid>
                         <Grid item xl={6} md={8} sm={8} xs={12} display='flex' flexWrap='wrap' 
                         justifyContent={{xl: "flex-end", md: "flex-end", sm: "flex-end", xs: "center"}}  gap={1}>
                             <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
                                 Export
                             </Button>
-                            <Button onClick={deleteHomeSales} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='danger' endIcon={<DeleteIcon />}>
+                            {/* <Button onClick={deleteHomeSales} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='danger' endIcon={<DeleteIcon />}>
                                 Delete
-                            </Button>
+                            </Button> */}
                             <Button onClick={() => navigate('/home/add-expenses-sales', {state: {id_home: home.id}})} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                                 Харажат қўшиш
                             </Button>

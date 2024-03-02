@@ -40,6 +40,9 @@ import EditCarExpenses from './components/CarExpenses/EditCarExpenses';
 import OthersExpenses from './components/OthersExpenses/OtherExpenses';
 import CreateOthersExpenses from './components/OthersExpenses/CreateOthersExpenses';
 import EditOthersExpenses from './components/OthersExpenses/EditOthersExpenses';
+import DetailWorker from './components/Worker/DetailWorker';
+import DayOff from './components/Worker/DayOff';
+import Avans from './components/Worker/Avans';
 
 function App() {
   return (
@@ -59,7 +62,12 @@ function App() {
             <Route path='edit-cost' element={<EditCost />} />
             <Route path='detail-cost' element={<DetailCost />} />
             <Route path='worker' element={<Worker />} />
-            <Route path='edit-worker' element={<EditWorker />}/>
+            <Route path='detail-worker' element={<DetailWorker/>} >
+              <Route index element={<DayOff />} />
+              <Route path='day-off' element={<DayOff />} />
+              <Route path='edit-worker' element={<EditWorker />} />
+              <Route path='avans' element={<Avans />} />
+            </Route>
             <Route path='create-worker' element={<CreateWorker />} />
             <Route path='object' element={<Objects />} />
             <Route path='create-object' element={<CreateObject />} />

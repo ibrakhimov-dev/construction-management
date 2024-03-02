@@ -10,8 +10,8 @@ function OthersExpensesTable(props) {
 
     function currencyFormat(num) {
         let arrNum = [];
-        for (let i = num.toString().length; i >= 0 ; i = i - 3){
-            arrNum.unshift(num.toString().substring(i - 3, i));
+        for (let i = ("" + num).length; i >= 0 ; i = i - 3){
+            arrNum.unshift(("" + num).substring(i - 3, i));
         }
         return arrNum.join(" ");
      }
@@ -54,7 +54,7 @@ function OthersExpensesTable(props) {
                     })
                 }
                 <Stack mt={2}>
-                    <Typography variant='h6' fontWeight='bold'>Жами Сумма: {props.totalSumma} сўм</Typography>
+                    <Typography variant='h6' fontWeight='bold'>Жами Сумма: {currencyFormat(props.totalSumma)} сўм</Typography>
                 </Stack>
             </Stack>            
         </Grid>

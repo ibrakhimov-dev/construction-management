@@ -41,7 +41,7 @@ function IncomeTable(props) {
                                 <TbodyWrapper key={index + 1}>
                                     <TdId>{index + 1}</TdId>
                                     <TdObj>{item.project_name}</TdObj>
-                                    <TdMoney>{currencyFormat(item.summa)} {item.currency}</TdMoney>
+                                    <TdMoney>{item.currency === 'sum'? `${currencyFormat(item.summa)} so'm`: `${currencyFormat(item.amount)} so'm` }</TdMoney>
                                     <TdMoney>{item.date}</TdMoney>
                                     <TdComment>{item.comment}</TdComment>
                                     <TdMoney>

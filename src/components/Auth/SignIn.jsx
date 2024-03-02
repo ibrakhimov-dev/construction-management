@@ -18,17 +18,21 @@ function SignIn() {
     }
 
     function click () {
-        axios.post(login_api_url(), {
-            username: login,
-            password: parol
-        }, {headers})
-        .then((res) => {
-            console.log(res.data.token)
-            localStorage.setItem('accessToken', res.data.token)
-            navigate('/home');
-        }).catch((err) => {
-            console.log(err.message)
-        })
+        if (login === "" || parol === "") {
+            alert('Илтимос сўралган малумотларни тўлдиринг!')
+        }else {
+            axios.post(login_api_url(), {
+                username: login,
+                password: parol
+            }, {headers})
+            .then((res) => {
+                console.log(res.data.token)
+                localStorage.setItem('accessToken', res.data.token)
+                navigate('/home');
+            }).catch((err) => {
+                alert('Логин ёки парол хато!')
+            })
+        }
     }
   return (
     <Stack height='100vh'>

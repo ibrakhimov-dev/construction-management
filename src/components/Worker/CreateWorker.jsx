@@ -7,6 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
+import mt from 'dayjs/locale/mt';
 
 function CreateWorker() {
     const [paymentType, setPaymentType] = useState('Naxt')
@@ -47,7 +48,13 @@ function CreateWorker() {
                         <FormControl fullWidth>
                             <Typography mt={2}>Парол:</Typography>
                             <TextField id="outlined-basic" color='warning' variant="outlined" />
-                        </FormControl>
+                        </FormControl>      
+                    </Grid>
+                    <Grid xl={6} md={6} sm={12} xs={12} p={2}>
+                        <FormControl fullWidth>
+                            <Typography>Кунлик Иш Ҳақи:</Typography>
+                            <TextField id="outlined-basic" color='warning' type='number' variant="outlined" />
+                        </FormControl>  
                         <FormControl  fullWidth>
                             <Typography mt={2}>Обект:</Typography>
                             <Select
@@ -61,27 +68,12 @@ function CreateWorker() {
                                 <MenuItem value="Naxt">Obyekt 1</MenuItem>
                                 <MenuItem value="O'tqazma">Obyekt 2</MenuItem>
                             </Select>
-                        </FormControl>        
-                    </Grid>
-                    <Grid xl={6} md={6} sm={12} xs={12} p={2}>
+                        </FormControl>     
                         <FormControl fullWidth>
-                            <Typography>Телофон рақами:</Typography>
-                            <TextField id="outlined-basic" type='number' variant="outlined" />
+                            <Typography mt={2}>Телофон рақами:</Typography>
+                            <TextField sx={{mt: 1}} id="outlined-basic" label="+998" color='warning' type='number' variant="outlined" />
                         </FormControl>
-                        <FormControl fullWidth>
-                            <Typography mt={2}>Кунлик Иш Ҳақи:</Typography>
-                            <TextField id="outlined-basic" type='number' variant="outlined" />
-                        </FormControl>
-                        <FormControl fullWidth>
-                            <Typography mt={2}>Иш бошлаган санаси:</Typography>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DemoContainer components={['DatePicker']}>
-                                    <DatePicker label="Sana" />
-                                </DemoContainer>
-                            </LocalizationProvider>
-                        </FormControl>
-                                            
-                            <Button onClick={() => navigate('/home/worker')} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                            <Button onClick={() => navigate('/home/worker')} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                                 Ишчи қўшиш
                             </Button>               
                     </Grid>

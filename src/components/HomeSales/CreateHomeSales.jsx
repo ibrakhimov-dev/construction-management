@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { Grid, Stack, Typography, FormControl, TextField, Button } from '@mui/material'
+import { Grid, Stack, Typography, FormControl, TextField, Button, Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
+import LinearProgress from '@mui/material/LinearProgress';
 import { MuiFileInput } from 'mui-file-input';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import axios from 'axios';
 import { base_url, create_home_sales_api_url, upload_img_url_api } from '../API/baseURL';
 
@@ -14,6 +14,7 @@ function CreateHomeSales() {
     const [imgUrl, setImgUrl] = useState('');
     const [imageName, setImageName] = useState("");
     const navigate = useNavigate();
+    const [upload, setUpload] = useState(false);
     const token = localStorage.getItem('accessToken');
     const headers = {
         'Content-Type': 'multipart/form-data',
@@ -22,30 +23,36 @@ function CreateHomeSales() {
     }
 
     const handleChange = (newValue) => {
-        setValue(newValue)
+        setValue(newValue) 
+        setUpload(true);      
     }
 
-    function uploadImg () {
+    if (upload) {
         const formData = new FormData();
         formData.append('image', value);
         axios.post(upload_img_url_api(), formData, {headers})
         .then((res) => {
             setImageName(res.data.image_name);
             setImgUrl(res.data.image_url)
-            
-        })
+            setUpload(false)
+        })  
     }
 
+
     function createHomeSales () {
-        axios.post(create_home_sales_api_url(), {
-            name: name,
-            address: location,
-            image_name: imageName,
-            image_url: imgUrl,
-        }, {headers})
-        .then((res) => {
-            navigate('/home/home-sales')
-        })
+        if (name === "" || location === "" || imageName === "" || imgUrl === "" ) {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        } else {      
+            axios.post(create_home_sales_api_url(), {
+                name: name,
+                address: location,
+                image_name: imageName,
+                image_url: imgUrl,
+            }, {headers})
+            .then((res) => {
+                navigate('/home/home-sales')
+            })
+        }
     }
 
   return (
@@ -74,9 +81,12 @@ function CreateHomeSales() {
                             <Typography>Уй расмини юкланг:</Typography>
                             <MuiFileInput color='warning' value={value} onChange={handleChange} />
                         </FormControl> 
-                        <Button onClick={uploadImg} sx={{height: '55px', mt: 5, mr: 2}} size='large' variant='contained' color='success' endIcon={<CloudUploadIcon />}>
-                            Upload Img
-                        </Button>
+                        {
+                            upload ? 
+                            <Box mt={1} sx={{ width: '100%' }}>
+                                <LinearProgress color='warning' />
+                            </Box> : <></>
+                        }
                         <Button onClick={createHomeSales} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Уй қўшиш
                         </Button>               

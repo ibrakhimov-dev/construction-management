@@ -1,16 +1,17 @@
 import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { useState, useEffect} from 'react';
-import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button } from '@mui/material'
+import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button, Box } from '@mui/material'
+import LinearProgress from '@mui/material/LinearProgress';
 import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { MuiFileInput } from 'mui-file-input';
 import { base_url, upload_img_url_api, delete_img_api_url, edit_object_url_api, current_object_url_api, delete_object_api_url } from '../API/baseURL';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 function EditObject() {
+    const [upload, setUpload] = useState(false);
     const [status, setStatus] = useState('active');
     const [value, setValue] = React.useState(null)
     const [name, setName] = useState("");
@@ -26,17 +27,19 @@ function EditObject() {
     }
 
     const handleChange = (newValue) => {
-        setValue(newValue)   
+        setValue(newValue) 
+        setUpload(true);      
     }
 
-    function uploadImg () {
+    if (upload) {
         const formData = new FormData();
         formData.append('image', value);
         axios.post(upload_img_url_api(), formData, {headers})
         .then((res) => {
             setImageName(res.data.image_name);
-            setImgUrl(res.data.image_url)     
-        })
+            setImgUrl(res.data.image_url)
+            setUpload(false)
+        })  
     }
 
     useEffect (() => {
@@ -103,7 +106,7 @@ function EditObject() {
                                 value={status}
                                 onChange={(e) => setStatus(e.target.value) }
                             >
-                                <MenuItem value="finishing">Тугалланган</MenuItem>
+                                <MenuItem value="finished">Тугалланган</MenuItem>
                                 <MenuItem value="active">Тугалланмаган</MenuItem>
                             </Select>
                         </FormControl>
@@ -115,9 +118,12 @@ function EditObject() {
                             <Typography>Обект расмини юкланг:</Typography>
                             <MuiFileInput color='warning' value={value} onChange={handleChange} />
                         </FormControl>
-                        <Button onClick={uploadImg} sx={{height: '55px', mt: 5, mr: 2}} size='large' variant='contained' color='success' endIcon={<CloudUploadIcon />}>
-                            Upload Img
-                        </Button> 
+                        {
+                            upload ? 
+                            <Box mt={1} sx={{ width: '100%' }}>
+                                <LinearProgress color='warning' />
+                            </Box> : <></>
+                        }
                         <Button onClick={deleteObject} sx={{height: '55px', mt: 5, mr: 2}} size='large' variant='contained' color='danger' endIcon={<DeleteIcon />}>
                             Delete Object
                         </Button> 

@@ -43,17 +43,21 @@ function CreateIncome() {
     }
 
     function createIncome() {
-        axios.post(create_income_api_url(), {
-            "project_id": object,
-            "summa": summa,
-            "date": `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`,
-            "comment": comment,
-            "income_type": paymentType,
-            "currency": currency ,
-            "currency_rate": currencyRate
-        }, {headers}).then((res) => {
-            navigate('/home/income')
-        })
+        if (object === null || date === "" || comment === "") {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        } else {
+            axios.post(create_income_api_url(), {
+                "project_id": object,
+                "summa": summa,
+                "date": `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`,
+                "comment": comment,
+                "income_type": paymentType,
+                "currency": currency ,
+                "currency_rate": currencyRate
+            }, {headers}).then((res) => {
+                navigate('/home/income')
+            })
+        }
     }
 
   return (

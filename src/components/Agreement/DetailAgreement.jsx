@@ -103,20 +103,24 @@ function DetailAgreement() {
     }
 
     function createExpenses () {
-        axios.post(create_contract_expenses_api_url(), {
-            "price": summa,
-            "square": square,
-            "floor": floor ,
-            "contract_id": location.state.id
-        }, {headers}).then((res) => {
-            setFloor("");
-            setSquare(0);
-            setSumma(0);
-            axios.get(contract_expenses_api_url(location.state.id), {headers})
-            .then((res) => {
-                setCurrentExpenses(res.data.data);
+        if (floor === "") {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        } else {       
+            axios.post(create_contract_expenses_api_url(), {
+                "price": summa,
+                "square": square,
+                "floor": floor ,
+                "contract_id": location.state.id
+            }, {headers}).then((res) => {
+                setFloor("");
+                setSquare(0);
+                setSumma(0);
+                axios.get(contract_expenses_api_url(location.state.id), {headers})
+                .then((res) => {
+                    setCurrentExpenses(res.data.data);
+                })
             })
-        })
+        }
     }
 
   return (
@@ -147,6 +151,7 @@ function DetailAgreement() {
                                     <Typography mt={2}>O'lchov:</Typography>
                                     <TextField value={square} onChange={(e) => setSquare(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                                 </FormControl>
+                                <Button sx={{mt: 2, mr: 2}} variant='contained' color='success'>Export</Button>
                                 <Button onClick={createExpenses}  sx={{mt: 2}} variant='contained' color='warning'>Қўшиш</Button>
                             </Grid>
                         </Grid>
@@ -166,7 +171,7 @@ function DetailAgreement() {
                             <Grid item xl={6} md={6} sm={12} xs={12}>
                                 <FormControl fullWidth>
                                     <Typography mt={2}>Ўлчов:</Typography>
-                                    <TextField value={editSquare} onChange={(e) => setEditSquare(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                    <TextField value={editSquare} onChange={(e) => setEditSquare(e.target.value)} id="outlined-basic" color='warning' type='number' variant="outlined" />
                                 </FormControl>
                                 <Button onClick={editExpenses}  sx={{mt: 2}} variant='contained' color='warning'>Таҳрирлаш</Button>
                                 <Button onClick={closeEdit} sx={{mt: 2, ml: 2}} variant='contained' color='success'> <ArrowBackIcon /></Button>
@@ -174,8 +179,8 @@ function DetailAgreement() {
                         </Grid>
                     </>
                 }
-                <Typography mt={2} fontWeight={600}>Обектдаги барча келишувларни ўчириш:</Typography>
-                <Button onClick={deleteContract}  sx={{mt: 2}} variant='contained' color='danger'>Ўчириш</Button>
+                {/* <Typography mt={2} fontWeight={600}>Обектдаги барча келишувларни ўчириш:</Typography>
+                <Button onClick={deleteContract}  sx={{mt: 2}} variant='contained' color='danger'>Ўчириш</Button> */}
             </Grid>
         </Grid>
         <Grid container p={3} fontSize={14}>

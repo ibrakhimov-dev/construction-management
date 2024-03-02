@@ -28,14 +28,18 @@ function EditHiredWorker() {
     }, [])
 
     function createHiredWorker () {
-        axios.post(create_hired_worker_api_url(), {
-            name: fullName,
-            phone_number: phone,
-            comment: comment,
-            project_id: object,
-        }, {headers}).then((res) => {
-            navigate('/home/hired-worker')
-        })
+        if (fullName === "" || phone === "" || comment === "" || object === null){
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        }else {
+            axios.post(create_hired_worker_api_url(), {
+                name: fullName,
+                phone_number: phone,
+                comment: comment,
+                project_id: object,
+            }, {headers}).then((res) => {
+                navigate('/home/hired-worker')
+            })
+        }
     }
 
   return (

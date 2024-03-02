@@ -33,13 +33,17 @@ function AddExpensesHome() {
     }
 
     function addHomeSalesExpenses () {
-        axios.post(add_home_sales_expenses_api_url(), {house_trade_id: location.state.id_home, summa: summa, date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, comment: comment,}, {headers})
-        .then((res) => {
-            localStorage.setItem('home_id', location.state.id_home)
-            navigate('/home/detail-home-sales');
-        }).catch((err) => {
-
-        })
+        if (comment === "" || date === "" || summa === null) {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        } else {
+            axios.post(add_home_sales_expenses_api_url(), {house_trade_id: location.state.id_home, summa: summa, date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, comment: comment,}, {headers})
+            .then((res) => {
+                localStorage.setItem('home_id', location.state.id_home)
+                navigate('/home/detail-home-sales');
+            }).catch((err) => {
+    
+            })
+        }
     }
 
   return (

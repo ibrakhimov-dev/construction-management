@@ -33,11 +33,9 @@ function WorkerTable() {
                     <ThMoney>Лавозими:</ThMoney>
                     <ThMoney>Обект Номи:</ThMoney>
                     <ThMoney>Телефон:</ThMoney>
-                    <ThMoney>Иш ҳақи:</ThMoney>
-                    <ThMoney>Иш куни(старт):</ThMoney>
-                    <ThId>Дам:</ThId>
-                    <ThMoney>Иш ҳақи(жами):</ThMoney>
-                    <ThMoney>Аванс:</ThMoney>
+                    <ThMoney>Олган ҳақи:</ThMoney>
+                    <ThMoney>Берилган ҳақи:</ThMoney>
+                    <ThMoney>Қолган ҳақи:</ThMoney>
                     <ThMoney>Бошқарув:</ThMoney>
                 </TheadWrapper>
                 <TbodyWrapper>
@@ -54,215 +52,12 @@ function WorkerTable() {
                     <TdMoney>Brigadir</TdMoney>
                     <TdMoney>Cambridge</TdMoney>
                     <TdMoney>991234567</TdMoney>
-                    <TdMoney>150000</TdMoney>
-                    <TdMoney>10.01.2024</TdMoney>
-                    <TdId>
-                        <Typography sx={{fontSize: '13px'}}>1</Typography>
-                        <AddIcon onClick={() => setIsAgreeAddDayOff(true)} sx={{cursor: 'pointer', fontSize: '18px',}} color='danger' />
-                    </TdId>
-                    <TdMoney>1200000</TdMoney>
-                    <TdMoney>500000</TdMoney>
+                    <TdMoney>15000000</TdMoney>
+                    <TdMoney>12000000</TdMoney>
+                    <TdMoney>3000000</TdMoney>
                     <TdMoney>
                         <Stack direction="row" spacing={1}>
-                            <IconButton onClick={() => navigate('/home/edit-worker')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>
-                        <Checkbox
-                        checked={checked}
-                        color='success'
-                        onChange={handleChange}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                        />
-                    </TdId>
-                    <TdId>1</TdId>
-                    <TdComment>Jahongir Farmonov</TdComment>
-                    <TdMoney>Brigadir</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>150000</TdMoney>
-                    <TdMoney>10.01.2024</TdMoney>
-                    <TdId>
-                        <Typography sx={{fontSize: '13px'}}>1</Typography>
-                        <AddIcon sx={{cursor: 'pointer', fontSize: '18px'}} color='danger' />
-                    </TdId>
-                    <TdMoney>1200000</TdMoney>
-                    <TdMoney>500000</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row" spacing={1}>
-                            <IconButton onClick={() => navigate('/home/edit-worker')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>
-                        <Checkbox
-                        checked={checked}
-                        color='success'
-                        onChange={handleChange}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                        />
-                    </TdId>
-                    <TdId>1</TdId>
-                    <TdComment>Jahongir Farmonov</TdComment>
-                    <TdMoney>Brigadir</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>150000</TdMoney>
-                    <TdMoney>10.01.2024</TdMoney>
-                    <TdId>
-                        <Typography sx={{fontSize: '13px'}}>1</Typography>
-                        <AddIcon sx={{cursor: 'pointer', fontSize: '18px'}} color='danger' />
-                    </TdId>
-                    <TdMoney>1200000</TdMoney>
-                    <TdMoney>500000</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row" spacing={1}>
-                            <IconButton onClick={() => navigate('/home/edit-income')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>
-                        <Checkbox
-                        checked={checked}
-                        color='success'
-                        onChange={handleChange}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                        />
-                    </TdId>
-                    <TdId>1</TdId>
-                    <TdComment>Jahongir Farmonov</TdComment>
-                    <TdMoney>Brigadir</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>150000</TdMoney>
-                    <TdMoney>10.01.2024</TdMoney>
-                    <TdId>
-                        <Typography sx={{fontSize: '13px'}}>1</Typography>
-                        <AddIcon sx={{cursor: 'pointer', fontSize: '18px'}} color='danger' />
-                    </TdId>
-                    <TdMoney>1200000</TdMoney>
-                    <TdMoney>500000</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row" spacing={1}>
-                            <IconButton onClick={() => navigate('/home/edit-income')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>
-                        <Checkbox
-                        checked={checked}
-                        color='success'
-                        onChange={handleChange}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                        />
-                    </TdId>
-                    <TdId>1</TdId>
-                    <TdComment>Jahongir Farmonov</TdComment>
-                    <TdMoney>Brigadir</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>150000</TdMoney>
-                    <TdMoney>10.01.2024</TdMoney>
-                    <TdId>
-                        <Typography sx={{fontSize: '13px'}}>1</Typography>
-                        <AddIcon sx={{cursor: 'pointer', fontSize: '18px'}} color='danger' />
-                    </TdId>
-                    <TdMoney>1200000</TdMoney>
-                    <TdMoney>500000</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row" spacing={1}>
-                            <IconButton onClick={() => navigate('/home/edit-income')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>
-                        <Checkbox
-                        checked={checked}
-                        color='success'
-                        onChange={handleChange}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                        />
-                    </TdId>
-                    <TdId>1</TdId>
-                    <TdComment>Jahongir Farmonov</TdComment>
-                    <TdMoney>Brigadir</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>150000</TdMoney>
-                    <TdMoney>10.01.2024</TdMoney>
-                    <TdId>
-                        <Typography sx={{fontSize: '13px'}}>1</Typography>
-                        <AddIcon sx={{cursor: 'pointer', fontSize: '18px'}} color='danger' />
-                    </TdId>
-                    <TdMoney>1200000</TdMoney>
-                    <TdMoney>500000</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row" spacing={1}>
-                            <IconButton onClick={() => navigate('/home/edit-income')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>
-                        <Checkbox
-                        checked={checked}
-                        color='success'
-                        onChange={handleChange}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                        />
-                    </TdId>
-                    <TdId>1</TdId>
-                    <TdComment>Jahongir Farmonov</TdComment>
-                    <TdMoney>Brigadir</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>150000</TdMoney>
-                    <TdMoney>10.01.2024</TdMoney>
-                    <TdId>
-                        <Typography sx={{fontSize: '13px'}}>11</Typography>
-                        <AddIcon sx={{cursor: 'pointer', fontSize: '18px'}} color='danger' />
-                    </TdId>
-                    <TdMoney>1200000</TdMoney>
-                    <TdMoney>500000</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row" spacing={1}>
-                            <IconButton onClick={() => navigate('/home/edit-income')} aria-label="delete">
+                            <IconButton onClick={() => navigate('/home/detail-worker')} aria-label="delete">
                                 <EditIcon color='warning' />
                             </IconButton>
                             <IconButton aria-label="delete">
@@ -292,7 +87,7 @@ const TheadWrapper = styled.div`
     text-align: center;
 `
 const ThMoney = styled.div`
-    width: 9%;
+    width: 11%;
     background-color: #272d7b;
     padding: 10px 0;
     color: #fff;
@@ -328,7 +123,7 @@ const TbodyWrapper = styled.div`
 `
 
 const TdMoney = styled.div`
-    width: 9%;
+    width: 11%;
     padding: 10px 0;
     display: flex;
     justify-content: center;

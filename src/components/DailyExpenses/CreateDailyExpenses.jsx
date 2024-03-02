@@ -31,13 +31,16 @@ function CreateDailyExpenses() {
     }
 
     function createHouseExpenses () {
-        console.log(date)
-        axios.post(create_house_expenses_api_url(), {summa: summa, date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, comment: comment,}, {headers})
-        .then((res) => {
-            navigate('/home/daily-expenses')
-        }).catch((err) => {
-
-        })
+        if(summa === null || comment === "" || date === "") {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        } else {
+            axios.post(create_house_expenses_api_url(), {summa: summa, date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, comment: comment,}, {headers})
+            .then((res) => {
+                navigate('/home/daily-expenses')
+            }).catch((err) => {
+    
+            })
+        }
     }
 
   return (

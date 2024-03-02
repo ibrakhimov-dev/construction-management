@@ -51,6 +51,7 @@ function HomeSales() {
                                     <Card onClick = {() => navigate("/home/detail-home-sales", {state: {id: item.id}})} sx={{
                                         borderRadius: '20px',
                                         position: 'relative',
+                                        height: '460px',
                                         border: '3px solid var(--border-base-surface, #FFF)',
                                         background: '#F5F5F5',
                                         boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px -2px rgba(0, 0, 0, 0.04)',
@@ -96,6 +97,7 @@ function HomeSales() {
                             border: '3px solid var(--border-base-surface, #FFF)',
                             background: '#ed744466',
                             cursor: 'pointer',
+                            height: '460px',
                             boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px -2px rgba(0, 0, 0, 0.04)',
                             padding: '14px',
                             '&:hover': {
@@ -103,7 +105,7 @@ function HomeSales() {
                             },
                         }}>
                             <CardContent sx={{height: '250px', padding: 0}}>
-                                <img src='https://play-lh.googleusercontent.com/qlIDfFiFKSeoawoihQlWv-BtnWrGphURKx3EfrnrqfO5toLDDvERs38E7AMqkX_euA' style={{width: '100%', height: '100%', objectFit: 'cover' }} alt='birnima'/>
+                                <img src='https://icons.veryicon.com/png/o/miscellaneous/home-icon-1/house-add.png' style={{width: '100%', height: '100%', objectFit: 'cover' }} alt='birnima'/>
                             </CardContent>
                             <CardContent>
                                 <Typography pt={1} fontWeight={600} textAlign='center' variant='h6'>Uy qo'shish</Typography>

@@ -1,9 +1,10 @@
 import React from 'react'
-import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button } from '@mui/material'
+import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button, Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import { useState, useEffect } from 'react';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import LinearProgress from '@mui/material/LinearProgress';
 import { base_url, edit_tools_api_url, upload_img_url_api, current_tools_api_url, all_object_api_url } from '../API/baseURL';
 import { MuiFileInput } from 'mui-file-input';
 import { useLocation } from 'react-router-dom';
@@ -18,6 +19,7 @@ function EditEquipment() {
     const [price, setPrice] = useState(0);
     const [toolsName, setToolsName] = useState("");
     const navigate = useNavigate();
+    const [upload, setUpload] = useState(false);
     const location = useLocation();
     const [value, setValue] = React.useState(null)
     const token = localStorage.getItem('accessToken');
@@ -28,7 +30,19 @@ function EditEquipment() {
     }
 
     const handleChange = (newValue) => {
-        setValue(newValue)
+        setValue(newValue) 
+        setUpload(true);      
+    }
+
+    if (upload) {
+        const formData = new FormData();
+        formData.append('image', value);
+        axios.post(upload_img_url_api(), formData, {headers})
+        .then((res) => {
+            setImgName(res.data.image_name);
+            setImgUrl(res.data.image_url)
+            setUpload(false)
+        })  
     }
 
     useEffect(() => {
@@ -44,8 +58,11 @@ function EditEquipment() {
             // setObject(res.data.dat)
             setPrice(res.data.data.price);
             setState(res.data.data.state);
+            setObject(res.data.data.project_id)
             let file = new File([res.data.data.image_url.doc], res.data.data.image_name);
             setValue(file);
+            setImgUrl(res.data.data.image_url);
+            setImgName(res.data.data.image_name);
         })
     }, [])
 
@@ -135,9 +152,12 @@ function EditEquipment() {
                             <Typography mt={2}>Обект расмини юкланг:</Typography>
                             <MuiFileInput color='warning' value={value} onChange={handleChange} />
                         </FormControl>
-                            <Button onClick={uploadImg} sx={{height: '55px', mt: 5, mr:2}} size='large' variant='contained' color='success' endIcon={<CloudUploadIcon />}>
-                                Upload Img
-                            </Button>
+                        {
+                            upload ? 
+                            <Box mt={1} sx={{ width: '100%' }}>
+                                <LinearProgress color='warning' />
+                            </Box> : <></>
+                        }  
                             <Button onClick={editTools} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
                                 Таҳрирлаш
                             </Button>  

@@ -31,13 +31,16 @@ function CreateCarExpenses() {
     }
 
     function createCarExpenses () {
-        console.log(date)
-        axios.post(create_car_expenses_api_url(), {summa: summa, date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, comment: comment,}, {headers})
-        .then((res) => {
-            navigate('/home/car-expenses')
-        }).catch((err) => {
-
-        })
+        if (summa === null || comment === "" || date === "") {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        }else {
+            axios.post(create_car_expenses_api_url(), {summa: summa, date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, comment: comment,}, {headers})
+            .then((res) => {
+                navigate('/home/car-expenses')
+            }).catch((err) => {
+    
+            })
+        }
     }
 
   return (
