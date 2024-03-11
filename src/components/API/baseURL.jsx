@@ -1,8 +1,11 @@
-export const base_url = 'https://xisobot.garantstroy.uz';
+export const base_url = 'https://test.garantstroy.uz';
 
 //! Auth 
 // login api
 export const login_api_url = () => `${base_url}/api/login`;
+
+// all users
+export const all_user_api_url = () => `${base_url}/api/users`;
 
 //! Other Expenses 
 // other expenses api
@@ -198,3 +201,31 @@ export const current_income_api_url = (id) => `${base_url}/api/incomes/${id}`;
 
 // edit income api url
 export const edit_income_api_url = (id) => `${base_url}/api/incomes/${id}`;
+
+//! Expenses
+// create expenses api url
+export const create_expenses_api_url = () => `${base_url}/api/expenses`;
+
+// expenses api url
+export const expenses_api_url = () => `${base_url}/api/expenses`;
+
+// delete expenses api url
+export const delete_expenses_api_url = (id) => `${base_url}/api/expenses/${id}`;
+
+// current expenses api url
+export const current_expenses_api_url = (id) => `${base_url}/api/expenses/${id}`;
+
+// edit expenses api url
+export const edit_expenses_api_url = (id) => `${base_url}/api/expenses/${id}`;
+
+// expenses item api url
+export const expenses_item_api_url = (id) => `${base_url}/api/expense-items/?expense=${id}`;
+
+// expenses item create api url
+export const expenses_item_create_api_url = () => `${base_url}/api/expense-items`;
+
+// expenses item edit api url
+export const expenses_item_edit_api_url = (id) => `${base_url}/api/expense-items/${id}`;
+
+// expenses item delete api url 
+export const expenses_item_delete_api_url =(id) => `${base_url}/api/expense-items/${id}`;

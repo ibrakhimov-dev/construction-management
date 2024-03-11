@@ -6,9 +6,20 @@ import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useNavigate } from 'react-router-dom';
 
-function CostTable() {
+function CostTable(props) {
     const navigate = useNavigate();
 
+    function currencyFormat(num) {
+        let arrNum = [];
+        for (let i = ("" + num).length; i >= 0 ; i = i - 3){
+            arrNum.unshift(("" + num).substring(i - 3, i));
+        }
+        return arrNum.join(" ");
+     }
+
+    function deleteExpenses (id) {
+        props.deleteExpenses(id);
+    }
   return (
     <Grid container p={3}>
             <Grid item p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
@@ -26,158 +37,52 @@ function CostTable() {
                     <ThMoney>Сана:</ThMoney>
                     <ThMoney>Бошқарув:</ThMoney>
                 </TheadWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdMoney>Instrument</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>800 mln</TdMoney>
-                    <TdComment>Instrumentlar uchun</TdComment>
-                    <TdMoney>Naxt</TdMoney>
-                    <TdId>Usd</TdId>
-                    <TdMoney>12345</TdMoney>
-                    <TdMoney>18.01.2024</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row">
-                            <IconButton size='small' aria-label="delete">
-                                <RemoveRedEyeIcon sx={{fontSize: '22px'}} color='success' />
-                            </IconButton>
-                            <IconButton size='small' onClick={() => navigate('/home/edit-cost')} aria-label="delete">
-                                <EditIcon sx={{fontSize: '22px'}} color='warning' />
-                            </IconButton>
-                            <IconButton size='small' aria-label="delete">
-                                <DeleteIcon sx={{fontSize: '22px'}} color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdMoney>Instrument</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>800 mln</TdMoney>
-                    <TdComment>Instrumentlar uchun</TdComment>
-                    <TdMoney>Naxt</TdMoney>
-                    <TdId>Usd</TdId>
-                    <TdMoney>12345</TdMoney>
-                    <TdMoney>18.01.2024</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row">
-                            <IconButton size='small' aria-label="delete">
-                                <RemoveRedEyeIcon sx={{fontSize: '22px'}} color='success' />
-                            </IconButton>
-                            <IconButton size='small' onClick={() => navigate('/home/edit-cost')} aria-label="delete">
-                                <EditIcon sx={{fontSize: '22px'}} color='warning' />
-                            </IconButton>
-                            <IconButton size='small' aria-label="delete">
-                                <DeleteIcon sx={{fontSize: '22px'}} color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdMoney>Instrument</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>800 mln</TdMoney>
-                    <TdComment>Instrumentlar uchun</TdComment>
-                    <TdMoney>Naxt</TdMoney>
-                    <TdId>Usd</TdId>
-                    <TdMoney>12345</TdMoney>
-                    <TdMoney>18.01.2024</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row">
-                            <IconButton size='small' aria-label="delete">
-                                <RemoveRedEyeIcon sx={{fontSize: '22px'}} color='success' />
-                            </IconButton>
-                            <IconButton size='small' onClick={() => navigate('/home/edit-cost')} aria-label="delete">
-                                <EditIcon sx={{fontSize: '22px'}} color='warning' />
-                            </IconButton>
-                            <IconButton size='small' aria-label="delete">
-                                <DeleteIcon sx={{fontSize: '22px'}} color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdMoney>Instrument</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>800 mln</TdMoney>
-                    <TdComment>Instrumentlar uchun</TdComment>
-                    <TdMoney>Naxt</TdMoney>
-                    <TdId>Usd</TdId>
-                    <TdMoney>12345</TdMoney>
-                    <TdMoney>18.01.2024</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row">
-                            <IconButton size='small' aria-label="delete">
-                                <RemoveRedEyeIcon sx={{fontSize: '22px'}} color='success' />
-                            </IconButton>
-                            <IconButton size='small' onClick={() => navigate('/home/edit-cost')} aria-label="delete">
-                                <EditIcon sx={{fontSize: '22px'}} color='warning' />
-                            </IconButton>
-                            <IconButton size='small' aria-label="delete">
-                                <DeleteIcon sx={{fontSize: '22px'}} color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdMoney>Instrument</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>800 mln</TdMoney>
-                    <TdComment>Instrumentlar uchun</TdComment>
-                    <TdMoney>Naxt</TdMoney>
-                    <TdId>Usd</TdId>
-                    <TdMoney>12345</TdMoney>
-                    <TdMoney>18.01.2024</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row">
-                            <IconButton size='small' aria-label="delete">
-                                <RemoveRedEyeIcon sx={{fontSize: '22px'}} color='success' />
-                            </IconButton>
-                            <IconButton size='small' onClick={() => navigate('/home/edit-cost')} aria-label="delete">
-                                <EditIcon sx={{fontSize: '22px'}} color='warning' />
-                            </IconButton>
-                            <IconButton size='small' aria-label="delete">
-                                <DeleteIcon sx={{fontSize: '22px'}} color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <TbodyWrapper>
-                    <TdId>1</TdId>
-                    <TdMoney>Instrument</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdComment>Ilhom Farmonov</TdComment>
-                    <TdMoney>800 mln</TdMoney>
-                    <TdComment>Instrumentlar uchun</TdComment>
-                    <TdMoney>Naxt</TdMoney>
-                    <TdId>Usd</TdId>
-                    <TdMoney>12345</TdMoney>
-                    <TdMoney>18.01.2024</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row">
-                            <IconButton size='small' onClick={() => navigate('/home/detail-cost')} aria-label="delete">
-                                <RemoveRedEyeIcon sx={{fontSize: '22px'}} color='success' />
-                            </IconButton>
-                            <IconButton size='small' onClick={() => navigate('/home/edit-cost')} aria-label="delete">
-                                <EditIcon sx={{fontSize: '22px'}} color='warning' />
-                            </IconButton>
-                            <IconButton size='small' aria-label="delete">
-                                <DeleteIcon sx={{fontSize: '22px'}} color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
+                {
+                    props.ExpensesData?.map((item, index) => {
+                        return (
+                            <TbodyWrapper key={index + 1}>
+                                <TdId>{index + 1}</TdId>
+                                <TdMoney>
+                                    {
+                                        item.category === 'salary'? 'Иш ҳақи' : item.category === 'tool'? "Ускуна" :
+                                        item.category === "food"? 'Озиқ-овқат' : "Бошқа харажатлар"
+                                    }
+                                </TdMoney>
+                                <TdMoney>{item.project_name}</TdMoney>
+                                <TdComment>{item.user_name}</TdComment>
+                                <TdMoney>{currencyFormat(item.amount)} сўм</TdMoney>
+                                <TdComment>{item.comment}</TdComment>
+                                <TdMoney>
+                                    {
+                                        item.expense_type === 'cash'? "Нахт" : "Ўтқазма"
+                                    }
+                                </TdMoney>
+                                <TdId>
+                                    {
+                                        item.currency === 'dollar'? "$" : "сўм"
+                                    }
+                                </TdId>
+                                <TdMoney>{item.currency_rate}</TdMoney>
+                                <TdMoney>{item.date}</TdMoney>
+                                <TdMoney>
+                                    <Stack direction="row">
+                                        <IconButton size='small' onClick={() => navigate('/home/detail-cost', {state: {id: item.id}})} aria-label="delete">
+                                            <RemoveRedEyeIcon sx={{fontSize: '22px'}} color='success' />
+                                        </IconButton>
+                                        <IconButton size='small' onClick={() => navigate('/home/edit-cost', {state: {id: item.id}})} aria-label="delete">
+                                            <EditIcon sx={{fontSize: '22px'}} color='warning' />
+                                        </IconButton>
+                                        <IconButton size='small' onClick={() => deleteExpenses(item.id)}  aria-label="delete">
+                                            <DeleteIcon sx={{fontSize: '22px'}} color='danger' />
+                                        </IconButton>
+                                    </Stack>
+                                </TdMoney>
+                            </TbodyWrapper>
+                        )
+                    })
+                }
                 <Stack mt={2}>
-                    <Typography variant='h6' fontWeight='bold'>Жами Сумма: 3 млд сўм</Typography>
+                    <Typography variant='h6' fontWeight='bold'>Жами Сумма: {currencyFormat(props.totalSumma)}сўм</Typography>
                 </Stack>
                </Stack>
             </Grid>

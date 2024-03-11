@@ -49,7 +49,7 @@ function OthersExpenses() {
             setTotalSumma(res.data.totalAmount)
             setCountPage(res.data.data.last_page);
             setPage(res.data.data.current_page);
-            defoultPage(res.data.data.current_page);
+            setDefoultPage(res.data.data.current_page);
         }).catch((err) => {
             console.log(err)
         })
@@ -136,4 +136,4 @@ function OthersExpenses() {
   )
 }
 
-export default OthersExpenses;
+export default OthersExpenses; 

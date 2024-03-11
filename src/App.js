@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, BrowserRouter, HashRouter, Routes } from 'react-router-dom';
 import { themeOptions } from './style/Variables';
 import SignIn from './components/Auth/SignIn';
 import Sidebar from './components/Sidebar/Sidebar';
