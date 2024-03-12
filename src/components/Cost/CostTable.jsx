@@ -66,7 +66,7 @@ function CostTable(props) {
                                 <TdMoney>{item.date}</TdMoney>
                                 <TdMoney>
                                     <Stack direction="row">
-                                        <IconButton size='small' onClick={() => navigate('/home/detail-cost', {state: {id: item.id}})} aria-label="delete">
+                                        <IconButton size='small' onClick={() => navigate('/home/detail-cost', {state: {id: item.id, summa: item.amount, name: item.user_name}})} aria-label="delete">
                                             <RemoveRedEyeIcon sx={{fontSize: '22px'}} color='success' />
                                         </IconButton>
                                         <IconButton size='small' onClick={() => navigate('/home/edit-cost', {state: {id: item.id}})} aria-label="delete">

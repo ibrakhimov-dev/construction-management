@@ -4,9 +4,6 @@ export const base_url = 'https://test.garantstroy.uz';
 // login api
 export const login_api_url = () => `${base_url}/api/login`;
 
-// all users
-export const all_user_api_url = () => `${base_url}/api/users`;
-
 //! Other Expenses 
 // other expenses api
 export const others_expenses_api_url = () => `${base_url}/api/filter/other-expenses`;
@@ -219,7 +216,7 @@ export const current_expenses_api_url = (id) => `${base_url}/api/expenses/${id}`
 export const edit_expenses_api_url = (id) => `${base_url}/api/expenses/${id}`;
 
 // expenses item api url
-export const expenses_item_api_url = (id) => `${base_url}/api/expense-items/?expense=${id}`;
+export const expenses_item_api_url = () => `${base_url}/api/expense-items`;
 
 // expenses item create api url
 export const expenses_item_create_api_url = () => `${base_url}/api/expense-items`;
@@ -229,3 +226,19 @@ export const expenses_item_edit_api_url = (id) => `${base_url}/api/expense-items
 
 // expenses item delete api url 
 export const expenses_item_delete_api_url =(id) => `${base_url}/api/expense-items/${id}`;
+
+//! Users
+// all users api url
+export const all_user_api_url = () => `${base_url}/api/users`;
+
+// current user api url
+export const current_user_api_url = (id) => `${base_url}/api/users/${id}`;
+
+// create user api url
+export const create_user_api_url = () => `${base_url}/api/users`;
+
+// edit user api url
+export const edit_user_api_url = (id) => `${base_url}/api/users/${id}`;
+
+// delete user api url
+export const delete_user_api_url = (id) => `${base_url}/api/users/${id}`;

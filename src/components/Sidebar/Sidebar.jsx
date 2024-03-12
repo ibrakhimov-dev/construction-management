@@ -1,5 +1,6 @@
 import { Box, Grid, Stack, List, Divider } from '@mui/material'
 import ListItem from '@mui/material/ListItem';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -132,6 +133,14 @@ function Sidebar() {
                     <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Бошқа Харажатлар" />
                   </ListItemButton>
                 </ListItem>
+                <ListItem onClick={() => navigate('users')}  sx={{mt: '20px', '&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <AccountCircleIcon />
+                    </ListItemIcon>
+                    <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Фойдаланувчилар" />
+                  </ListItemButton>
+                </ListItem>
               </List>
             </nav>
           </Box>
@@ -169,6 +178,7 @@ function Sidebar() {
             <BottomNavigationAction onClick={() => navigate('daily-expenses')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<AddHomeIcon />} />
             <BottomNavigationAction onClick={() => navigate('car-expenses')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<DirectionsCarIcon />} />
             <BottomNavigationAction onClick={() => navigate('others-expenses')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<CurrencyExchangeIcon />} />
+            <BottomNavigationAction onClick={() => navigate('users')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<AccountCircleIcon />} />
           </BottomNavigation>
         </Grid>
       </Grid>

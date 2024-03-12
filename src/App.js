@@ -1,6 +1,7 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Route, BrowserRouter, HashRouter, Routes } from 'react-router-dom';
 import { themeOptions } from './style/Variables';
+import User from './components/Users/Users';
 import SignIn from './components/Auth/SignIn';
 import Sidebar from './components/Sidebar/Sidebar';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -54,6 +55,7 @@ function App() {
           <Route path='home' element={<Sidebar />}>
             <Route index element={<Dashboard />} />
             <Route path='dashboard' element={<Dashboard />} />
+            <Route path='users' element={<User />} />
             <Route path='income' element={<Income />} />
             <Route path='create-income' element={<CreateIncome />} />
             <Route path='edit-income' element={<EditIncome />} />
