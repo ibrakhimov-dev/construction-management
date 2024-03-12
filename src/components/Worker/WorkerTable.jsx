@@ -1,28 +1,32 @@
-import { Grid, Stack, IconButton, Checkbox, Typography } from '@mui/material'
+import { Grid, Stack, IconButton, Checkbox} from '@mui/material'
 import styled from 'styled-components'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import React, { useState } from 'react'
-import AddIcon from '@mui/icons-material/Add';
+import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import AddDayOff from './AddDayOff';
 
-function WorkerTable() {
+function WorkerTable(props) {
     const navigate = useNavigate();
-    const [isAgreeAddDayOff, setIsAgreeAddDayOff] = useState(false);
     const [checked, setChecked] = React.useState(true);
 
-    function changeDayOff () {
-        setIsAgreeAddDayOff(false);
-    }
     const handleChange = (event) => {
       setChecked(event.target.checked);
     };
+
+    function currencyFormat(num) {
+        let arrNum = [];
+        for (let i = ("" + num).length; i >= 0 ; i = i - 3){
+            arrNum.unshift(("" + num).substring(i - 3, i));
+        }
+        return arrNum.join(" ");
+     }
+
+    function deleteWorker (id) {
+        props.deleteWorker(id);
+    }
+
   return (
     <Stack>
-        {
-            isAgreeAddDayOff ? <AddDayOff closeModal = {changeDayOff} /> : <></>
-        }
         <Grid container p={3}>
         <Grid item p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
             <Stack sx={{ minWidth: '1190px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
@@ -33,42 +37,44 @@ function WorkerTable() {
                     <ThMoney>Лавозими:</ThMoney>
                     <ThMoney>Обект Номи:</ThMoney>
                     <ThMoney>Телефон:</ThMoney>
-                    <ThMoney>Олган ҳақи:</ThMoney>
-                    <ThMoney>Берилган ҳақи:</ThMoney>
-                    <ThMoney>Қолган ҳақи:</ThMoney>
+                    <ThMoney>Иш ҳақи (кунлик)</ThMoney>
                     <ThMoney>Бошқарув:</ThMoney>
                 </TheadWrapper>
-                <TbodyWrapper>
-                    <TdId>
-                        <Checkbox
-                        checked={checked}
-                        color='success'
-                        onChange={handleChange}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                        />
-                    </TdId>
-                    <TdId>1</TdId>
-                    <TdComment>Jahongir Farmonov</TdComment>
-                    <TdMoney>Brigadir</TdMoney>
-                    <TdMoney>Cambridge</TdMoney>
-                    <TdMoney>991234567</TdMoney>
-                    <TdMoney>15000000</TdMoney>
-                    <TdMoney>12000000</TdMoney>
-                    <TdMoney>3000000</TdMoney>
-                    <TdMoney>
-                        <Stack direction="row" spacing={1}>
-                            <IconButton onClick={() => navigate('/home/detail-worker')} aria-label="delete">
-                                <EditIcon color='warning' />
-                            </IconButton>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon color='danger' />
-                            </IconButton>
-                        </Stack>
-                    </TdMoney>
-                </TbodyWrapper>
-                <Stack mt={2}>
-                    <Typography variant='h6' fontWeight='bold'>Жами Иш ҳақи: 3 млд сўм</Typography>
-                </Stack>
+                {
+                    props.workerData.map((item, index) => {
+                        return(
+                            <TbodyWrapper key={index + 1}>
+                                <TdId>
+                                    <Checkbox
+                                    checked={checked}
+                                    color='success'
+                                    onChange={handleChange}
+                                    inputProps={{ 'aria-label': 'controlled' }}
+                                    />
+                                </TdId>
+                                <TdId>{index + 1}</TdId>
+                                <TdComment>{item.name}</TdComment>
+                                <TdMoney>{item.position === 'brigadier' ? 'Бригадир': 
+                                item.position === 'master' ? 'Мастер' :
+                                item.position === 'fitter' ? 'Тўқувчи(Чилангар)' :
+                                item.position === 'form_worker' ? 'Опалубщик' : "Оддий ишчи"}</TdMoney>
+                                <TdMoney>{item.project_name}</TdMoney>
+                                <TdMoney>{item.phone_number}</TdMoney>
+                                <TdMoney>{currencyFormat(item.salary_rate)} сўм</TdMoney>
+                                <TdMoney>
+                                    <Stack direction="row" spacing={1}>
+                                        <IconButton onClick={() => navigate('/home/detail-worker', {state: {id: item.id}})} aria-label="delete">
+                                            <EditIcon color='warning' />
+                                        </IconButton>
+                                        <IconButton onClick={() => deleteWorker(item.id)} aria-label="delete">
+                                            <DeleteIcon color='danger' />
+                                        </IconButton>
+                                    </Stack>
+                                </TdMoney>
+                            </TbodyWrapper>
+                        )
+                    })
+                }
             </Stack>
         </Grid>
         </Grid>
@@ -87,7 +93,7 @@ const TheadWrapper = styled.div`
     text-align: center;
 `
 const ThMoney = styled.div`
-    width: 11%;
+    width: 15%;
     background-color: #272d7b;
     padding: 10px 0;
     color: #fff;
@@ -95,7 +101,7 @@ const ThMoney = styled.div`
     border-left: solid 1px #fff;
 `
 const ThComment = styled.div`
-    width: 13%;
+    width: 15%;
     background-color: #272d7b;
     padding: 10px 0;
     color: #fff;
@@ -123,13 +129,13 @@ const TbodyWrapper = styled.div`
 `
 
 const TdMoney = styled.div`
-    width: 11%;
+    width: 15%;
     padding: 10px 0;
     display: flex;
     justify-content: center;
 `
 const TdComment = styled.div`
-    width: 13%;
+    width: 15%;
     padding: 10px 0;
     display: flex;
     justify-content: center;

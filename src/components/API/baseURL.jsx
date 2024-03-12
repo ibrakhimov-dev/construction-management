@@ -4,6 +4,9 @@ export const base_url = 'https://test.garantstroy.uz';
 // login api
 export const login_api_url = () => `${base_url}/api/login`;
 
+// role api url
+export const role_api_url = () => `${base_url}/api/get-user`;
+
 //! Other Expenses 
 // other expenses api
 export const others_expenses_api_url = () => `${base_url}/api/filter/other-expenses`;
@@ -242,3 +245,13 @@ export const edit_user_api_url = (id) => `${base_url}/api/users/${id}`;
 
 // delete user api url
 export const delete_user_api_url = (id) => `${base_url}/api/users/${id}`;
+
+//! Worker
+// create worker api url
+export const create_worker_api_url = () => `${base_url}/api/workers`;
+
+// worker api url
+export const worker_api_url = () => `${base_url}/api/workers`;
+
+// delete worker api url
+export const delete_worker_api_url = (id) => `${base_url}/api/workers/${id}`

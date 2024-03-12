@@ -5,9 +5,19 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useNavigate } from 'react-router-dom';
+import { base_url, role_api_url } from '../API/baseURL';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function CostTable(props) {
     const navigate = useNavigate();
+    const [role, setRole] = useState('admin');
+    const token = localStorage.getItem('accessToken');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : `Bearer ${token}`,
+        "Access-Control-Allow-Origin": base_url
+    }
 
     function currencyFormat(num) {
         let arrNum = [];
@@ -20,6 +30,15 @@ function CostTable(props) {
     function deleteExpenses (id) {
         props.deleteExpenses(id);
     }
+
+    useEffect(() => {
+        axios.get(role_api_url(), {headers})
+        .then((res) => {
+          console.log(res.data)
+          setRole(res.data.role_user)
+        })
+      }, [])
+
   return (
     <Grid container p={3}>
             <Grid item p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
@@ -69,12 +88,16 @@ function CostTable(props) {
                                         <IconButton size='small' onClick={() => navigate('/home/detail-cost', {state: {id: item.id, summa: item.amount, name: item.user_name}})} aria-label="delete">
                                             <RemoveRedEyeIcon sx={{fontSize: '22px'}} color='success' />
                                         </IconButton>
-                                        <IconButton size='small' onClick={() => navigate('/home/edit-cost', {state: {id: item.id}})} aria-label="delete">
-                                            <EditIcon sx={{fontSize: '22px'}} color='warning' />
-                                        </IconButton>
-                                        <IconButton size='small' onClick={() => deleteExpenses(item.id)}  aria-label="delete">
-                                            <DeleteIcon sx={{fontSize: '22px'}} color='danger' />
-                                        </IconButton>
+                                        {
+                                            role === 'admin' ? <>
+                                                <IconButton size='small' onClick={() => navigate('/home/edit-cost', {state: {id: item.id}})} aria-label="delete">
+                                                    <EditIcon sx={{fontSize: '22px'}} color='warning' />
+                                                </IconButton>
+                                                <IconButton size='small' onClick={() => deleteExpenses(item.id)}  aria-label="delete">
+                                                    <DeleteIcon sx={{fontSize: '22px'}} color='danger' />
+                                                </IconButton>
+                                            </>: <></>
+                                        }
                                     </Stack>
                                 </TdMoney>
                             </TbodyWrapper>

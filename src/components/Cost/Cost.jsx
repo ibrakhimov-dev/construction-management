@@ -9,9 +9,10 @@ import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
 import { useNavigate } from 'react-router-dom';
 import CostTable from './CostTable';
 import axios from 'axios';
-import { base_url, all_user_api_url, all_object_api_url, delete_expenses_api_url, expenses_api_url } from '../API/baseURL';
+import { base_url, all_user_api_url, all_object_api_url, delete_expenses_api_url, expenses_api_url, role_api_url } from '../API/baseURL';
 
 function Cost() {
+    const [role, setRole] = useState('admin');
     const [objectSelect, setObjectSelect] = useState("");
     const [allUser, setAllUser] = useState([]);
     const [category, setCategory] = useState("");
@@ -75,6 +76,12 @@ function Cost() {
         .then((res) => {
             setAllUser(res.data.data)
         })
+
+        axios.get(role_api_url(), {headers})
+        .then((res) => {
+        console.log(res.data)
+        setRole(res.data.role_user)
+        })
     }, [page, objectSelect, category, currentUser, startDate, endDate, isAgreeDelete])
 
     function deleteExpenses (id) {
@@ -82,7 +89,7 @@ function Cost() {
         setIsAgreeDelete(true);
         setTimeout(() => {
             setIsAgreeDelete(false)
-        }, 2500)
+        }, 2000)
     }
 
   return (
@@ -114,7 +121,7 @@ function Cost() {
                         </FormControl>
                     </Grid>
                     <Grid item xl={2} md={4} sm={4} xs={12}>
-                    <FormControl  fullWidth>
+                        <FormControl  fullWidth>
                             <Typography>Обект:</Typography>
                             <Select
                                 labelId="demo-simple-select-label"
@@ -170,9 +177,11 @@ function Cost() {
                         <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
                             Export
                         </Button>
-                        <Button onClick={() => navigate('/home/create-cost')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                        {
+                            role === 'admin' ? <Button onClick={() => navigate('/home/create-cost')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Харажат қўшиш
-                        </Button>
+                            </Button> : <></>
+                        }
                     </Grid>
                 </Grid>
             </Grid>
