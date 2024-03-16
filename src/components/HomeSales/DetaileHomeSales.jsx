@@ -10,7 +10,7 @@ import { base_url,
     detail_home_sales_api_url, 
     home_sales_expenses_api_url, 
     delete_home_sales_expenses_api_url,
-    delete_home_sales_api_url } from "../API/baseURL";
+    delete_home_sales_api_url, } from "../API/baseURL";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -29,9 +29,6 @@ function DetailHomeSales () {
         "Access-Control-Allow-Origin": base_url
     }
     
-    console.log(homeId)
-    console.log(location.state?.id)
-
     useEffect (() => {
         axios.get(detail_home_sales_api_url(location.state?.id === undefined ? homeId : location.state?.id), {headers})
         .then((res) => {
@@ -39,16 +36,12 @@ function DetailHomeSales () {
         })
         axios.get(home_sales_expenses_api_url(location.state?.id === undefined ? homeId : location.state?.id), {headers})
         .then((res) => {
-            console.log(res.data)
             setHomeExpenses(res.data.data);
         })
     }, [isAgreeDelete])
 
-    function deleteHomeSales () {
-        axios.delete(delete_home_sales_api_url(location.state?.id === undefined ? homeId : location.state?.id), {headers})
-        .then((res) => {
-            navigate("/home/home-sales")
-        })
+    function editHomeSales () {
+        navigate("/home/edit-house-trades", {state: {id: location.state?.id === undefined ? homeId : location.state?.id}})
     }
 
     function currencyFormat(num) {
@@ -86,12 +79,12 @@ function DetailHomeSales () {
                         </Grid>
                         <Grid item xl={6} md={8} sm={8} xs={12} display='flex' flexWrap='wrap' 
                         justifyContent={{xl: "flex-end", md: "flex-end", sm: "flex-end", xs: "center"}}  gap={1}>
-                            <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
+                            <a href={`${base_url}/api/trade-expenses/export/${homeId}`} download={`${base_url}/api/trade-expenses/export/${homeId}`}><Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
                                 Export
-                            </Button>
-                            {/* <Button onClick={deleteHomeSales} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='danger' endIcon={<DeleteIcon />}>
-                                Delete
-                            </Button> */}
+                            </Button></a>
+                            <Button onClick={editHomeSales} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
+                                Таҳрирлаш
+                            </Button> 
                             <Button onClick={() => navigate('/home/add-expenses-sales', {state: {id_home: home.id}})} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                                 Харажат қўшиш
                             </Button>

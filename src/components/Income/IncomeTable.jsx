@@ -41,14 +41,16 @@ function IncomeTable(props) {
                                 <TbodyWrapper key={index + 1}>
                                     <TdId>{index + 1}</TdId>
                                     <TdObj>{item.project_name}</TdObj>
-                                    <TdMoney>{item.currency === 'sum'? `${currencyFormat(item.summa)} so'm`: `${currencyFormat(item.amount)} so'm` }</TdMoney>
+                                    <TdMoney>{item.currency === 'sum'? `${currencyFormat(item.summa)} so'm`: `${currencyFormat(item.summa)} $` }</TdMoney>
                                     <TdMoney>{item.date}</TdMoney>
                                     <TdComment>{item.comment}</TdComment>
                                     <TdMoney>
                                         {item.income_type === 'cash' ? `Naxt` : "O'tqazma"}
                                     </TdMoney>
                                     <TdMoney>
-                                        {item.currency}
+                                    {
+                                        item.currency === 'dollar'? "$" : "сўм"
+                                    }
                                     </TdMoney>
                                     <TdMoney>{item.currency_rate} so'm</TdMoney>
                                     <TdMoney>

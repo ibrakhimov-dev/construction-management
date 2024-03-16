@@ -6,7 +6,12 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { MuiFileInput } from 'mui-file-input';
-import { base_url, upload_img_url_api, delete_img_api_url, edit_object_url_api, current_object_url_api, delete_object_api_url } from '../API/baseURL';
+import { base_url, 
+    upload_img_url_api, 
+    delete_img_api_url, 
+    edit_object_url_api, 
+    current_object_url_api, 
+    delete_object_api_url } from '../API/baseURL';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
@@ -61,24 +66,26 @@ function EditObject() {
             state: status,
             image_name: imageName,
             image_url: imgUrl,
-        }, {
+        }, { headers : {
             'Content-Type': 'application/json',
             'Authorization' : `Bearer ${token}`,
-            "Access-Control-Allow-Origin": base_url 
-        })
+            "Access-Control-Allow-Origin": base_url
+        }})
         .then((res) => {
             navigate('/home/object')
         })
     }
 
     function deleteObject () {
-        axios.post(delete_img_api_url(), {image_name: imageName}, {headers})
-        .then((res) => {
-            axios.delete(delete_object_api_url(location.state.id), {headers})
+        if (window.confirm("Сиз ростан ҳам ўчирмоқчимисз?")) {
+            axios.post(delete_img_api_url(), {image_name: imageName}, {headers})
             .then((res) => {
-                navigate('/home/object')
+                axios.delete(delete_object_api_url(location.state.id), {headers})
+                .then((res) => {
+                    navigate('/home/object')
+                })
             })
-        })
+        }
     }
 
   return (

@@ -1,7 +1,7 @@
 import { Grid, Stack, Typography, TextField, Box, FormControl, FormGroup, Button } from '@mui/material'
 import logo from "../Assets/logo.png";
 import banner from "../Assets/banner.jpg"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { login_api_url, base_url } from '../API/baseURL';
 import axios from 'axios';
@@ -11,11 +11,18 @@ function SignIn() {
     const [login , setLogin] = useState('')
     const [parol , setParol] = useState('')
     const navigate = useNavigate();
+    const token = localStorage.getItem('accessToken');
 
     const headers = {
         'Content-Type': 'application/json',
         "Access-Control-Allow-Origin": base_url
     }
+
+    useEffect(() => {
+        if (token !== ""){
+            navigate('/home');
+        }
+    }, [])
 
     function click () {
         if (login === "" || parol === "") {
@@ -34,6 +41,7 @@ function SignIn() {
             })
         }
     }
+
   return (
     <Stack height='100vh'>
         <Grid container>

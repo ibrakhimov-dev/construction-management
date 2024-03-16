@@ -29,7 +29,7 @@ function OthersExpenses() {
 
     const headers = {
         'Content-Type': 'application/json',
-        // 'Authorization' : `Bearer ${token}`,
+        'Authorization' : `Bearer ${token}`,
         "Access-Control-Allow-Origin": base_url,
     }
 
@@ -113,10 +113,10 @@ function OthersExpenses() {
                             </DemoContainer>
                         </LocalizationProvider>
                     </Grid>
-                    <Grid item xl={4} md={12} sm={12} xs={12} display='flex' gap={1} justifyContent={{xl: 'flex-start', md: 'flex-start', sm: "flex-start", xs: 'center' }} flexWrap='wrap' alignItems='center'>
-                        <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
+                    <Grid item xl={4} md={12} sm={12} xs={12} display='flex' gap={1} justifyContent={{xl: 'flex-end', md: 'flex-end', sm: "flex-end", xs: 'center' }} flexWrap='wrap' alignItems='center'>
+                        {/* <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
                             Export
-                        </Button>
+                        </Button> */}
                         <Button onClick={() => navigate('/home/create-others-expenses')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Харажат қўшиш
                         </Button>

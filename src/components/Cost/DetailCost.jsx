@@ -146,7 +146,8 @@ function DetailCost() {
             <Grid p={3} item xl={12} md={12} sm={12} xs={12}  sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
                 <Grid container>
                     <Grid item xl={6} md={8} sm={8} xs={12} display='flex' alignItems='center'>
-                        <Typography variant='h6'>Иш бошқарувчи: {location.state.name} га {currencyFormat(location.state.summa)} сўм</Typography>
+                        <Typography variant='h6'>Иш бошқарувчи: {location.state.name} га {currencyFormat(location.state.summa > itemData.total_amount ?
+                        location.state.summa - itemData.total_amount : 0)} сўм</Typography>
                     </Grid>
                     <Grid item xl={6} md={4} sm={4} xs={12} display='flex' justifyContent='flex-end'>
                         <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>

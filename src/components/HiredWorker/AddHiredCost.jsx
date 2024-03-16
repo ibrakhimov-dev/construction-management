@@ -271,7 +271,7 @@ function AddHiredCost(props) {
                         </Grid>
                     </Grid>
                     <Button onClick={createHiredWorkerExpenses} sx={{mt: 2}} variant='contained' color='warning'>Қўшиш</Button>
-                    <Button onClick={clickDay} sx={{mt: 2, ml: 2}} variant='contained' color='success'>Expert</Button>
+                    <a href={`${base_url}/api/hired-workers/export/${props.workerId}`} download={`${base_url}/api/hired-workers/export/${props.workerId}`}><Button sx={{mt: 2, ml: 2}} variant='contained' color='success'>Expert</Button></a>
                 </Grid>
                 }                   
             </Grid>

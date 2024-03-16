@@ -85,11 +85,11 @@ function EditEquipment() {
             "image_url": imgUrl,
             "price": price,
             "project_id": object
-        }, {
+        }, { headers : {
             'Content-Type': 'application/json',
             'Authorization' : `Bearer ${token}`,
             "Access-Control-Allow-Origin": base_url
-        }).then((res) => {
+        }}).then((res) => {
             navigate('/home/equipment')
         })
     } 

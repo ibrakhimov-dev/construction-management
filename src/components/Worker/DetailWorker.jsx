@@ -7,12 +7,15 @@ function DetailWorker() {
     const [dayColor, setDayColor] = useState('#d35602')
     const [avansColor, setAvansColor] = useState('#FE6529')
     const [editColor, setEditColor] = useState('#FE6529')
+    const [comeWentColor, setComeWentColor] = useState('#FE6529')
+    
 
     function dayOff () {
         navigate('day-off')
         setDayColor("#d35602")
         setAvansColor("#FE6529")
         setEditColor("#FE6529")
+        setComeWentColor("#FE6529")
     }
 
     function avans () {
@@ -20,11 +23,21 @@ function DetailWorker() {
         setAvansColor("#d35602")
         setDayColor("#FE6529")
         setEditColor("#FE6529")
+        setComeWentColor("#FE6529")
     }
 
     function edit () {
         navigate('edit-worker')
         setEditColor("#d35602")
+        setAvansColor("#FE6529")
+        setDayColor("#FE6529")
+        setComeWentColor("#FE6529")
+    }
+
+    function comeWent() {
+        navigate('come-went')
+        setComeWentColor("#d35602")
+        setEditColor("#FE6529")
         setAvansColor("#FE6529")
         setDayColor("#FE6529")
     }
@@ -34,11 +47,8 @@ function DetailWorker() {
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Grid container>
-                    <Grid item xl={6} display='flex' alignItems='center'>
+                    <Grid item xl={12} md={12} sm={12} xs={12} display='flex' alignItems='center'>
                         <Typography color='#fff' variant='h6'>Иш бошқарувчи: Илҳом Фармонов</Typography>
-                    </Grid>
-                    <Grid item xl={6} display='flex' justifyContent='flex-end'>
-                        <Typography color='#fff' variant='subtitle1' fontWeight={600}>10.01.2024 йилдан бери жами Иш ҳақи: 1 200 000 млн сўм</Typography>
                     </Grid>
                 </Grid>
             </Grid>
@@ -48,6 +58,7 @@ function DetailWorker() {
                 <ButtonGroup color='warning' variant="contained" size='large' aria-label="Basic button group">
                     <Button onClick={dayOff} sx={{backgroundColor: `${dayColor}`}}>Дам Олиш</Button>
                     <Button onClick={avans} sx={{backgroundColor:  `${avansColor}`}}>Аванс</Button>
+                    <Button onClick={comeWent} sx={{backgroundColor:  `${comeWentColor}`}}>Келди-кетди</Button>
                     <Button onClick={edit} sx={{backgroundColor: `${editColor}`}}>Тахрирлаш</Button>
                 </ButtonGroup>
             </Grid>

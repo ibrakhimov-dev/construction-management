@@ -29,7 +29,7 @@ function EditHiredWorker() {
             setAllObject(res.data.data);
         })
 
-        axios.get(current_hired_worker_api_url(location.state.id), headers)
+        axios.get(current_hired_worker_api_url(location.state.id), {headers})
         .then((res) => {
             console.log(res.data)
             setFullName(res.data.data.name);

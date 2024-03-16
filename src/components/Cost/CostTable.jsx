@@ -34,7 +34,6 @@ function CostTable(props) {
     useEffect(() => {
         axios.get(role_api_url(), {headers})
         .then((res) => {
-          console.log(res.data)
           setRole(res.data.role_user)
         })
       }, [])
@@ -69,7 +68,7 @@ function CostTable(props) {
                                 </TdMoney>
                                 <TdMoney>{item.project_name}</TdMoney>
                                 <TdComment>{item.user_name}</TdComment>
-                                <TdMoney>{currencyFormat(item.amount)} сўм</TdMoney>
+                                <TdMoney>{item.currency === 'sum'? `${currencyFormat(item.summa)} so'm`: `${currencyFormat(item.summa)} $` }</TdMoney>
                                 <TdComment>{item.comment}</TdComment>
                                 <TdMoney>
                                     {

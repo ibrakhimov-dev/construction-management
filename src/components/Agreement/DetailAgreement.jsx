@@ -55,10 +55,12 @@ function DetailAgreement() {
     }, [isAgreeDelete])
 
     function deleteContract () {
-        axios.delete(delete_contract_api_url(location.state.id), {headers})
-        .then((res) => {
-            navigate("/home/agreement")
-        })
+        if (window.confirm("Сиз ростан ҳам ўчирмоқчимисз?")) {
+            axios.delete(delete_contract_api_url(location.state.id), {headers})
+            .then((res) => {
+                navigate("/home/agreement")
+            })
+        }
     }
 
     function editClick (id) {
@@ -138,7 +140,7 @@ function DetailAgreement() {
                         <Grid container spacing={3}>
                             <Grid item xl={6} md={6} sm={12} xs={12}>
                                 <FormControl fullWidth>
-                                    <Typography mt={2}>Сумма: ({currentContract.currency})</Typography>
+                                    <Typography mt={2}>Нархи: ({currentContract.currency})</Typography>
                                     <TextField type='number' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                                 </FormControl>
                                 <FormControl fullWidth>
@@ -151,7 +153,7 @@ function DetailAgreement() {
                                     <Typography mt={2}>O'lchov:</Typography>
                                     <TextField value={square} onChange={(e) => setSquare(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                                 </FormControl>
-                                <Button sx={{mt: 2, mr: 2}} variant='contained' color='success'>Export</Button>
+                                <a href={`${base_url}/api/contracts/export/${location.state.id}`} download={`${base_url}/api/contracts/export/${location.state.id}`}><Button sx={{mt: 2, mr: 2}} variant='contained' color='success'>Export</Button></a>
                                 <Button onClick={createExpenses}  sx={{mt: 2}} variant='contained' color='warning'>Қўшиш</Button>
                             </Grid>
                         </Grid>
@@ -160,7 +162,7 @@ function DetailAgreement() {
                         <Grid container spacing={3}>
                             <Grid item xl={6} md={6} sm={12} xs={12}>
                                 <FormControl fullWidth>
-                                    <Typography mt={2}>Сумма: ({currentContract.currency})</Typography>
+                                    <Typography mt={2}>Нархи: ({currentContract.currency})</Typography>
                                     <TextField type='number' value={editSumma} onChange={(e) => setEditSumma(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                                 </FormControl>
                                 <FormControl fullWidth>
@@ -179,8 +181,8 @@ function DetailAgreement() {
                         </Grid>
                     </>
                 }
-                {/* <Typography mt={2} fontWeight={600}>Обектдаги барча келишувларни ўчириш:</Typography>
-                <Button onClick={deleteContract}  sx={{mt: 2}} variant='contained' color='danger'>Ўчириш</Button> */}
+                <Typography mt={2} fontWeight={600}>Обектдаги барча келишувларни ўчириш:</Typography>
+                <Button onClick={deleteContract}  sx={{mt: 2}} variant='contained' color='danger'>Ўчириш</Button>
             </Grid>
         </Grid>
         <Grid container p={3} fontSize={14}>

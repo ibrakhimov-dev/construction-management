@@ -26,7 +26,7 @@ function Income() {
     const token = localStorage.getItem('accessToken');
     const headers = {
         'Content-Type': 'application/json',
-        // 'Authorization' : `Bearer ${token}`,
+        'Authorization' : `Bearer ${token}`,
         "Access-Control-Allow-Origin": base_url,
     }
 
@@ -113,9 +113,10 @@ function Income() {
                         </LocalizationProvider>
                     </Grid>
                     <Grid item xl={4} md={12} sm={12} xs={12} display='flex' flexWrap={{xl: 'nowrap', md: 'nowrap', sm: 'nowrap', xs: 'wrap'}} gap={1} justifyContent={{xl: 'flex-end', md: 'flex-end', sm: 'flex-end', xs: 'center'}} alignItems='center'>
-                        <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
+                        <a href={`${base_url}/api/daromad/export/?project_id=${objectSelect}`}
+                        download={`${base_url}/api/daromad/export/?project_id=${objectSelect}`}><Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
                             Export
-                        </Button>
+                        </Button></a>
                         <Button onClick={() => navigate('/home/create-income')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Даромад қўшиш
                         </Button>

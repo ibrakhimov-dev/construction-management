@@ -10,6 +10,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import GroupIcon from '@mui/icons-material/Group';
+import LogoutIcon from '@mui/icons-material/Logout';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import logo from "../Assets/logo.png";
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
@@ -19,7 +20,7 @@ import AddHomeIcon from '@mui/icons-material/AddHome';
 import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { base_url, role_api_url } from '../API/baseURL';
+import { base_url, role_api_url, logout_api_url } from '../API/baseURL';
 import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import axios from 'axios';
@@ -37,10 +38,16 @@ function Sidebar() {
   useEffect(() => {
     axios.get(role_api_url(), {headers})
     .then((res) => {
-      console.log(res.data)
       setRole(res.data.role_user)
     })
   }, [])
+
+  function logout () {
+    axios.post(logout_api_url(), {}, {headers}).then((res) => {
+      localStorage.setItem('accessToken', "")
+      navigate("/")
+    })
+  }
 
   return (
     <Stack>
@@ -161,6 +168,14 @@ function Sidebar() {
                         <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Фойдаланувчилар" />
                       </ListItemButton>
                     </ListItem>
+                    <ListItem onClick={logout}  sx={{mt: '20px', color : "#f33c3c", '&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <LogoutIcon />
+                        </ListItemIcon>
+                        <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Logout" />
+                      </ListItemButton>
+                    </ListItem>
                   </List>
                 </nav>
               </Box>
@@ -199,6 +214,7 @@ function Sidebar() {
                 <BottomNavigationAction onClick={() => navigate('car-expenses')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<DirectionsCarIcon />} />
                 <BottomNavigationAction onClick={() => navigate('others-expenses')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<CurrencyExchangeIcon />} />
                 <BottomNavigationAction onClick={() => navigate('users')} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<AccountCircleIcon />} />
+                <BottomNavigationAction onClick={logout} sx={{color: "#f33c3c",'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<LogoutIcon />} />
               </BottomNavigation>
             </Grid>
           </Grid>
@@ -230,6 +246,14 @@ function Sidebar() {
                         <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Ишчилар" />
                       </ListItemButton>
                     </ListItem>
+                    <ListItem onClick={logout}  sx={{mt: '20px', color : "#f33c3c", '&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'} }} disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <LogoutIcon />
+                        </ListItemIcon>
+                        <ListItemText disableTypography sx={{fontWeight: 'bold'}} primary="Logout" />
+                      </ListItemButton>
+                    </ListItem>
                   </List>
                 </nav>
               </Box>
@@ -256,6 +280,7 @@ function Sidebar() {
                 <Divider orientation="vertical" variant="middle" flexItem />
                 <BottomNavigationAction onClick={() => navigate("cost")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Nearby" value="nearby" icon={<RemoveCircleOutlineIcon />} />
                 <BottomNavigationAction onClick={() => navigate("worker")} sx={{'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<EngineeringIcon />} />
+                <BottomNavigationAction onClick={() => navigate(logout)} sx={{color: "#f33c3c",'&:hover': {borderRadius: '5px', backgroundColor: '#fe65294c', color: '#FE6529'}}} label="Folder" value="folder" icon={<LogoutIcon />} />
               </BottomNavigation>
             </Grid>
           </Grid>

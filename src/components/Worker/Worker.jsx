@@ -1,12 +1,21 @@
-import { Stack, Grid, Typography, Pagination, Select, FormControl, MenuItem, InputLabel, TextField, Button } from '@mui/material'
+import { Stack, Grid, Typography, Pagination, Select, FormControl, MenuItem, TextField, Button } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import AddIcon from '@mui/icons-material/Add';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import WorkerTable from './WorkerTable';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import { base_url, worker_api_url, delete_worker_api_url, all_object_api_url } from '../API/baseURL';
 import axios from 'axios';
 
 function Worker() {
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [isAgreeMonthly, setIsAgreeMothly] = useState(true);
     const [workerData, setWorkerData] = useState([]);
     const [objectSelect, setObjectSelect] = useState("");
     const [allObject, setAllObject] = useState([]);
@@ -22,6 +31,14 @@ function Worker() {
         'Content-Type': 'application/json',
         'Authorization' : `Bearer ${token}`,
         "Access-Control-Allow-Origin": base_url
+    }
+
+    function correctDate (m) {
+        if (m > 9) {
+            return m
+        } else {
+            return `0${m}`;
+        }
     }
 
     const handleChange = (event, value) => {
@@ -66,7 +83,29 @@ function Worker() {
         </Grid>
         <Grid container p={3} >
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
-                <Grid container spacing={3}>
+                {
+                    isAgreeMonthly ? <Grid container spacing={3}>
+                    <Grid item xl={6} md={6} sm={6} xs={12} display='flex' justifyContent={{xl: 'flex-start', md: 'flex-start', sm: "flex-start", xs: 'center' }} flexWrap={{xl: 'nowrap', md: 'nowrap', sm: 'wrap', xs: "wrap"}} gap={2}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DatePicker']}>
+                                <DatePicker value={startDate} onChange={(e) => setStartDate(e)} label="Дан (кун)" />
+                            </DemoContainer>
+                        </LocalizationProvider>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DatePicker']}>
+                                <DatePicker value={endDate} onChange={(e) => setEndDate(e)} label="Гача (кун)" />
+                            </DemoContainer>
+                        </LocalizationProvider>
+                    </Grid>
+                    <Grid item xl={6} md={6} sm={6} xs={12}  display='flex' justifyContent='flex-end'>
+                        <Button sx={{height: '55px', mt: 1, mr: 1}} size='large' variant='contained' color='success' endIcon={<PriceCheckIcon />}>
+                            Ойлик чиқариш
+                        </Button>
+                        <Button onClick={() => setIsAgreeMothly(false)} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' >
+                            <ArrowBackIcon />
+                        </Button>
+                    </Grid>
+                </Grid> : <Grid container spacing={3}>
                     <Grid item xl={3} md={6} sm={6} xs={12}>
                         <FormControl fullWidth>
                             <Typography>Исм Фамилия:</Typography>
@@ -113,11 +152,15 @@ function Worker() {
                         </FormControl>
                     </Grid>
                     <Grid item xl={3} md={6} sm={6} xs={12} display='flex' justifyContent='flex-end'>
+                        <Button onClick={() => setIsAgreeMothly(true)} sx={{height: '55px', mt: 3, mr: 1}} size='large' variant='contained' color='success' endIcon={<PriceCheckIcon />}>
+                            Ойлик
+                        </Button>
                         <Button onClick={() => navigate('/home/create-worker')} sx={{height: '55px', mt: 3}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Ишчи қўшиш
                         </Button>
                     </Grid>
                 </Grid>
+                }
             </Grid>
         </Grid>
         <WorkerTable workerData={workerData} deleteWorker={deleteWorker}/>

@@ -1,4 +1,4 @@
-import { Grid, Stack, IconButton, Checkbox} from '@mui/material'
+import { Grid, Stack, IconButton} from '@mui/material'
 import styled from 'styled-components'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom';
 
 function WorkerTable(props) {
     const navigate = useNavigate();
-    const [checked, setChecked] = React.useState(true);
+    // const [checked, setChecked] = React.useState(true);
 
-    const handleChange = (event) => {
-      setChecked(event.target.checked);
-    };
+    // const handleChange = (event) => {
+    //   setChecked(event.target.checked);
+    // };
 
     function currencyFormat(num) {
         let arrNum = [];
@@ -25,13 +25,18 @@ function WorkerTable(props) {
         props.deleteWorker(id);
     }
 
+    function edit (id) {
+        navigate('/home/detail-worker');
+        localStorage.setItem('workerId', id);
+    }
+
   return (
     <Stack>
         <Grid container p={3}>
         <Grid item p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4', width: '100%', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},}} xl={12} md={12} sm={12} xs={12}>
             <Stack sx={{ minWidth: '1190px', overflow: 'scroll', '&::-webkit-scrollbar': {height: '0'}}}>
                 <TheadWrapper>
-                    <ThId>Чеcк:</ThId>
+                    {/* <ThId>Чеcк:</ThId> */}
                     <ThId>Т/р:</ThId>
                     <ThComment>Исм Фамилия:</ThComment>
                     <ThMoney>Лавозими:</ThMoney>
@@ -44,14 +49,14 @@ function WorkerTable(props) {
                     props.workerData.map((item, index) => {
                         return(
                             <TbodyWrapper key={index + 1}>
-                                <TdId>
+                                {/* <TdId>
                                     <Checkbox
                                     checked={checked}
                                     color='success'
                                     onChange={handleChange}
                                     inputProps={{ 'aria-label': 'controlled' }}
                                     />
-                                </TdId>
+                                </TdId> */}
                                 <TdId>{index + 1}</TdId>
                                 <TdComment>{item.name}</TdComment>
                                 <TdMoney>{item.position === 'brigadier' ? 'Бригадир': 
@@ -63,7 +68,7 @@ function WorkerTable(props) {
                                 <TdMoney>{currencyFormat(item.salary_rate)} сўм</TdMoney>
                                 <TdMoney>
                                     <Stack direction="row" spacing={1}>
-                                        <IconButton onClick={() => navigate('/home/detail-worker', {state: {id: item.id}})} aria-label="delete">
+                                        <IconButton onClick={() => edit(item.id)} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
                                         <IconButton onClick={() => deleteWorker(item.id)} aria-label="delete">

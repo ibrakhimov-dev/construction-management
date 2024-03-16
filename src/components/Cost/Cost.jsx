@@ -79,7 +79,6 @@ function Cost() {
 
         axios.get(role_api_url(), {headers})
         .then((res) => {
-        console.log(res.data)
         setRole(res.data.role_user)
         })
     }, [page, objectSelect, category, currentUser, startDate, endDate, isAgreeDelete])
@@ -103,7 +102,7 @@ function Cost() {
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px#b6b6b6d4'}}>
                 <Grid container spacing={3} >
                     <Grid item xl={2} md={4} sm={4} xs={12}>
-                            <FormControl  fullWidth>
+                        <FormControl  fullWidth>
                             <Typography>Cатегорй:</Typography>
                             <Select
                                 sx={{padding: 0, paddingLeft: 0}}
@@ -174,9 +173,12 @@ function Cost() {
                         </LocalizationProvider>
                     </Grid>
                     <Grid item xl={12} md={12} sm={12} xs={12} display='flex' flexWrap={{xl: 'nowrap', md: 'nowrap', sm: 'nowrap', xs: 'wrap'}} gap={1} justifyContent={{xl: 'flex-end', md: 'flex-end', sm: 'flex-end', xs: 'center'}} alignItems='center'>
-                        <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
+                        <a 
+                        href={`${base_url}/api/xarajat/export/?project_id=${objectSelect}&user_id=${currentUser}&category=${category}&start_date=${startDate}&end_date=${endDate}`}
+                        download={`${base_url}/api/xarajat/export/?project_id=${objectSelect}&user_id=${currentUser}&category=${category}&start_date=${startDate}&end_date=${endDate}`}>
+                            <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
                             Export
-                        </Button>
+                        </Button></a>
                         {
                             role === 'admin' ? <Button onClick={() => navigate('/home/create-cost')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Харажат қўшиш

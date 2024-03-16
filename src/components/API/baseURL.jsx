@@ -7,6 +7,9 @@ export const login_api_url = () => `${base_url}/api/login`;
 // role api url
 export const role_api_url = () => `${base_url}/api/get-user`;
 
+// logout api url
+export const logout_api_url = () => `${base_url}/api/logout`;
+
 //! Other Expenses 
 // other expenses api
 export const others_expenses_api_url = () => `${base_url}/api/filter/other-expenses`;
@@ -98,6 +101,9 @@ export const detail_home_sales_api_url = (id) => `${base_url}/api/house-trades/$
 
 // delete home sales api url
 export const delete_home_sales_api_url = (id) => `${base_url}/api/house-trades/${id}`
+
+// edit home sales api url
+export const edit_home_sales_api_url = (id) => `${base_url}/api/house-trades/${id}`;
 
 // home sales expenses api url
 export const home_sales_expenses_api_url = (id) => `${base_url}/api/trade-expenses/${id}`;
@@ -254,4 +260,50 @@ export const create_worker_api_url = () => `${base_url}/api/workers`;
 export const worker_api_url = () => `${base_url}/api/workers`;
 
 // delete worker api url
-export const delete_worker_api_url = (id) => `${base_url}/api/workers/${id}`
+export const delete_worker_api_url = (id) => `${base_url}/api/workers/${id}`;
+
+// current worker api url
+export const current_worker_api_url = (id) => `${base_url}/api/workers/${id}`;
+
+// edit worker api url
+export const edit_worker_api_url = (id) => `${base_url}/api/workers/${id}`;
+
+//! Worker DayOff
+// all dayoff api url
+export const all_dayoff_api_url = () => `${base_url}/api/day-offs`;
+
+// create dayoff api url 
+export const create_dayoff_api_url = () => `${base_url}/api/day-offs`;
+
+// delete dayoff api url
+export const delete_dayoff_api_url = (id) => `${base_url}/api/day-offs/${id}`;
+
+//! Worker Account
+// create worker account api url
+export const create_worker_account_api_url = () => `${base_url}/api/worker-accounts`;
+
+// edit worker account api url
+export const edit_worker_account_api_url = (id) => `${base_url}/api/worker-accounts/${id}`;
+
+// delete worker account api url
+export const delete_worker_account_api_url = (id) => `${base_url}/api/worker-accounts/${id}`;
+
+// all worker account api url
+export const all_worker_account_api_url = () => `${base_url}/api/worker-accounts`;
+
+// current worker account api url
+export const current_worker_account_api_url = (id) => `${base_url}/api/worker-accounts/${id}`
+
+//! Worker avans
+// create worker avans api url
+export const create_worker_avans_api_url = () => `${base_url}/api/advance-payments`; 
+
+// all worker avans api url
+export const all_worker_avans_api_url = () => `${base_url}/api/advance-payments`;
+
+// delete worker avans api url
+export const delete_worker_avans_api_url = (id) => `${base_url}/api/advance-payments/${id}`
+
+//! Dashboard
+// dashboard api url
+export const dashboard_api_url = () => `${base_url}/api/dashboard/data`; 

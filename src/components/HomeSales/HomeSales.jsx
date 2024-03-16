@@ -1,7 +1,6 @@
 import { Stack, Grid, Typography, Card, CardContent, Fab } from '@mui/material'
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import MapIcon from '@mui/icons-material/Map';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { base_url, home_sales_api_url } from '../API/baseURL';
@@ -51,7 +50,7 @@ function HomeSales() {
                                     <Card onClick = {() => navigate("/home/detail-home-sales", {state: {id: item.id}})} sx={{
                                         borderRadius: '20px',
                                         position: 'relative',
-                                        height: '460px',
+                                        height: '480px',
                                         border: '3px solid var(--border-base-surface, #FFF)',
                                         background: '#F5F5F5',
                                         boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.04), 0px 4px 4px -2px rgba(0, 0, 0, 0.04)',
