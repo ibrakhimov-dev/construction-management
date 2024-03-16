@@ -9,7 +9,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
-import { base_url, worker_api_url, delete_worker_api_url, all_object_api_url } from '../API/baseURL';
+import { base_url, worker_api_url, delete_worker_api_url, all_object_api_url, export_api_url } from '../API/baseURL';
 import axios from 'axios';
 
 function Worker() {
@@ -27,11 +27,13 @@ function Worker() {
     const [defoultPage, setDefoultPage] = useState(1);
     const [countPage, setCountPage] = useState(1);
     const token = localStorage.getItem('accessToken');
+    const [isAgreeExport, setIsAgreeExport] = useState("");
     const headers = {
         'Content-Type': 'application/json',
         'Authorization' : `Bearer ${token}`,
         "Access-Control-Allow-Origin": base_url
     }
+    
 
     function correctDate (m) {
         if (m > 9) {
@@ -39,6 +41,20 @@ function Worker() {
         } else {
             return `0${m}`;
         }
+    }
+
+    function oylik () {
+        if (objectSelect === "") {
+            alert("Илтимос объектни танланг!");
+        }else {
+            setIsAgreeMothly(true)
+        }
+    }
+
+    function exportOylik () {
+        setEndDate("");
+        setStartDate("");
+        setIsAgreeMothly(false);
     }
 
     const handleChange = (event, value) => {
@@ -98,9 +114,11 @@ function Worker() {
                         </LocalizationProvider>
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12}  display='flex' justifyContent='flex-end'>
-                        <Button sx={{height: '55px', mt: 1, mr: 1}} size='large' variant='contained' color='success' endIcon={<PriceCheckIcon />}>
+                        <a href={`${base_url}/api/ishchilar/calculate-salary/?project_id=${objectSelect}&start_date=${startDate.$y}-${correctDate(startDate.$M + 1)}-${startDate.$D}&end_date=${endDate.$y}-${correctDate(endDate.$M + 1)}-${endDate.$D}`} 
+                        download={`${base_url}/api/ishchilar/calculate-salary/?project_id=${objectSelect}&start_date=${startDate.$y}-${correctDate(startDate.$M + 1)}-${startDate.$D}&end_date=${endDate.$y}-${correctDate(endDate.$M + 1)}-${endDate.$D}`}> 
+                        <Button onClick={exportOylik} sx={{height: '55px', mt: 1, mr: 1}}  size='large' variant='contained' color='success' endIcon={<PriceCheckIcon />}>
                             Ойлик чиқариш
-                        </Button>
+                        </Button></a>
                         <Button onClick={() => setIsAgreeMothly(false)} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' >
                             <ArrowBackIcon />
                         </Button>
@@ -152,7 +170,7 @@ function Worker() {
                         </FormControl>
                     </Grid>
                     <Grid item xl={3} md={6} sm={6} xs={12} display='flex' justifyContent='flex-end'>
-                        <Button onClick={() => setIsAgreeMothly(true)} sx={{height: '55px', mt: 3, mr: 1}} size='large' variant='contained' color='success' endIcon={<PriceCheckIcon />}>
+                       <Button onClick={oylik} sx={{height: '55px', mt: 3, mr: 1}} size='large' variant='contained' color='success' endIcon={<PriceCheckIcon />}>
                             Ойлик
                         </Button>
                         <Button onClick={() => navigate('/home/create-worker')} sx={{height: '55px', mt: 3}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>

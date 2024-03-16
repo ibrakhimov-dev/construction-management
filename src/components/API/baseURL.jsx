@@ -307,3 +307,7 @@ export const delete_worker_avans_api_url = (id) => `${base_url}/api/advance-paym
 //! Dashboard
 // dashboard api url
 export const dashboard_api_url = () => `${base_url}/api/dashboard/data`; 
+
+//! Export
+// export api url
+export const export_api_url = () => `${base_url}/api/ishchilar/calculate-salary`; 
