@@ -161,7 +161,7 @@ function User() {
                                 <TextField value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>          
                         </Grid>
-                        <Grid xl={3} md={6} sm={6} xs={12} p={2}>   
+                        <Grid xl={3} md={6} sm={6} xs={12} p={2} display='flex' justifyContent='flex-end'>   
                             <Button onClick={createUser} sx={{height: '55px', mt: 3}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                                 Фойдаланувчи қўшиш
                             </Button>               

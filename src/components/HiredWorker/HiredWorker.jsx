@@ -74,7 +74,7 @@ function HiredWorker() {
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', boxShadow: '0 0 3px 3px #b6b6b6d4'}}>
                 <Grid container spacing={3}>
-                    <Grid item xl={4} md={4} sm={6} xs={12}>
+                    <Grid item xl={6} md={6} sm={6} xs={12}>
                         <FormControl sx={{marginTop: 1 }} fullWidth >
                             <InputLabel id="demo-simple-select-label" sx={{color: 'black'}}>Обект</InputLabel>
                             <Select
@@ -95,7 +95,7 @@ function HiredWorker() {
                             </Select>
                         </FormControl>
                     </Grid>
-                    <Grid item xl={4} md={4} sm={6} xs={12} display="flex" justifyContent={{xl: 'flex-end', md: 'flex-end', sm: "flex-start", xs: 'center'}}>
+                    <Grid item xl={6} md={6} sm={6} xs={12} display="flex" justifyContent={{xl: 'flex-end', md: 'flex-end', sm: "flex-start", xs: 'center'}}>
                         <Button onClick={() => navigate('/home/create-hired-worker')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Ишчи қўшиш
                         </Button>
