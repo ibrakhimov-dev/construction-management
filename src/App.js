@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { Route, BrowserRouter, HashRouter, Routes } from 'react-router-dom';
+import { Route, BrowserRouter, HashRouter, Routes, Router } from 'react-router-dom';
 import { themeOptions } from './style/Variables';
 import User from './components/Users/Users';
 import SignIn from './components/Auth/SignIn';
@@ -50,35 +50,18 @@ import Edit from './components/HomeSales/Edit';
 import { useState, useEffect } from 'react';
 import { base_url, role_api_url } from './components/API/baseURL';
 import axios from 'axios';
+import Main from './pages/Main';
 
 function App() {
-  const [role, setRole] = useState('admin');
-  const token = localStorage.getItem('accessToken');
-  const headers = {
-      'Content-Type': 'application/json',
-      'Authorization' : `Bearer ${token}`,
-      "Access-Control-Allow-Origin": base_url
-  }
-
-  useEffect(() => {
-    axios.get(role_api_url(), {headers})
-    .then((res) => {
-      setRole(res.data.role_user)
-    })
-  }, [])
 
   return (
     <ThemeProvider theme={themeOptions}>
       <CssBaseline />
       <BrowserRouter>
-        <Routes>
-          <Route path='' element={<SignIn />} />
-          <Route path='*' element={<Error />} />
-          <Route path='home' element={<Sidebar />}>
-            {
-              role === "admin" ? 
-                <>
-                  <Route index element={<Dashboard />} />
+        <Routes>        
+          <Route path='/' element={<Main/>}>
+          <Route path="admin">
+            <Route index element={<Dashboard />} />
                   <Route path='dashboard' element={<Dashboard />} />
                   <Route path='users' element={<User />} />
                   <Route path='income' element={<Income />} />
@@ -124,25 +107,29 @@ function App() {
                   <Route path='others-expenses' element={<OthersExpenses />} />
                   <Route path='create-others-expenses' element={<CreateOthersExpenses />} />
                   <Route path='edit-others-expenses' element={<EditOthersExpenses />} />
-                </> :        
-                <>
+          </Route>
+          <Route path="user">
                   <Route index element={<Cost />} />
                   <Route path='cost' element={<Cost />} />
                   <Route path='create-cost' element={<CreateCost />}/>
                   <Route path='edit-cost' element={<EditCost />} />
                   <Route path='detail-cost' element={<DetailCost />} />
                   <Route path='worker' element={<Worker />} />
+                  <Route path='equipment' element={<Equipment />} />
+                  <Route path='edit-equipment' element={<EditEquipment/>} />
+                  <Route path='create-equipment' element={<CreateEquipment/>} />
                   <Route path='detail-worker' element={<DetailWorker/>} >
                     <Route index element={<DayOff />} />
                     <Route path='day-off' element={<DayOff />} />
                     <Route path='edit-worker' element={<EditWorker />} />
+                    <Route path='come-went' element={<ComeWent />} />
                     <Route path='avans' element={<Avans />} />
                   </Route>
                   <Route path='create-worker' element={<CreateWorker />} />
-                </>
-            }
-            
           </Route>
+          </Route>
+          <Route path="login" element={<SignIn />}/>
+          <Route path='*' element={<Error />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -73,7 +73,7 @@ function Edit() {
                 "Access-Control-Allow-Origin": base_url
             }})
             .then((res) => {
-                navigate('/home/home-sales')
+                navigate('/admin/home-sales')
             })
         }
     }
@@ -84,7 +84,7 @@ function Edit() {
             .then((res) => {
                 axios.delete(delete_home_sales_api_url(locationNavigate.state.id), {headers})
                 .then((res) => {
-                    navigate('/home/object')
+                    navigate('/admin/home-sales')
                 })
             })
         }
@@ -103,12 +103,12 @@ function Edit() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Уй Номи:</Typography>
-                            <TextField value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         
                         <FormControl fullWidth>
                             <Typography mt={2}>Манзил:</Typography>
-                            <TextField value={location} onChange={(e) => setLocation(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={location} onChange={(e) => setLocation(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>   

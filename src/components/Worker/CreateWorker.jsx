@@ -8,6 +8,7 @@ import axios from 'axios';
 
 function CreateWorker() {
     const [name, setName] = useState("");
+    const role = localStorage.getItem("role");
     const [phone, setPhone] = useState("");
     const [position, setPosition] = useState("");
     const [salary, setSalary] = useState(0)
@@ -39,7 +40,7 @@ function CreateWorker() {
                 "salary_rate": salary,
                 "project_id": objectSelect,
             }, {headers}).then((res) => {
-                navigate('/home/worker')
+                navigate(`/${role}/worker`)
             })
         }
     }
@@ -57,7 +58,7 @@ function CreateWorker() {
                     <Grid xl={6} md={6} sm={12} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Исм Фамилия:</Typography>
-                            <TextField value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
                             <Typography mt={2}>Лавозими:</Typography>
@@ -98,11 +99,11 @@ function CreateWorker() {
                     <Grid xl={6} md={6} sm={12} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Кунлик Иш Ҳақи:</Typography>
-                            <TextField value={salary} onChange={(e) => setSalary(e.target.value)} id="outlined-basic" color='warning' type='number' variant="outlined" />
+                            <TextField autoComplete='off' value={salary} onChange={(e) => setSalary(e.target.value)} id="outlined-basic" color='warning' type='number' variant="outlined" />
                         </FormControl>                              
                         <FormControl fullWidth>
                             <Typography mt={2}>Телофон рақами:</Typography>
-                            <TextField value={phone} onChange={(e) => setPhone(e.target.value)} sx={{mt: 1}} id="outlined-basic" label="+998" color='warning' type='number' variant="outlined" />
+                            <TextField autoComplete='off' value={phone} onChange={(e) => setPhone(e.target.value)} sx={{mt: 1}} id="outlined-basic" label="+998" color='warning' type='number' variant="outlined" />
                         </FormControl>
                             <Button onClick={createWorker} sx={{height: '55px', mt: 4}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                                 Ишчи қўшиш

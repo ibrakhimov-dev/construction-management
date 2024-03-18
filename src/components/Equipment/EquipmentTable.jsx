@@ -6,6 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 function EquipmentTable(props) {
+    const role = localStorage.getItem("role")
     const navigate = useNavigate();
 
     function currencyFormat(num) {
@@ -47,7 +48,7 @@ function EquipmentTable(props) {
                                 <TdComment>{item.project_name}</TdComment>
                                 <TdMoney>
                                     <Stack direction="row" spacing={2}>
-                                        <IconButton onClick={() => navigate('/home/edit-equipment', {state: {id: item.id}})} aria-label="delete">
+                                        <IconButton onClick={() => navigate(`/${role}/edit-equipment`, {state: {id: item.id}})} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
                                         <IconButton onClick={() => deleteTools(item.id)} aria-label="delete">

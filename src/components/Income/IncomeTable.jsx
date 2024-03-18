@@ -55,7 +55,7 @@ function IncomeTable(props) {
                                     <TdMoney>{item.currency_rate} so'm</TdMoney>
                                     <TdMoney>
                                         <Stack direction="row" spacing={1}>
-                                            <IconButton onClick={() => navigate('/home/edit-income', {state: {id : item.id}})} aria-label="delete">
+                                            <IconButton onClick={() => navigate('/admin/edit-income', {state: {id : item.id}})} aria-label="delete">
                                                 <EditIcon color='warning' />
                                             </IconButton>
                                             <IconButton onClick={() => deleteIncome(item.id)} aria-label="delete">

@@ -9,9 +9,12 @@ import { useState, useEffect } from 'react';
 import DailyExpensesTable from './DailyExpensesTable';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ErrorAlert, DeleteAlert } from '../Alert/Alert';
 import { base_url, house_expenses_api_url, house_expenses_day_api_url, delete_house_expense_api_url } from '../API/baseURL';
 
 function DailyExpenses() {
+    const [errorAlert, setErrorAlert] = useState(false);
+    const [deleteAlert, setDeleteAlert] = useState(false);
     const [houseExpensesDate, setHouseExpensesDate] = useState([]);
     const [totalSumma, setTotalSumma] = useState(null);
     const [startDate, setStartDate] = useState("");
@@ -57,6 +60,17 @@ function DailyExpenses() {
 
     function deleteHouseExpenses (id) {
         axios.delete(delete_house_expense_api_url(id), {headers})
+        .then((res) => {
+            setDeleteAlert(true);
+            setTimeout(() => {
+                setDeleteAlert(false);
+            }, 1000)
+        }).catch((err) => {
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
+        })
         setIsAgreeDelete(true);
         setTimeout(() => {
             setIsAgreeDelete(false)
@@ -69,7 +83,10 @@ function DailyExpenses() {
             setHouseExpensesDate(res.data.data)
             setTotalSumma(res.data.totalAmount)
         }).catch((err) => {
-
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
         })
     }
 
@@ -79,13 +96,22 @@ function DailyExpenses() {
             setHouseExpensesDate(res.data.data)
             setTotalSumma(res.data.totalAmount)
         }).catch((err) => {
-
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
         })
     }
 
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' sx={{position: 'relative'}}>
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
+        {
+            deleteAlert ? <DeleteAlert /> : <></>
+        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Уй Харажатлар</Typography>
@@ -118,7 +144,7 @@ function DailyExpenses() {
                         {/* <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
                             Export
                         </Button> */}
-                        <Button onClick={() => navigate('/home/create-daily-expenses')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                        <Button onClick={() => navigate('/admin/create-daily-expenses')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Харажат қўшиш
                         </Button>
                     </Grid>

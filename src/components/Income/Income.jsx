@@ -117,7 +117,7 @@ function Income() {
                         download={`${base_url}/api/daromad/export/?project_id=${objectSelect}`}><Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
                             Export
                         </Button></a>
-                        <Button onClick={() => navigate('/home/create-income')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                        <Button onClick={() => navigate('/admin/create-income')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Даромад қўшиш
                         </Button>
                     </Grid>

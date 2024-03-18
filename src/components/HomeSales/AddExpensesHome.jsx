@@ -46,7 +46,7 @@ function AddExpensesHome() {
                 currency_rate: currencyRate,}, {headers})
             .then((res) => {
                 localStorage.setItem('home_id', location.state.id_home)
-                navigate('/home/detail-home-sales');
+                navigate('/admin/detail-home-sales');
             }).catch((err) => {
     
             })
@@ -66,11 +66,11 @@ function AddExpensesHome() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Изоҳ:</Typography>
-                            <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сумма ({currency}):</Typography>
-                            <TextField value={summa} onChange={(e) => setSumma(e.target.value)} color='warning' id="outlined-basic" type='number' variant="outlined" />
+                            <TextField autoComplete='off' value={summa} onChange={(e) => setSumma(e.target.value)} color='warning' id="outlined-basic" type='number' variant="outlined" />
                         </FormControl> 
                         <FormControl fullWidth>
                             <Typography mt={2}>Сана:</Typography>
@@ -98,7 +98,7 @@ function AddExpensesHome() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Валюта курси (сўм):</Typography>
-                            <TextField color='warning' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField autoComplete='off' color='warning' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl> 
                         <Button onClick={addHomeSalesExpenses} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Харажатлари қўшиш

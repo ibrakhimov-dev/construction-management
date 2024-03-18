@@ -9,13 +9,14 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
-import { base_url, worker_api_url, delete_worker_api_url, all_object_api_url, export_api_url } from '../API/baseURL';
+import { base_url, worker_api_url, delete_worker_api_url, all_object_api_url} from '../API/baseURL';
 import axios from 'axios';
 
 function Worker() {
+    const role = localStorage.getItem("role")
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    const [isAgreeMonthly, setIsAgreeMothly] = useState(true);
+    const [isAgreeMonthly, setIsAgreeMothly] = useState(false);
     const [workerData, setWorkerData] = useState([]);
     const [objectSelect, setObjectSelect] = useState("");
     const [allObject, setAllObject] = useState([]);
@@ -114,9 +115,10 @@ function Worker() {
                         </LocalizationProvider>
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12}  display='flex' justifyContent='flex-end'>
-                        <a href={`${base_url}/api/ishchilar/calculate-salary/?project_id=${objectSelect}&start_date=${startDate.$y}-${correctDate(startDate.$M + 1)}-${startDate.$D}&end_date=${endDate.$y}-${correctDate(endDate.$M + 1)}-${endDate.$D}`} 
+                        <a style={startDate === "" || endDate === "" ? {pointerEvents: 'none',
+                                        color: '#ccc'} : {}} href={`${base_url}/api/ishchilar/calculate-salary/?project_id=${objectSelect}&start_date=${startDate.$y}-${correctDate(startDate.$M + 1)}-${startDate.$D}&end_date=${endDate.$y}-${correctDate(endDate.$M + 1)}-${endDate.$D}`} 
                         download={`${base_url}/api/ishchilar/calculate-salary/?project_id=${objectSelect}&start_date=${startDate.$y}-${correctDate(startDate.$M + 1)}-${startDate.$D}&end_date=${endDate.$y}-${correctDate(endDate.$M + 1)}-${endDate.$D}`}> 
-                        <Button onClick={exportOylik} sx={{height: '55px', mt: 1, mr: 1}}  size='large' variant='contained' color='success' endIcon={<PriceCheckIcon />}>
+                        <Button disabled={startDate === "" || endDate === "" ? true : false} onClick={exportOylik} sx={{height: '55px', mt: 1, mr: 1}}  size='large' variant='contained' color='success' endIcon={<PriceCheckIcon />}>
                             Ойлик чиқариш
                         </Button></a>
                         <Button onClick={() => setIsAgreeMothly(false)} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' >
@@ -127,7 +129,7 @@ function Worker() {
                     <Grid item xl={3} md={6} sm={6} xs={12}>
                         <FormControl fullWidth>
                             <Typography>Исм Фамилия:</Typography>
-                            <TextField value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid item xl={3} md={6} sm={6} xs={12}>
@@ -170,10 +172,12 @@ function Worker() {
                         </FormControl>
                     </Grid>
                     <Grid item xl={3} md={6} sm={6} xs={12} display='flex' justifyContent='flex-end'>
-                       <Button onClick={oylik} sx={{height: '55px', mt: 3, mr: 1}} size='large' variant='contained' color='success' endIcon={<PriceCheckIcon />}>
-                            Ойлик
-                        </Button>
-                        <Button onClick={() => navigate('/home/create-worker')} sx={{height: '55px', mt: 3}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                       {
+                        role === 'admin' ? <Button onClick={oylik} sx={{height: '55px', mt: 3, mr: 1}} size='large' variant='contained' color='success' endIcon={<PriceCheckIcon />}>
+                        Ойлик
+                        </Button> : <></>
+                       }
+                        <Button onClick={() => navigate(`/${role}/create-worker`)} sx={{height: '55px', mt: 3}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Ишчи қўшиш
                         </Button>
                     </Grid>

@@ -10,9 +10,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { base_url, all_object_api_url, all_user_api_url, current_expenses_api_url, edit_expenses_api_url } from '../API/baseURL';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { ErrorAlert, EditAlert } from '../Alert/Alert';
 
 function EditCost() {
+    const [errorAlert, setErrorAlert] = useState(false);
+    const [editAlert, setEditAlert] = useState(false);
     const location = useLocation();
+    const role = localStorage.getItem("role");
     const [objectSelect, setObjectSelect] = useState("");
     const [allUser, setAllUser] = useState([]);
     const [currentUser, setCurrentUser] = useState("");
@@ -47,16 +51,22 @@ function EditCost() {
             setCurrency(res.data.data.currency);
             setCurrencyRate(res.data.data.currency_rate);
             setComment(res.data.data.comment);
+        }).catch((err) => {
+            console.log(err)
         })
 
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            console.log(err)
         })
 
         axios.get(all_user_api_url(), {headers})
         .then((res) => {
             setAllUser(res.data.data)
+        }).catch((err) => {
+            console.log(err)
         })
     }, [])
 
@@ -83,13 +93,28 @@ function EditCost() {
                 "currency": currency,
                 "currency_rate": currencyRate 
             }, {headers}).then((res) => {
-                navigate('/home/cost')
+                setEditAlert(true);
+                setTimeout(() => {
+                    setEditAlert(false);
+                    navigate(`/${role}/cost`)
+                }, 1000)
+            }).catch((err) => {
+                setErrorAlert(true);
+                setTimeout(() => {
+                    setErrorAlert(false);
+                }, 1000)
             })
         }
     }
 
   return (
     <Stack pb='70px'>
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
+        {
+            editAlert ? <EditAlert /> : <></>
+        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Харажат қўшиш</Typography>
@@ -154,7 +179,7 @@ function EditCost() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сумма ({currency}):</Typography>
-                            <TextField value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField autoComplete='off' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сана:</Typography>
@@ -200,7 +225,7 @@ function EditCost() {
                                 </FormControl>
                                 <FormControl fullWidth>
                                     <Typography mt={2}>Валюта курси (сўм):</Typography>
-                                    <TextField value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                                    <TextField autoComplete='off' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                                 </FormControl>
                             </> : 
                             <> </>
@@ -208,7 +233,7 @@ function EditCost() {
                         
                         <FormControl fullWidth>
                             <Typography mt={2}>Изоҳ:</Typography>
-                            <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" variant="outlined" />
+                            <TextField autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" variant="outlined" />
                         </FormControl>
                         
                             <Button onClick={editExpenses} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>

@@ -117,7 +117,7 @@ function OthersExpenses() {
                         {/* <Button sx={{height: '55px', mt: 1}} size='large' variant='contained' color='success' endIcon={<SimCardDownloadIcon />}>
                             Export
                         </Button> */}
-                        <Button onClick={() => navigate('/home/create-others-expenses')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                        <Button onClick={() => navigate('/admin/create-others-expenses')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Харажат қўшиш
                         </Button>
                     </Grid>

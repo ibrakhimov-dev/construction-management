@@ -61,6 +61,9 @@ function EditObject() {
     }, [])
 
     function editObject () {
+        if (name === "" || imageName === "" || imgUrl === "") {
+            alert("Илтимос сўралган малумотларни тўлдиринг!")
+        } else {
         axios.put(edit_object_url_api(location.state.id), {
             name: name,
             state: status,
@@ -72,8 +75,8 @@ function EditObject() {
             "Access-Control-Allow-Origin": base_url
         }})
         .then((res) => {
-            navigate('/home/object')
-        })
+            navigate('/admin/object')
+        })}
     }
 
     function deleteObject () {
@@ -82,7 +85,7 @@ function EditObject() {
             .then((res) => {
                 axios.delete(delete_object_api_url(location.state.id), {headers})
                 .then((res) => {
-                    navigate('/home/object')
+                    navigate('/admin/object')
                 })
             })
         }
@@ -101,7 +104,7 @@ function EditObject() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Обект Номи:</Typography>
-                            <TextField value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
                             <Typography mt={2}>Ҳолати:</Typography>

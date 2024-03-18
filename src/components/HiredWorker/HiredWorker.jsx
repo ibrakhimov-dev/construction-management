@@ -5,9 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import HiredWorkerTable from './HiredWorkerTable';
 import { base_url, hired_worker_api_url, all_object_api_url, delete_hired_worker_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { ErrorAlert, DeleteAlert } from '../Alert/Alert';
 
 
 function HiredWorker() {
+    const [errorAlert, setErrorAlert] = useState(false);
+    const [deleteAlert, setDeleteAlert] = useState(false);
     const [objectSelect, setObjectSelect] = useState(null);
     const [isAgreeDelete, setIsAgreeDelete] = useState(false);
     const [worker, setWorker] = useState([]);
@@ -36,16 +39,31 @@ function HiredWorker() {
             setCountPage(res.data.meta?.last_page);
             setPage(res.data.meta?.current_page);
             setDefoultPage(res.data.meta?.current_page)
+        }).catch((err) => {
+            console.log(err)
         })
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            console.log(err)
         })
     }, [objectSelect, page, isAgreeDelete])
 
 
     function deleteHiredWorker (id) {
         axios.delete(delete_hired_worker_api_url(id), {headers})
+        .then((res) => {
+            setDeleteAlert(true);
+            setTimeout(() => {
+                setDeleteAlert(false);
+            }, 1000)
+        }).catch((err) => {
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
+        })
         setIsAgreeDelete(true);
         setTimeout(() => {
             setIsAgreeDelete(false)
@@ -61,11 +79,19 @@ function HiredWorker() {
             setCountPage(res.data.meta?.last_page);
             setPage(res.data.meta?.current_page);
             setDefoultPage(res.data.meta?.current_page)
+        }).catch((err) =>{
+            console.log(err)
         })
     }
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' sx={{position: 'relative'}}>
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
+        {
+            deleteAlert ? <DeleteAlert /> : <></>
+        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Ёлланма Ишчилар</Typography>
@@ -96,7 +122,7 @@ function HiredWorker() {
                         </FormControl>
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12} display="flex" justifyContent={{xl: 'flex-end', md: 'flex-end', sm: "flex-start", xs: 'center'}}>
-                        <Button onClick={() => navigate('/home/create-hired-worker')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                        <Button onClick={() => navigate('/admin/create-hired-worker')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Ишчи қўшиш
                         </Button>
                     </Grid>

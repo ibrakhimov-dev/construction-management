@@ -3,14 +3,18 @@ import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Butt
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import { useState, useEffect } from 'react';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import LinearProgress from '@mui/material/LinearProgress';
 import { base_url, edit_tools_api_url, upload_img_url_api, current_tools_api_url, all_object_api_url } from '../API/baseURL';
 import { MuiFileInput } from 'mui-file-input';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { ErrorAlert, EditAlert, SuccessfullAlert } from '../Alert/Alert';
 
 function EditEquipment() {
+    const [succesAlert, setSuccessAlert] = useState(false);
+    const [errorAlert, setErrorAlert] = useState(false);
+    const [editAlert, setEditAlert] = useState(false);
+    const role = localStorage.getItem("role")
     const [object, setObject] = useState(null);
     const [allObject, setAllObject] = useState([]);
     const [imgUrl, setImgUrl] = useState("");
@@ -40,15 +44,26 @@ function EditEquipment() {
         axios.post(upload_img_url_api(), formData, {headers})
         .then((res) => {
             setImgName(res.data.image_name);
-            setImgUrl(res.data.image_url)
-            setUpload(false)
-        })  
+            setImgUrl(res.data.image_url)  
+            setSuccessAlert(true);
+            setTimeout(() => {
+                setSuccessAlert(false);
+            }, 1000) 
+            setUpload(false)  
+        }).catch((err) => {
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
+        })   
     }
 
     useEffect(() => {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            console.log(err)
         })
 
         axios.get(current_tools_api_url(location.state.id), {headers})
@@ -63,21 +78,15 @@ function EditEquipment() {
             setValue(file);
             setImgUrl(res.data.data.image_url);
             setImgName(res.data.data.image_name);
+        }).catch((err) => {
+            console.log(err)
         })
     }, [])
 
-    function uploadImg () {
-        const formData = new FormData();
-        formData.append('image', value);
-        axios.post(upload_img_url_api(), formData, {headers})
-        .then((res) => {
-            setImgName(res.data.image_name);
-            setImgUrl(res.data.image_url)
-            
-        })
-    }
-
     function editTools () {
+        if (toolsName === "" || imgName === "" || imgUrl === "" || object === null) {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        }else {
         axios.put(edit_tools_api_url(location.state.id), {
             "name": toolsName , 
             "state": state,
@@ -90,12 +99,31 @@ function EditEquipment() {
             'Authorization' : `Bearer ${token}`,
             "Access-Control-Allow-Origin": base_url
         }}).then((res) => {
-            navigate('/home/equipment')
+            setEditAlert(true);
+            setTimeout(() => {
+                setEditAlert(false);
+                navigate(`/${role}/equipment`);
+            }, 1000)
         })
+        .catch((err) => {
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
+        })}
     } 
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' sx={{position: 'relative'}}>
+        {
+            succesAlert ? <SuccessfullAlert /> : <></>
+        }
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
+        {
+            editAlert ? <EditAlert /> : <></>
+        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Ускуналар (умимий малумот)</Typography>
@@ -107,7 +135,7 @@ function EditEquipment() {
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Ускуна Номи:</Typography>
-                            <TextField value={toolsName} onChange={(e) => setToolsName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={toolsName} onChange={(e) => setToolsName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
                             <Typography mt={2}>Обект:</Typography>
@@ -130,7 +158,7 @@ function EditEquipment() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Нархи:</Typography>
-                            <TextField value={price} onChange={(e) => setPrice(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField autoComplete='off' value={price} onChange={(e) => setPrice(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>

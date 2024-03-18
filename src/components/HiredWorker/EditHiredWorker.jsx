@@ -6,9 +6,12 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { base_url, all_object_api_url, edit_hired_worker_api_url, current_hired_worker_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { ErrorAlert, EditAlert } from '../Alert/Alert';
 
 
 function EditHiredWorker() {
+    const [errorAlert, setErrorAlert] = useState(false);
+    const [editAlert, setEditAlert] = useState(false);
     const [object, setObject] = useState(null);
     const [allObject, setAllObject] = useState([]);
     const [fullName, setFullName] = useState("");
@@ -27,6 +30,8 @@ function EditHiredWorker() {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            console.log(err)
         })
 
         axios.get(current_hired_worker_api_url(location.state.id), {headers})
@@ -36,22 +41,42 @@ function EditHiredWorker() {
             setComment(res.data.data.comment);
             setPhone(res.data.data.phone_number);
             setObject(res.data.data.project_id);
+        }).catch((err) => {
+            console.log(err)
         })
     }, [])
 
     function editHiredWorker () {
+        if (fullName === "" || phone === "" || comment === "" || object === null){
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        }else {
         axios.put(edit_hired_worker_api_url(location.state.id), {
             name: fullName,
             phone_number: phone,
             comment: comment,
             project_id: object,
         }, {headers}).then((res) => {
-            navigate('/home/hired-worker')
-        })
+            setEditAlert(true);
+            setTimeout(() => {
+                setEditAlert(false);
+                navigate('/admin/hired-worker')
+            }, 1000)
+        }).catch((err) => {
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
+        })}
     }
 
   return (
-    <Stack>
+    <Stack pb='70px' sx={{position: 'relative'}}>
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
+        {
+            editAlert ? <EditAlert /> : <></>
+        }
         <Grid container p={3}> 
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Ёлланма ишчилар (умимий малумот)</Typography>
@@ -63,7 +88,7 @@ function EditHiredWorker() {
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Исм Фамилия:</Typography>
-                            <TextField value={fullName} onChange={(e) => setFullName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={fullName} onChange={(e) => setFullName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
                             <Typography mt={2}>Обект:</Typography>
@@ -86,13 +111,13 @@ function EditHiredWorker() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Изоҳ:</Typography>
-                            <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Телофон рақами:</Typography>
-                                <TextField value={phone} onChange={(e) => setPhone(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                                <TextField autoComplete='off' value={phone} onChange={(e) => setPhone(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                             </FormControl>
                             <Button onClick={editHiredWorker} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
                                 Таҳрирлаш

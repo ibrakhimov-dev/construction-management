@@ -100,7 +100,7 @@ function Dashboard() {
       <Grid container>
         <Grid item xl={4} md={6} sm={6} xs={12} p={3}>
           <Box height='240px' sx={{borderRadius: '10px', background: `linear-gradient(to right bottom, #272d7b, #fe6529)`, boxShadow: '0 0 3px 3px #bebebe'}}>
-            <Typography variant='h6' color='#fff' p={2}>Даромад (сўнги 1 йил)</Typography>
+            <Typography variant='h6' color='#fff' p={2}>Даромад (Жорий йил)</Typography>
             <Box width='100%' display='flex' alignItems='center' justifyContent='center' textAlign='center'>
               <img src={plusMoney} style={{marginTop: '10px', }} width='100px' alt='Garant Stroy' />
               <Typography variant='h6' color='#fff' mt={2} p={2}>{currencyFormat(dashboardData.total_incomes_amount)} сўм</Typography>   
@@ -109,7 +109,7 @@ function Dashboard() {
         </Grid>
         <Grid item xl={4} md={6} sm={6} xs={12} p={3}>
           <Box height='240px' sx={{borderRadius: '10px', background: `linear-gradient(to right bottom, #272d7b, #fe6529)`, boxShadow: '0 0 3px 3px #bebebe'}}>
-            <Typography variant='h6' color='#fff' p={2}>Харажатлар (сўнги 1 йил)</Typography>
+            <Typography variant='h6' color='#fff' p={2}>Харажатлар (Жорий йил)</Typography>
             <Box width='100%' display='flex' alignItems='center' justifyContent='center' textAlign='center'>
               <img src={minusMoney} style={{marginTop: '10px', }} width='100px' alt='Garant Stroy' />
               <Typography variant='h6' color='#fff' mt={2} p={2}>{currencyFormat(dashboardData.total_expenses_amount)} сўм</Typography>   

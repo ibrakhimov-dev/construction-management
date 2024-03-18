@@ -216,7 +216,7 @@ function ComeWent() {
                 <Grid container padding={3} fontWeight={600} color='#fff' textAlign="center" display={{xl: 'flex', md: "none", sm: 'none', xs: 'none'}}>
                     <Grid item xl={1} md={12} sm={12} xs={12} p={1} borderRight={4} borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Т/р:</Grid>
                     <Grid item xl={2} md={12} sm={12} xs={12} p={1} borderRight={4} borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Бошлаган вақти:</Grid>
-                    <Grid item xl={1} md={12} sm={12} xs={12} p={1} borderRight={4} borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Дам:</Grid>
+                    <Grid item xl={1} md={12} sm={12} xs={12} p={1} borderRight={4} borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Дам олиш:</Grid>
                     <Grid item xl={1} md={12} sm={12} xs={12} p={1} borderRight={4} borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Статус:</Grid>
                     <Grid item xl={2} md={12} sm={12} xs={12} p={1} borderRight={4} borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Кунлик маош:</Grid>
                     <Grid item xl={2} md={12} sm={12} xs={12} p={1} borderRight={4} borderColor='#fff' sx={{bgcolor: '#272d7b'}}>Жами сумма:</Grid>
@@ -232,7 +232,7 @@ function ComeWent() {
                 {
                     comeWentData.map((item, index) => {
                         return (
-                            <Grid key={index + 1} container p={3} borderBottom='solid 2px #ed744466' alignItems="center" textAlign={{xl: 'center', md: "left", sm: 'left', xs: 'left'}}>                    
+                            <Grid key={index + 1} mt={-1} height={{xl: '60px', md: '60px', sm: "auto", xs: "auto"}} container p={3} borderBottom='solid 2px #ed744466' alignItems="center" textAlign={{xl: 'center', md: "left", sm: 'left', xs: 'left'}}>                    
                                 <Grid item xl={1} md={12} sm={12} xs={12}>
                                     <Typography pt={2} display={{xl: 'none', md: "block", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Т/р:</Typography>
                                     {index + 1}

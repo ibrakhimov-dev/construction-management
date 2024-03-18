@@ -116,19 +116,19 @@ function User() {
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Исм Фамилия:</Typography>
-                                <TextField value={editName} onChange={(e) => setEditName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField autoComplete='off' value={editName} onChange={(e) => setEditName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Усер Наме:</Typography>
-                                <TextField value={editUserName} onChange={(e) => setEditUserName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField autoComplete='off' value={editUserName} onChange={(e) => setEditUserName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>         
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Парол:</Typography>
-                                <TextField value={editPassword} onChange={(e) => setEditPassword(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField autoComplete='off' value={editPassword} onChange={(e) => setEditPassword(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>         
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>   
@@ -146,19 +146,19 @@ function User() {
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Исм Фамилия:</Typography>
-                                <TextField value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Усер Наме:</Typography>
-                                <TextField value={userName} onChange={(e) => setUserName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField autoComplete='off' value={userName} onChange={(e) => setUserName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>          
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Парол:</Typography>
-                                <TextField value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField autoComplete='off' value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>          
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2} display='flex' justifyContent='flex-end'>   

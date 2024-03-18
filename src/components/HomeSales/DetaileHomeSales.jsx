@@ -41,7 +41,7 @@ function DetailHomeSales () {
     }, [isAgreeDelete])
 
     function editHomeSales () {
-        navigate("/home/edit-house-trades", {state: {id: location.state?.id === undefined ? homeId : location.state?.id}})
+        navigate("/admin/edit-house-trades", {state: {id: location.state?.id === undefined ? homeId : location.state?.id}})
     }
 
     function currencyFormat(num) {
@@ -53,7 +53,7 @@ function DetailHomeSales () {
      }
 
     function changeMoney (id) {
-        navigate('/home/edit-home-sales', {state: {id: id, id_home: home.id}})
+        navigate('/admin/edit-home-sales', {state: {id: id, id_home: home.id}})
     }
 
     function deleteExpenses (id) {
@@ -85,7 +85,7 @@ function DetailHomeSales () {
                             <Button onClick={editHomeSales} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
                                 Таҳрирлаш
                             </Button> 
-                            <Button onClick={() => navigate('/home/add-expenses-sales', {state: {id_home: home.id}})} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                            <Button onClick={() => navigate('/admin/add-expenses-sales', {state: {id_home: home.id}})} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                                 Харажат қўшиш
                             </Button>
                         </Grid>

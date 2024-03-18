@@ -7,8 +7,12 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { base_url, create_tools_api_url, all_object_api_url, upload_img_url_api } from '../API/baseURL';
 import { MuiFileInput } from 'mui-file-input';
 import axios from 'axios';
+import { SuccessfullAlert, ErrorAlert } from '../Alert/Alert';
 
 function CreateEquipment() {
+    const [succesAlert, setSuccessAlert] = useState(false);
+    const [errorAlert, setErrorAlert] = useState(false);
+    const role = localStorage.getItem('role');
     const [upload, setUpload] = useState(false);
     const [object, setObject] = useState(null);
     const [allObject, setAllObject] = useState([]);
@@ -36,9 +40,18 @@ function CreateEquipment() {
         formData.append('image', value);
         axios.post(upload_img_url_api(), formData, {headers})
         .then((res) => {
+            setSuccessAlert(true);
+            setTimeout(() => {
+                setSuccessAlert(false);
+            }, 1000)
             setImgName(res.data.image_name);
             setImgUrl(res.data.image_url)
             setUpload(false)
+        }).catch((err) => {
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
         })  
     }
 
@@ -46,9 +59,11 @@ function CreateEquipment() {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            console.log(err)
         })
     }, [])
-
+ 
 
     function createTools () {
         if (toolsName === "" || imgName === "" || imgUrl === "" || object === null) {
@@ -62,13 +77,28 @@ function CreateEquipment() {
                 "price": price,
                 "project_id": object
             }, {headers}).then((res) => {
-                navigate('/home/equipment')
+                setSuccessAlert(true);
+                    setTimeout(() => {
+                        setSuccessAlert(false);
+                        navigate(`/${role}/equipment`)
+                    }, 1000)
+            }).catch((err) => {
+                setErrorAlert(true);
+                setTimeout(() => {
+                    setErrorAlert(false);
+                }, 1000)
             })
         }
     }   
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' sx={{position: 'relative'}}>
+        {
+            succesAlert ? <SuccessfullAlert /> : <></>
+        }
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Ускуна Қўшиш</Typography>
@@ -80,7 +110,7 @@ function CreateEquipment() {
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Ускуна Номи:</Typography>
-                            <TextField value={toolsName} onChange={(e) => setToolsName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={toolsName} onChange={(e) => setToolsName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
                             <Typography mt={2}>Обект:</Typography>
@@ -103,7 +133,7 @@ function CreateEquipment() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Нархи:</Typography>
-                            <TextField value={price} onChange={(e) => setPrice(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField autoComplete='off' value={price} onChange={(e) => setPrice(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>

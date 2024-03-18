@@ -118,7 +118,7 @@ function DayOff() {
                             {
                                 dayData.map((item, index) => {
                                     return (
-                                        <Grid container p={3} key={index + 1} borderBottom='solid 2px #ed744466' alignItems="center" textAlign={{xl: 'center', md: "center", sm: 'left', xs: 'left'}}>                    
+                                        <Grid container p={3} mt={-1} height={{xl: '60px', md: '60px', sm: "auto", xs: "auto"}} key={index + 1} borderBottom='solid 2px #ed744466' justifyContent='center' alignItems="center" textAlign={{xl: 'center', md: "center", sm: 'left', xs: 'left'}}>                    
                                             <Grid item xl={1} md={1} sm={12} xs={12}>
                                                 <Typography pt={2} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Т/р:</Typography>
                                                 {index + 1}
@@ -129,7 +129,7 @@ function DayOff() {
                                             </Grid>
                                             <Grid item xl={3} md={3} sm={12} xs={12}>
                                                 <Typography pt={1} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Қанча вақт дам олгани:</Typography>
-                                                {item.quantity} kun dam oldi
+                                                <span style={{fontWeight: 'bold'}}>{item.quantity}</span> kun dam oldi
                                             </Grid>
                                             <Grid item xl={4} md={4} sm={12} xs={12}>
                                                 <Typography pt={1} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Delete:</Typography>

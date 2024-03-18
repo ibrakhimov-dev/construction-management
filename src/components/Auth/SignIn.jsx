@@ -3,7 +3,7 @@ import logo from "../Assets/logo.png";
 import banner from "../Assets/banner.jpg"
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { login_api_url, base_url } from '../API/baseURL';
+import { login_api_url, base_url, role_api_url } from '../API/baseURL';
 import axios from 'axios';
 
 
@@ -11,18 +11,13 @@ function SignIn() {
     const [login , setLogin] = useState('')
     const [parol , setParol] = useState('')
     const navigate = useNavigate();
+    
     const token = localStorage.getItem('accessToken');
 
     const headers = {
         'Content-Type': 'application/json',
         "Access-Control-Allow-Origin": base_url
     }
-
-    useEffect(() => {
-        if (token !== ""){
-            navigate('/home');
-        }
-    }, [])
 
     function click () {
         if (login === "" || parol === "") {
@@ -33,9 +28,19 @@ function SignIn() {
                 password: parol
             }, {headers})
             .then((res) => {
-                console.log(res.data.token)
+                console.log(res.data)
                 localStorage.setItem('accessToken', res.data.token)
-                navigate('/home');
+                localStorage.setItem('role', res.data.role);
+                if(res.data.role == "admin"){
+                    navigate("/admin/dashboard")
+                    window.location.reload()
+                  }else if (res.data.role == "user"){
+                    navigate("/user/cost")
+                    window.location.reload()
+                  }else {
+                      navigate("/login")
+                      window.location.reload() 
+                  }
             }).catch((err) => {
                 alert('Логин ёки парол хато!')
             })
@@ -51,10 +56,10 @@ function SignIn() {
                 <Box width='80%' margin='0 auto' pt={3}>
                     <FormControl fullWidth>
                         <FormGroup>
-                            <TextField id="outlined-basic" margin='normal' value={login} onChange={(e) => {setLogin(e.target.value)}} label="Login" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' id="outlined-basic" margin='normal' value={login} onChange={(e) => {setLogin(e.target.value)}} label="Login" color='warning' variant="outlined" />
                         </FormGroup>
                         <FormGroup>
-                            <TextField id="outlined-basic" margin='normal' value={parol} onChange={(e) => {setParol(e.target.value)}} label="Parol" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' id="outlined-basic" margin='normal' value={parol} onChange={(e) => {setParol(e.target.value)}} label="Parol" color='warning' variant="outlined" />
                         </FormGroup>
                     </FormControl>
                     <Button onClick={click} sx={{marginTop: '30px', padding: '10px 0', fontSize: '16px'}} color='warning' variant='contained' fullWidth>Tizmga kirish</Button>

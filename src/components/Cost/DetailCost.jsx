@@ -18,8 +18,13 @@ import { base_url,
     expenses_item_delete_api_url } from '../API/baseURL';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { DeleteAlert, SuccessfullAlert, EditAlert, ErrorAlert } from '../Alert/Alert';
 
 function DetailCost() {
+    const [succesAlert, setSuccessAlert] = useState(false);
+    const [errorAlert, setErrorAlert] = useState(false);
+    const [editAlert, setEditAlert] = useState(false);
+    const [deleteAlert, setDeleteAlert] = useState(false);
     const [currentId, setCurrentId] = useState("");
     const location = useLocation();
     const [itemData, setItemData] = useState([]);
@@ -63,6 +68,8 @@ function DetailCost() {
         })
         .then((res) => {
             setItemData(res.data);
+        }).catch((err) => {
+            console.log(err)
         })
     }, [isAgreeDelete])
 
@@ -79,6 +86,10 @@ function DetailCost() {
                 setSumma(0);
                 setComment("");
                 setDate("");
+                setSuccessAlert(true);
+                    setTimeout(() => {
+                        setSuccessAlert(false);
+                    }, 1000)
                 axios.get(expenses_item_api_url(), {
                     params: {
                         expense: location.state.id 
@@ -87,7 +98,14 @@ function DetailCost() {
                 })
                 .then((res) => {
                     setItemData(res.data);
+                }).catch((err) => {
+                    console.log(err)
                 })
+            }).catch((err) => {
+                setErrorAlert(true);
+                setTimeout(() => {
+                    setErrorAlert(false);
+                }, 1000)
             })   
        } 
     }
@@ -115,6 +133,10 @@ function DetailCost() {
             setEditComment("");
             setEditDate("");
             setEditSumma(0);
+            setEditAlert(true);
+            setTimeout(() => {
+                setEditAlert(false);
+            }, 1000)
             axios.get(expenses_item_api_url(), {
                 params: {
                     expense: location.state.id 
@@ -124,11 +146,27 @@ function DetailCost() {
             .then((res) => {
                 setItemData(res.data);
             })
+        }).catch((err) => {
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
         })
     }
 
     function deleteItemExpenses (id) {
         axios.delete(expenses_item_delete_api_url(id), {headers})
+        .then((res) => {
+            setDeleteAlert(true);
+            setTimeout(() => {
+                setDeleteAlert(false);
+            }, 1000)
+        }).catch((err) => {
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
+        })
         setIsAgreeDelete(true);
         setTimeout(() => {
             setIsAgreeDelete(false)
@@ -137,6 +175,18 @@ function DetailCost() {
 
   return (
     <Stack pb='70px'>
+        {
+            succesAlert ? <SuccessfullAlert /> : <></>
+        }
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
+        {
+            deleteAlert ? <DeleteAlert /> : <></>
+        }
+        {
+            editAlert ? <EditAlert /> : <></>
+        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Харажатлар (Умумий Малумот)</Typography>
@@ -166,13 +216,13 @@ function DetailCost() {
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Изоҳ:</Typography>
-                                <TextField value={editComment} onChange={(e) => setEditComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField autoComplete='off' value={editComment} onChange={(e) => setEditComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Сумма:</Typography>
-                                <TextField color='warning' value={editSumma} onChange={(e) => setEditSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                                <TextField autoComplete='off' color='warning' value={editSumma} onChange={(e) => setEditSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                             </FormControl>          
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
@@ -200,13 +250,13 @@ function DetailCost() {
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Изоҳ:</Typography>
-                                <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Сумма:</Typography>
-                                <TextField color='warning' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                                <TextField autoComplete='off' color='warning' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                             </FormControl>          
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
@@ -219,7 +269,7 @@ function DetailCost() {
                                 </LocalizationProvider>
                             </FormControl>         
                         </Grid>
-                        <Grid xl={3} md={6} sm={6} xs={12} p={2}>   
+                        <Grid xl={3} md={6} sm={6} xs={12} p={2} display='flex' justifyContent='flex-end'>   
                             <Button onClick={createItemExpenses} sx={{height: '55px', mt: 3}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                                 Xаражат қўшиш
                             </Button>               

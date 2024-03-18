@@ -43,7 +43,7 @@ function CreateOthersExpenses() {
                 currency_rate: currencyRate,
             }, {headers})
             .then((res) => {
-                navigate('/home/others-expenses')
+                navigate('/admin/others-expenses')
             }).catch((err) => {
 
             })
@@ -63,11 +63,11 @@ function CreateOthersExpenses() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Изоҳ:</Typography>
-                            <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сумма ({currency}):</Typography>
-                            <TextField color='warning' id="outlined-basic" value={summa} onChange={(e) => setSumma(e.target.value)} type='number' variant="outlined" />
+                            <TextField autoComplete='off' color='warning' id="outlined-basic" value={summa} onChange={(e) => setSumma(e.target.value)} type='number' variant="outlined" />
                         </FormControl> 
                         <FormControl fullWidth>
                             <Typography mt={2}>Сана:</Typography>
@@ -98,7 +98,7 @@ function CreateOthersExpenses() {
                                 </FormControl>
                                 <FormControl fullWidth>
                                     <Typography mt={2}>Валюта курси (сўм):</Typography>
-                                    <TextField color='warning' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                                    <TextField autoComplete='off' color='warning' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                                 </FormControl>
                         <Button onClick={createOtherExpenses} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Бошқа харажатлар қўшиш

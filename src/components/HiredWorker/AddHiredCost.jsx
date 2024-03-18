@@ -11,6 +11,7 @@ import { base_url,
     edit_hired_worker_expenses_api_url } from '../API/baseURL';
 import axios from 'axios';
 import { useNavigate, } from 'react-router-dom';
+import { DeleteAlert, SuccessfullAlert, EditAlert, ErrorAlert } from '../Alert/Alert';
 
 function AddHiredCost(props) {
     const [currency, setCurrency] = useState('sum');
@@ -137,6 +138,7 @@ function AddHiredCost(props) {
         justifyContent: 'center',
         alignItems: "center", 
         backgroundColor: '#000000c4'}}>
+            
         <Paper elevation={3} sx={{width: '90%', overflowY: 'scroll', height: '600px', overflowX: 'scroll', '&::-webkit-scrollbar': {height: '0'},  position: 'relative'}}>
             <Button color='danger' onClick={() => props.closeModal()} sx={{position: 'absolute', right: '10px', top: '10px'}}><CloseIcon/></Button>
             <Grid container p={4} spacing={3}>             
@@ -207,7 +209,7 @@ function AddHiredCost(props) {
                         <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl fullWidth>
                                 <Typography mt={2}>Берган санаси:</Typography>
-                                <input value={editDate} onChange={(e) => setEditDate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
+                                <input autoComplete='off' value={editDate} onChange={(e) => setEditDate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
                             </FormControl>
                             <FormControl fullWidth>
                                 <Typography mt={2}>Валюта:</Typography>
@@ -220,17 +222,17 @@ function AddHiredCost(props) {
                         <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
                                 <Typography mt={2}>Суммаси: ({currency})</Typography>
-                                <input value={editSumma} onChange={(e) => setEditSumma(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
+                                <input autoComplete='off' value={editSumma} onChange={(e) => setEditSumma(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
                             </FormControl>
                             <FormControl  fullWidth>
                                 <Typography mt={2}>Валюта курси (сўм):</Typography>
-                                <input value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
+                                <input autoComplete='off' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
                             </FormControl>
                         </Grid>
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
                                 <Typography mb={2}>Изоҳ:</Typography>
-                                <textarea value={editComment} onChange={(e) => setEditComment(e.target.value)} name="" id="" cols="30" rows="7"></textarea>
+                                <textarea autoComplete='off' value={editComment} onChange={(e) => setEditComment(e.target.value)} name="" id="" cols="30" rows="7"></textarea>
                             </FormControl>
                         </Grid>
                     </Grid>
@@ -243,11 +245,23 @@ function AddHiredCost(props) {
                         <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl fullWidth>
                                 <Typography mt={2}>Берган санаси:</Typography>
-                                <input value={date} onChange={(e) => setDate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="date" name="" id="" />
+                                <input style={{
+                                    height: '50px', 
+                                    paddingLeft: '5px',
+                                    fontSize: '16px',
+                                    marginTop: '10px', 
+                                    border: 'solid 2px #FE6529',
+                                    borderRadius: '5px'}} autoComplete='off' value={date} onChange={(e) => setDate(e.target.value)}  type="date" name="" id="" />
                             </FormControl>
                             <FormControl fullWidth>
                                 <Typography mt={2}>Валюта:</Typography>
-                                <select style={{height: '40px', marginTop: '10px'}} value={currency} onChange={(e) => setCurrency(e.target.value)} name="" id="">
+                                <select style={{
+                                    height: '50px', 
+                                    paddingLeft: '5px',
+                                    fontSize: '16px',
+                                    marginTop: '10px', 
+                                    border: 'solid 2px #FE6529',
+                                    borderRadius: '5px'}} value={currency} onChange={(e) => setCurrency(e.target.value)} name="" id="">
                                     <option value="dollar">Usd</option>
                                     <option value="sum">Сўм</option>
                                 </select>
@@ -256,22 +270,40 @@ function AddHiredCost(props) {
                         <Grid item xl={6} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
                                 <Typography mt={2}>Суммаси: ({currency})</Typography>
-                                <input value={summa} onChange={(e) => setSumma(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
+                                <input autoComplete='off' value={summa} onChange={(e) => setSumma(e.target.value)} style={{
+                                    height: '50px', 
+                                    paddingLeft: '5px',
+                                    fontSize: '16px', 
+                                    marginTop: '10px', 
+                                    border: 'solid 2px #FE6529',
+                                    borderRadius: '5px'}} type="number" name="" id="" />
                             </FormControl>
                             <FormControl  fullWidth>
                                 <Typography mt={2}>Валюта курси (сўм):</Typography>
-                                <input value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} style={{height: '40px', marginTop: '10px'}} type="number" name="" id="" />
+                                <input autoComplete='off' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} style={{
+                                    height: '50px', 
+                                    paddingLeft: '5px',
+                                    fontSize: '16px',
+                                    marginTop: '10px', 
+                                    border: 'solid 2px #FE6529',
+                                    borderRadius: '5px'}} type="number" name="" id="" />
                             </FormControl>
                         </Grid>
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <FormControl  fullWidth>
-                                <Typography mb={2}>Изоҳ:</Typography>
-                                <textarea value={comment} onChange={(e) => setComment(e.target.value)} name="" id="" cols="30" rows="7"></textarea>
+                                <Typography >Изоҳ:</Typography>
+                                <input autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} style={{
+                                    height: '50px', 
+                                    paddingLeft: '5px',
+                                    fontSize: '16px',
+                                    marginTop: '10px', 
+                                    border: 'solid 2px #FE6529',
+                                    borderRadius: '5px'}} type="text" name="" id="" />
                             </FormControl>
                         </Grid>
                     </Grid>
-                    <Button onClick={createHiredWorkerExpenses} sx={{mt: 2}} variant='contained' color='warning'>Қўшиш</Button>
-                    <a href={`${base_url}/api/hired-workers/export/${props.workerId}`} download={`${base_url}/api/hired-workers/export/${props.workerId}`}><Button sx={{mt: 2, ml: 2}} variant='contained' color='success'>Expert</Button></a>
+                    <Button onClick={createHiredWorkerExpenses} sx={{mt: 3}} variant='contained' color='warning'>Қўшиш</Button>
+                    <a href={`${base_url}/api/hired-workers/export/${props.workerId}`} download={`${base_url}/api/hired-workers/export/${props.workerId}`}><Button sx={{mt: 3, ml: 2}} variant='contained' color='success'>Expert</Button></a>
                 </Grid>
                 }                   
             </Grid>

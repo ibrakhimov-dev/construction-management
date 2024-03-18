@@ -13,8 +13,13 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { DeleteAlert, SuccessfullAlert, EditAlert, ErrorAlert } from '../Alert/Alert';
 
 function DetailAgreement() {
+    const [succesAlert, setSuccessAlert] = useState(false);
+    const [errorAlert, setErrorAlert] = useState(false);
+    const [editAlert, setEditAlert] = useState(false);
+    const [deleteAlert, setDeleteAlert] = useState(false);
     const navigate = useNavigate();
     const [currentId, setCurrentId] = useState(null);
     const [isAgreeEdit, setIsAgreeEdit] = useState(true);
@@ -47,10 +52,14 @@ function DetailAgreement() {
         axios.get(current_contract_api_url(location.state.id), {headers})
         .then((res) => {
             setCurrentContract(res.data.data);
+        }).catch((err) => {
+            console.log(err)
         })
         axios.get(contract_expenses_api_url(location.state.id), {headers})
         .then((res) => {
             setCurrentExpenses(res.data.data);
+        }).catch((err) => {
+            console.log(err)
         })
     }, [isAgreeDelete])
 
@@ -58,7 +67,16 @@ function DetailAgreement() {
         if (window.confirm("Сиз ростан ҳам ўчирмоқчимисз?")) {
             axios.delete(delete_contract_api_url(location.state.id), {headers})
             .then((res) => {
-                navigate("/home/agreement")
+                setDeleteAlert(true);
+                setTimeout(() => {
+                    navigate("/admin/agreement")
+                    setDeleteAlert(false);
+                }, 1000)
+            }).catch((err) => {
+                setErrorAlert(true);
+                setTimeout(() => {
+                    setErrorAlert(false);
+                }, 1000)
             })
         }
     }
@@ -76,6 +94,17 @@ function DetailAgreement() {
 
     function deleteExpenses (id) {
         axios.delete(delete_contract_expenses_api_url(id), {headers})
+        .then((res) => {
+            setDeleteAlert(true);
+            setTimeout(() => {
+                setDeleteAlert(false);
+            }, 1000)
+        }).catch((err) => {
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
+        })
         setIsAgreeDelete(true);
         setTimeout(() => {
             setIsAgreeDelete(false)
@@ -95,7 +124,16 @@ function DetailAgreement() {
             setEditSquare(0);
             axios.get(contract_expenses_api_url(location.state.id), {headers})
             .then((res) => {
+                setEditAlert(true);
+                setTimeout(() => {
+                    setEditAlert(false);
+                }, 1000)
                 setCurrentExpenses(res.data.data);
+            }).catch((err) => {
+                setErrorAlert(true);
+                setTimeout(() => {
+                    setErrorAlert(false);
+                }, 1000)
             })
         })
     }
@@ -119,14 +157,35 @@ function DetailAgreement() {
                 setSumma(0);
                 axios.get(contract_expenses_api_url(location.state.id), {headers})
                 .then((res) => {
+                    setSuccessAlert(true);
+                    setTimeout(() => {
+                        setSuccessAlert(false);
+                    }, 1000)
                     setCurrentExpenses(res.data.data);
                 })
+            }).catch((err) => {
+                setErrorAlert(true);
+                setTimeout(() => {
+                    setErrorAlert(false);
+                }, 1000)
             })
         }
     }
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' sx={{position: 'relative'}}>
+        {
+            succesAlert ? <SuccessfullAlert /> : <></>
+        }
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
+        {
+            deleteAlert ? <DeleteAlert /> : <></>
+        }
+        {
+            editAlert ? <EditAlert /> : <></>
+        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>{currentContract.project_name} обекти {currentContract.block} блок келишув</Typography>
@@ -141,17 +200,17 @@ function DetailAgreement() {
                             <Grid item xl={6} md={6} sm={12} xs={12}>
                                 <FormControl fullWidth>
                                     <Typography mt={2}>Нархи: ({currentContract.currency})</Typography>
-                                    <TextField type='number' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                    <TextField autoComplete='off' type='number' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                                 </FormControl>
                                 <FormControl fullWidth>
                                     <Typography mt={2}>Етаж:</Typography>
-                                    <TextField value={floor} onChange={(e) => setFloor(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                    <TextField autoComplete='off' value={floor} onChange={(e) => setFloor(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                                 </FormControl>
                             </Grid>
                             <Grid item xl={6} md={6} sm={12} xs={12}>
                                 <FormControl fullWidth>
                                     <Typography mt={2}>O'lchov:</Typography>
-                                    <TextField value={square} onChange={(e) => setSquare(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                    <TextField autoComplete='off' value={square} onChange={(e) => setSquare(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                                 </FormControl>
                                 <a href={`${base_url}/api/contracts/export/${location.state.id}`} download={`${base_url}/api/contracts/export/${location.state.id}`}><Button sx={{mt: 2, mr: 2}} variant='contained' color='success'>Export</Button></a>
                                 <Button onClick={createExpenses}  sx={{mt: 2}} variant='contained' color='warning'>Қўшиш</Button>
@@ -163,17 +222,17 @@ function DetailAgreement() {
                             <Grid item xl={6} md={6} sm={12} xs={12}>
                                 <FormControl fullWidth>
                                     <Typography mt={2}>Нархи: ({currentContract.currency})</Typography>
-                                    <TextField type='number' value={editSumma} onChange={(e) => setEditSumma(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                    <TextField autoComplete='off' type='number' value={editSumma} onChange={(e) => setEditSumma(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                                 </FormControl>
                                 <FormControl fullWidth>
                                     <Typography mt={2}>Етаж:</Typography>
-                                    <TextField value={editFloor} onChange={(e) => setEditFloor(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                    <TextField autoComplete='off' value={editFloor} onChange={(e) => setEditFloor(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                                 </FormControl>
                             </Grid>
                             <Grid item xl={6} md={6} sm={12} xs={12}>
                                 <FormControl fullWidth>
                                     <Typography mt={2}>Ўлчов:</Typography>
-                                    <TextField value={editSquare} onChange={(e) => setEditSquare(e.target.value)} id="outlined-basic" color='warning' type='number' variant="outlined" />
+                                    <TextField autoComplete='off' value={editSquare} onChange={(e) => setEditSquare(e.target.value)} id="outlined-basic" color='warning' type='number' variant="outlined" />
                                 </FormControl>
                                 <Button onClick={editExpenses}  sx={{mt: 2}} variant='contained' color='warning'>Таҳрирлаш</Button>
                                 <Button onClick={closeEdit} sx={{mt: 2, ml: 2}} variant='contained' color='success'> <ArrowBackIcon /></Button>
@@ -197,7 +256,7 @@ function DetailAgreement() {
                 {
                     contractExpenses.map((item, index) => {
                         return (
-                            <Grid container key={index + 1} p={3} borderBottom='solid 2px #ed744466' alignItems="center" textAlign={{xl: 'center', md: "center", sm: 'left', xs: 'left'}}>                    
+                            <Grid container height={{xl: '60px', md: '60px', sm: "auto", xs: "auto"}} mt={-1} key={index + 1} p={3} borderBottom='solid 2px #ed744466' alignItems="center" textAlign={{xl: 'center', md: "center", sm: 'left', xs: 'left'}}>                    
                                 <Grid item xl={1} md={1} sm={12} xs={12}>
                                     <Typography pt={2} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Т/р</Typography>
                                     {index + 1}

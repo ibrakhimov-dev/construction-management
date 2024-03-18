@@ -91,7 +91,7 @@ function Avans() {
                     <Grid item xl={3} md={3} sm={3} xs={12}>
                     <FormControl  fullWidth>
                             <Typography>Қанча аванс олгани:</Typography>
-                            <TextField type='number' value={money} onChange={(e) => setMoney(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' type='number' value={money} onChange={(e) => setMoney(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl> 
                     </Grid>
                     <Grid item xl={3} md={3} sm={3} xs={12}>
@@ -136,14 +136,14 @@ function Avans() {
                     {
                         avansData.map((item, index) => {
                             return (
-                                <Grid key={index + 1} container p={3} borderBottom='solid 2px #ed744466' alignItems="center" textAlign={{xl: 'center', md: "center", sm: 'left', xs: 'left'}}>                    
+                                <Grid key={index + 1} container mt={-1} p={3} height={{xl: '60px', md: '60px', sm: "auto", xs: "auto"}} borderBottom='solid 2px #ed744466' alignItems="center" textAlign={{xl: 'center', md: "center", sm: 'left', xs: 'left'}}>                    
                                 <Grid item xl={1} md={1} sm={12} xs={12}>
                                     <Typography pt={2} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Т/р:</Typography>
                                     {index + 1}
                                 </Grid>
                                 <Grid item xl={3} md={3} sm={12} xs={12}>
                                     <Typography pt={1} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Қанча аванс олгани:</Typography>
-                                    {currencyFormat(item.amount)} сўм
+                                    <span style={{fontWeight: 'bold'}}>{currencyFormat(item.amount)}</span> сўм
                                 </Grid>
                                 <Grid item xl={2} md={2} sm={12} xs={12}>
                                     <Typography pt={1} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Аванс олган куни:</Typography>

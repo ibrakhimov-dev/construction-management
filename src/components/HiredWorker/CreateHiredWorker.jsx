@@ -5,8 +5,11 @@ import AddIcon from '@mui/icons-material/Add';
 import { useState, useEffect } from 'react';
 import { base_url, create_hired_worker_api_url, all_object_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { ErrorAlert, SuccessfullAlert } from '../Alert/Alert';
 
 function EditHiredWorker() {
+    const [errorAlert, setErrorAlert] = useState(false);
+    const [editAlert, setEditAlert] = useState(false);
     const [object, setObject] = useState(null);
     const [allObject, setAllObject] = useState([]);
     const [fullName, setFullName] = useState("");
@@ -24,8 +27,10 @@ function EditHiredWorker() {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            console.log(err)
         })
-    }, [])
+    }, []) 
 
     function createHiredWorker () {
         if (fullName === "" || phone === "" || comment === "" || object === null){
@@ -37,13 +42,28 @@ function EditHiredWorker() {
                 comment: comment,
                 project_id: object,
             }, {headers}).then((res) => {
-                navigate('/home/hired-worker')
+                setEditAlert(true);
+                setTimeout(() => {
+                    setEditAlert(false);
+                    navigate('/admin/hired-worker')
+                }, 1000)
+            }).catch((err) => {
+                setErrorAlert(true);
+                setTimeout(() => {
+                    setErrorAlert(false);
+                }, 1000)
             })
         }
     }
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' sx={{position: 'relative'}}>
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
+        {
+            editAlert ? <SuccessfullAlert /> : <></>
+        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Ёлланма ишчилар қўшиш</Typography>
@@ -55,7 +75,7 @@ function EditHiredWorker() {
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Исм Фамилия:</Typography>
-                            <TextField value={fullName} onChange={(e) => setFullName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={fullName} onChange={(e) => setFullName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
                             <Typography mt={2}>Обект:</Typography>
@@ -78,13 +98,13 @@ function EditHiredWorker() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Изоҳ:</Typography>
-                            <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                     <FormControl fullWidth>
                             <Typography>Телофон рақами:</Typography>
-                            <TextField value={phone} onChange={(e) => setPhone(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField autoComplete='off' value={phone} label="+998" onChange={(e) => setPhone(e.target.value)} id="outlined-basic" type='number' color='warning' variant="outlined" />
                         </FormControl>
                             <Button onClick={createHiredWorker} sx={{height: '55px', mt: 5}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                                 Ишчи қўшиш

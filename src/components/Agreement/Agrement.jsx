@@ -1,4 +1,4 @@
-import { Stack, Grid, Typography, FormControl, Button, MenuItem, Select, InputLabel, Pagination } from '@mui/material';
+import { Stack, Grid, Typography, FormControl, Button, MenuItem, Select, InputLabel, Pagination, IconButton } from '@mui/material';
 import { base_url, all_object_api_url, contract_api_url } from '../API/baseURL';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -38,6 +38,8 @@ function Agreement() {
             setCountPage(res.data.meta?.last_page);
             setPage(res.data.meta?.current_page);
             setDefoultPage(res.data.meta?.current_page)
+        }).catch((err) => {
+            console.log(err)
         })
     }, [page, objectSelect])
 
@@ -83,7 +85,7 @@ function Agreement() {
                         </FormControl>
                     </Grid>
                     <Grid item xl={8} md={8} sm={6} xs={12} display="flex" justifyContent={{xl: 'flex-end', md: 'flex-end', sm: "flex-end", xs: 'center'}}>
-                        <Button onClick={() => navigate('/home/create-agreement')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
+                        <Button onClick={() => navigate('/admin/create-agreement')} sx={{height: '55px', mt: 1}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Келишув қўшиш
                         </Button>
                     </Grid>
@@ -102,7 +104,7 @@ function Agreement() {
                 {
                     contracts.map((item,index) => {
                         return (
-                            <Grid container key={index + 1} p={3} borderBottom='solid 2px #ed744466' alignItems="center" textAlign={{xl: 'center', md: "center", sm: 'left', xs: 'left'}}>                    
+                            <Grid container mt={-1} height={{xl: '60px', md: '60px', sm: "auto", xs: "auto"}} key={index + 1} p={3} borderBottom='solid 2px #ed744466' alignItems="center" textAlign={{xl: 'center', md: "center", sm: 'left', xs: 'left'}}>                    
                                 <Grid item xl={1} md={1} sm={12} xs={12}>
                                     <Typography pt={2} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Т/р</Typography>
                                     {index + 1}
@@ -121,7 +123,10 @@ function Agreement() {
                                 </Grid>
                                 <Grid item xl={3} md={3} sm={12} xs={12}>
                                     <Typography pt={1} display={{xl: 'none', md: "none", sm: 'block', xs: 'block'}} fontWeight={700} color='#272d7b'>Detail:</Typography>
-                                    <Button onClick={() => navigate("/home/detail-agreement", {state: {id: item.id}})} size='large' variant='contained' color='success' endIcon={<RemoveRedEyeIcon />}>Detail</Button>
+                                    <IconButton onClick={() => navigate("/admin/detail-agreement", {state: {id: item.id}})} size='small' aria-label="delete">
+                                        <RemoveRedEyeIcon sx={{fontSize: '22px'}} color='success' />
+                                    </IconButton>
+                                    
                                 </Grid>
                             </Grid>
                         );

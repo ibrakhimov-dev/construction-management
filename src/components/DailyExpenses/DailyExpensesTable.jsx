@@ -45,7 +45,7 @@ function DailyExpensesTable(props) {
                                 <TdMoney>{item.currency_rate} сўм</TdMoney>
                                 <TdMoney>
                                     <Stack direction="row" spacing={2}>
-                                        <IconButton onClick={() => navigate('/home/edit-daily-expenses', {state: {id: item.id}})} aria-label="delete">
+                                        <IconButton onClick={() => navigate('/admin/edit-daily-expenses', {state: {id: item.id}})} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
                                         <IconButton onClick={() => deleteHouseExpenses(item.id)} aria-label="delete">

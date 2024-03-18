@@ -5,8 +5,11 @@ import { Grid, Button, TextField, FormControl, Typography, Stack, MenuItem, Sele
 import { useState, useEffect } from 'react';
 import { base_url, all_object_api_url, create_contract_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { SuccessfullAlert, ErrorAlert } from '../Alert/Alert';
 
 function CreateAgreement() {
+    const [succesAlert, setSuccessAlert] = useState(false);
+    const [errorAlert, setErrorAlert] = useState(false);
     const [object, setObject] = useState(null);
     const [allObject, setAllObject] = useState([]);
     const [block, setBlock] = useState("");
@@ -23,6 +26,8 @@ function CreateAgreement() {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch ((err) => {
+            console.log(err)
         })
     }, [])
 
@@ -35,14 +40,29 @@ function CreateAgreement() {
                 "currency" : moneyValue,
                 "project_id": object,
             }, {headers}).then((res) => {
-                navigate("/home/agreement")
+                setSuccessAlert(true);
+                setTimeout(() => {
+                    navigate("/admin/agreement")
+                    setSuccessAlert(false);
+                }, 1000)
+            }).catch((err) => {
+                setErrorAlert(true);
+                setTimeout(() => {
+                    setErrorAlert(false)
+                })
             })
         }
 
     }
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' sx={{position: "relative"}}>
+        {
+            succesAlert ? <SuccessfullAlert /> : <></>
+        }
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Келишув қўшиш</Typography>
@@ -73,7 +93,7 @@ function CreateAgreement() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Блоcк:</Typography>
-                            <TextField value={block} onChange={(e) => setBlock(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={block} onChange={(e) => setBlock(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>

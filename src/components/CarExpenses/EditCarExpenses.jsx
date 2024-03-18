@@ -11,8 +11,11 @@ import { useLocation } from 'react-router-dom';
 import { base_url, edit_car_expenses_api_url, current_car_expenses_api_url } from '../API/baseURL';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { EditAlert, ErrorAlert } from '../Alert/Alert';
 
 function EditCarExpenses() {
+    const [errorAlert, setErrorAlert] = useState(false);
+    const [editAlert, setEditAlert] = useState(false);
     const [currency, setCurrency] = useState('sum');
     const [currencyRate, setCurrencyRate] = useState(1);
     const [comment, setComment] = useState('');
@@ -36,6 +39,8 @@ function EditCarExpenses() {
             setSumma(res.data.data.summa)
             setCurrency(res.data.data.currency)
             setCurrencyRate(res.data.data.currency_rate)
+        }).catch((err) => {
+            console.log(err)
         })
     }, [])
 
@@ -48,6 +53,9 @@ function EditCarExpenses() {
     }
 
     function editCarExpenses () {
+        if (summa === null || comment === "" || date === "") {
+            alert("Илтимос сўралган малумотларни тўлдиринг!");
+        }else {
         axios.put(edit_car_expenses_api_url(location.state.id), {
             summa: summa, 
             date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, 
@@ -55,12 +63,28 @@ function EditCarExpenses() {
             currency: currency,
             currency_rate: currencyRate,}, {headers})
         .then((res) => {
-            navigate('/home/car-expenses')
+            setEditAlert(true);
+                setTimeout(() => {
+                    setEditAlert(false);
+                    navigate('/admin/car-expenses')
+                }, 1000)
+        }).catch((err) => {
+            setErrorAlert(true);
+            setTimeout(() => {
+                setErrorAlert(false);
+            }, 1000)
         })
+        }
     }
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' sx={{position: 'relative'}}>
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
+        {
+            editAlert ? <EditAlert /> : <></>
+        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Машина харажатларни тахрирлаш</Typography>
@@ -72,11 +96,11 @@ function EditCarExpenses() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Изоҳ:</Typography>
-                            <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сумма ({currency}):</Typography>
-                            <TextField color='warning' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField autoComplete='off' color='warning' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сана:</Typography>
@@ -104,7 +128,7 @@ function EditCarExpenses() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Валюта курси (сўм):</Typography>
-                            <TextField color='warning' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField autoComplete='off' color='warning' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>  
                         <Button onClick={editCarExpenses} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
                             Таҳрирлаш

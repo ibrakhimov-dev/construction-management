@@ -6,6 +6,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
 function WorkerTable(props) {
+    const role = localStorage.getItem("role")
     const navigate = useNavigate();
     // const [checked, setChecked] = React.useState(true);
 
@@ -26,7 +27,7 @@ function WorkerTable(props) {
     }
 
     function edit (id) {
-        navigate('/home/detail-worker');
+        navigate(`/${role}/detail-worker`);
         localStorage.setItem('workerId', id);
     }
 
@@ -71,9 +72,11 @@ function WorkerTable(props) {
                                         <IconButton onClick={() => edit(item.id)} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
-                                        <IconButton onClick={() => deleteWorker(item.id)} aria-label="delete">
+                                        {
+                                            role === "admin" ? <IconButton onClick={() => deleteWorker(item.id)} aria-label="delete">
                                             <DeleteIcon color='danger' />
-                                        </IconButton>
+                                        </IconButton> : <></>
+                                        }
                                     </Stack>
                                 </TdMoney>
                             </TbodyWrapper>

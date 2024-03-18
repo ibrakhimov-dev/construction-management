@@ -7,6 +7,7 @@ import { base_url, all_object_api_url, current_worker_api_url, edit_worker_api_u
 import axios from 'axios';
 
 function EditWorker() {
+    const role = localStorage.getItem("role");
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [position, setPosition] = useState("");
@@ -50,7 +51,7 @@ function EditWorker() {
                 "salary_rate": salary,
                 "project_id": objectSelect,
             }, {headers}).then((res) => {
-                navigate('/home/worker')
+                navigate(`/${role}/worker`)
             })
         }
     }
@@ -104,11 +105,11 @@ function EditWorker() {
                     <Grid xl={6} md={6} sm={12} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Кунлик Иш Ҳақи:</Typography>
-                            <TextField value={salary} onChange={(e) => setSalary(e.target.value)} id="outlined-basic" color='warning' type='number' variant="outlined" />
+                            <TextField autoComplete='off' value={salary} disabled={role === "admin" ? false : true} onChange={(e) => setSalary(e.target.value)} id="outlined-basic" color='warning' type='number' variant="outlined" />
                         </FormControl>                              
                         <FormControl fullWidth>
                             <Typography mt={2}>Телофон рақами:</Typography>
-                            <TextField value={phone} onChange={(e) => setPhone(e.target.value)} sx={{mt: 1}} id="outlined-basic" label="+998" color='warning' type='number' variant="outlined" />
+                            <TextField autoComplete='off' value={phone} onChange={(e) => setPhone(e.target.value)} sx={{mt: 1}} id="outlined-basic" label="+998" color='warning' type='number' variant="outlined" />
                         </FormControl>
                         <Button onClick={editWorker} sx={{height: '55px', mt: 4}} size='large' variant='contained' color='warning' endIcon={<EditIcon />}>
                             Таҳрирлаш

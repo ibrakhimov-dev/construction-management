@@ -9,8 +9,11 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { base_url, create_house_expenses_api_url } from '../API/baseURL';
 import { useState } from 'react';
 import axios from 'axios';
+import { SuccessfullAlert, ErrorAlert } from '../Alert/Alert';
 
 function CreateDailyExpenses() {
+    const [succesAlert, setSuccessAlert] = useState(false);
+    const [errorAlert, setErrorAlert] = useState(false);
     const [currency, setCurrency] = useState('sum');
     const [currencyRate, setCurrencyRate] = useState(1);
     const [comment, setComment] = useState('');
@@ -43,15 +46,28 @@ function CreateDailyExpenses() {
                 currency: currency,
                 currency_rate: currencyRate,}, {headers})
             .then((res) => {
-                navigate('/home/daily-expenses')
+                setSuccessAlert(true);
+                    setTimeout(() => {
+                        setSuccessAlert(false);
+                        navigate('/admin/daily-expenses')
+                    }, 1000)
             }).catch((err) => {
-    
+                setErrorAlert(true);
+                setTimeout(() => {
+                    setErrorAlert(false);
+                }, 1000)
             })
         }
     }
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' sx={{position: 'relative'}}>
+        {
+            succesAlert ? <SuccessfullAlert /> : <></>
+        }
+        {
+            errorAlert ? <ErrorAlert /> : <></>
+        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Уй харажатлар қўшиш</Typography>
@@ -63,11 +79,11 @@ function CreateDailyExpenses() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Изоҳ:</Typography>
-                            <TextField value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сумма ({currency}):</Typography>
-                            <TextField color='warning' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField autoComplete='off' color='warning' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Sana:</Typography>
@@ -95,7 +111,7 @@ function CreateDailyExpenses() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Валюта курси (сўм):</Typography>
-                            <TextField color='warning' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField autoComplete='off' color='warning' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>  
                         <Button onClick={createHouseExpenses} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                             Уй харажатлари қўшиш

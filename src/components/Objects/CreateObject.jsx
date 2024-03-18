@@ -46,7 +46,7 @@ function CreateObject() {
 
     function createObject () { 
         if (name === "" || imageName === "" || imgUrl === "") {
-            alert(<Alert severity="error">This is an error Alert.</Alert>)
+            alert("Илтимос сўралган малумотларни тўлдиринг!")
         } else {
             axios.post(create_object_api_url(), {
                 name: name,
@@ -55,7 +55,7 @@ function CreateObject() {
                 image_url: imgUrl,
             }, {headers})
             .then((res) => {
-                navigate('/home/object')
+                navigate('/admin/object')
             })
         }    
     }
@@ -73,7 +73,7 @@ function CreateObject() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Обект Номи:</Typography>
-                            <TextField value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         
                         <FormControl  fullWidth>

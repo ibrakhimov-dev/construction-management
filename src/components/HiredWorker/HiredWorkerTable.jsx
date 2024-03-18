@@ -68,7 +68,7 @@ function HiredWorkerTable(props) {
                                 <TdComment>{item.comment}</TdComment>
                                 <TdMoney>
                                     <Stack direction="row" spacing={2}>
-                                        <IconButton onClick={() => navigate('/home/edit-hired-worker', {state: {id: item.id}})} aria-label="delete">
+                                        <IconButton onClick={() => navigate('/admin/edit-hired-worker', {state: {id: item.id}})} aria-label="delete">
                                             <EditIcon color='warning' />
                                         </IconButton>
                                         <IconButton onClick={() => deleteHiredWorker(item.id)} aria-label="delete">

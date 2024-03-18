@@ -55,7 +55,7 @@ function CreateIncome() {
                 "currency": currency ,
                 "currency_rate": currencyRate
             }, {headers}).then((res) => {
-                navigate('/home/income')
+                navigate('/admin/income')
             })
         }
     }
@@ -92,11 +92,11 @@ function CreateIncome() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сумма:</Typography>
-                            <TextField value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField autoComplete='off' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth> 
                             <Typography mt={2}>Изоҳ:</Typography>
-                            <TextField  value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" variant="outlined" />
+                            <TextField autoComplete='off'  value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сана:</Typography>
@@ -141,7 +141,7 @@ function CreateIncome() {
                                 </FormControl>
                                 <FormControl fullWidth>
                                     <Typography mt={2}>Валюта курси (сўм):</Typography>
-                                    <TextField value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                                    <TextField autoComplete='off' value={currencyRate} onChange={(e) => setCurrencyRate(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                                 </FormControl>
                             </> : <></>
                         }
