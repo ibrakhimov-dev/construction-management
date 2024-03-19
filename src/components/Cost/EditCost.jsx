@@ -10,11 +10,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { base_url, all_object_api_url, all_user_api_url, current_expenses_api_url, edit_expenses_api_url } from '../API/baseURL';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { ErrorAlert, EditAlert } from '../Alert/Alert';
+import { Alert, editAlert, errorAlert } from '../Alert/Alert';
 
 function EditCost() {
-    const [errorAlert, setErrorAlert] = useState(false);
-    const [editAlert, setEditAlert] = useState(false);
     const location = useLocation();
     const role = localStorage.getItem("role");
     const [objectSelect, setObjectSelect] = useState("");
@@ -52,21 +50,27 @@ function EditCost() {
             setCurrencyRate(res.data.data.currency_rate);
             setComment(res.data.data.comment);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
 
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
 
         axios.get(all_user_api_url(), {headers})
         .then((res) => {
             setAllUser(res.data.data)
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
 
@@ -93,28 +97,18 @@ function EditCost() {
                 "currency": currency,
                 "currency_rate": currencyRate 
             }, {headers}).then((res) => {
-                setEditAlert(true);
+                editAlert()
                 setTimeout(() => {
-                    setEditAlert(false);
                     navigate(`/${role}/cost`)
-                }, 1000)
+                }, 2000)
             }).catch((err) => {
-                setErrorAlert(true);
-                setTimeout(() => {
-                    setErrorAlert(false);
-                }, 1000)
+               errorAlert()
             })
         }
     }
 
   return (
     <Stack pb='70px'>
-        {
-            errorAlert ? <ErrorAlert /> : <></>
-        }
-        {
-            editAlert ? <EditAlert /> : <></>
-        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Харажат қўшиш</Typography>
@@ -243,6 +237,7 @@ function EditCost() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

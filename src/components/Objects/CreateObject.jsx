@@ -1,5 +1,4 @@
 import React from 'react';
-import Alert from '@mui/material/Alert';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button, Box } from '@mui/material'
@@ -8,7 +7,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { MuiFileInput } from 'mui-file-input';
 import axios from 'axios';
 import { base_url, create_object_api_url, upload_img_url_api } from '../API/baseURL';
-
+import { Alert, succesAlert, errorAlert } from '../Alert/Alert';
 
 
 function CreateObject() {
@@ -27,7 +26,7 @@ function CreateObject() {
     }
 
     const handleChange = (newValue) => {
-        setValue(newValue) 
+        setValue(newValue)
         setUpload(true);      
     }
 
@@ -39,10 +38,10 @@ function CreateObject() {
             setImageName(res.data.image_name);
             setImgUrl(res.data.image_url)
             setUpload(false)
+        }).catch((err) => {
+            errorAlert()
         })  
     } 
-
-    
 
     function createObject () { 
         if (name === "" || imageName === "" || imgUrl === "") {
@@ -55,13 +54,19 @@ function CreateObject() {
                 image_url: imgUrl,
             }, {headers})
             .then((res) => {
-                navigate('/admin/object')
+                succesAlert();
+                setTimeout(() => {
+                    navigate('/admin/object')
+                }, 2000)
+            }).catch((err) => {
+                errorAlert();
             })
         }    
     }
 
   return (
-    <Stack pb='70px'>
+    <>
+    <Stack pb='70px'>      
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Обект қўшиш</Typography>
@@ -109,7 +114,9 @@ function CreateObject() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
+    </>
   )
 }
 

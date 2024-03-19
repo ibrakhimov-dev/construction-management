@@ -8,12 +8,9 @@ import { base_url, edit_tools_api_url, upload_img_url_api, current_tools_api_url
 import { MuiFileInput } from 'mui-file-input';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { ErrorAlert, EditAlert, SuccessfullAlert } from '../Alert/Alert';
+import { errorAlert, editAlert, Alert } from '../Alert/Alert';
 
 function EditEquipment() {
-    const [succesAlert, setSuccessAlert] = useState(false);
-    const [errorAlert, setErrorAlert] = useState(false);
-    const [editAlert, setEditAlert] = useState(false);
     const role = localStorage.getItem("role")
     const [object, setObject] = useState(null);
     const [allObject, setAllObject] = useState([]);
@@ -45,16 +42,9 @@ function EditEquipment() {
         .then((res) => {
             setImgName(res.data.image_name);
             setImgUrl(res.data.image_url)  
-            setSuccessAlert(true);
-            setTimeout(() => {
-                setSuccessAlert(false);
-            }, 1000) 
             setUpload(false)  
         }).catch((err) => {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 1000)
+            errorAlert()
         })   
     }
 
@@ -63,7 +53,9 @@ function EditEquipment() {
         .then((res) => {
             setAllObject(res.data.data);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
 
         axios.get(current_tools_api_url(location.state.id), {headers})
@@ -79,7 +71,9 @@ function EditEquipment() {
             setImgUrl(res.data.data.image_url);
             setImgName(res.data.data.image_name);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
 
@@ -99,31 +93,18 @@ function EditEquipment() {
             'Authorization' : `Bearer ${token}`,
             "Access-Control-Allow-Origin": base_url
         }}).then((res) => {
-            setEditAlert(true);
+            editAlert()
             setTimeout(() => {
-                setEditAlert(false);
                 navigate(`/${role}/equipment`);
-            }, 1000)
+            }, 2000)
         })
         .catch((err) => {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 1000)
+            errorAlert()
         })}
     } 
 
   return (
-    <Stack pb='70px' sx={{position: 'relative'}}>
-        {
-            succesAlert ? <SuccessfullAlert /> : <></>
-        }
-        {
-            errorAlert ? <ErrorAlert /> : <></>
-        }
-        {
-            editAlert ? <EditAlert /> : <></>
-        }
+    <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Ускуналар (умимий малумот)</Typography>
@@ -193,6 +174,7 @@ function EditEquipment() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

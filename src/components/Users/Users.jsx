@@ -12,8 +12,11 @@ import { base_url,
     delete_user_api_url, 
     current_user_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { Alert, editAlert, deleteAlert, succesAlert, errorAlert } from '../Alert/Alert';
+import { useNavigate } from 'react-router-dom';
 
 function User() {
+    const navigate = useNavigate()
     const [currentId, setCurrentId] = useState("");
     const [userData, setUserData] = useState([]);
     const [name, setName] = useState('');
@@ -36,6 +39,10 @@ function User() {
         axios.get(all_user_api_url(), {headers})
         .then((res) => {
             setUserData(res.data)
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [isAgreeDelete])
 
@@ -48,13 +55,18 @@ function User() {
                 "username": userName,
                 "password": password 
             }, {headers}).then((res) => {
+                succesAlert()
                 setName("");
                 setPassword("");
                 setUserName("");
                 axios.get(all_user_api_url(), {headers})
                 .then((res) => {
                     setUserData(res.data)
+                }).catch((err) => {
+                    errorAlert()
                 })
+            }).catch((err) => {
+                errorAlert()
             })   
        } 
     }
@@ -67,6 +79,8 @@ function User() {
             setEditName(res.data.user.name);
             setEditPassword(res.data.user.parol);
             setEditUserName(res.data.user.username);
+        }).catch((err) => {
+            errorAlert();
         })
     }
 
@@ -84,9 +98,12 @@ function User() {
                 setEditName("");
                 setEditUserName("");
                 setEditPassword("");
+                editAlert()
                 axios.get(all_user_api_url(), {headers})
-                .then((res) => {
+                .then((res) => {  
                     setUserData(res.data)
+                }).catch((err) => {
+                    errorAlert();
                 })
            })
        }
@@ -94,6 +111,11 @@ function User() {
 
     function deleteUser (id) {
         axios.delete(delete_user_api_url(id), {headers})
+        .then((res) => {
+            deleteAlert();
+        }).catch((err) => {
+            errorAlert();
+        })
         setIsAgreeDelete(true);
         setTimeout(() => {
             setIsAgreeDelete(false)
@@ -131,7 +153,7 @@ function User() {
                                 <TextField autoComplete='off' value={editPassword} onChange={(e) => setEditPassword(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>         
                         </Grid>
-                        <Grid xl={3} md={6} sm={6} xs={12} p={2}>   
+                        <Grid xl={3} md={6} sm={6} xs={12} p={2} display='flex' justifyContent="flex-end">   
                             <Button onClick={editUser} sx={{height: '55px', mt: 3}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>
                                 Таҳрирлаш
                             </Button>               
@@ -203,6 +225,7 @@ function User() {
                </Stack>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

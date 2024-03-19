@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 import { base_url, edit_others_expenses_api_url, current_others_expenses_api_url } from '../API/baseURL';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { editAlert, errorAlert, Alert } from '../Alert/Alert';
 
 function EditOthersExpenses() {
     const [currency, setCurrency] = useState('sum');
@@ -35,6 +36,10 @@ function EditOthersExpenses() {
             setSumma(res.data.data.summa)
             setCurrency(res.data.data.currency)
             setCurrencyRate(res.data.data.currency_rate)
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
 
@@ -57,7 +62,12 @@ function EditOthersExpenses() {
             currency_rate: currencyRate,
         }, {headers})
         .then((res) => {
-            navigate('/admin/others-expenses')
+            editAlert()
+            setTimeout(() => {
+                navigate('/admin/others-expenses')
+            }, 2000)
+        }).catch((err) => {
+            errorAlert()
         })}
     }
 
@@ -115,6 +125,7 @@ function EditOthersExpenses() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

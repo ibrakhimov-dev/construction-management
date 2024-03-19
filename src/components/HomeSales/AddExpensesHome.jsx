@@ -10,6 +10,7 @@ import { base_url, add_home_sales_expenses_api_url } from '../API/baseURL';
 import { useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { errorAlert, succesAlert, Alert } from '../Alert/Alert';
 
 function AddExpensesHome() {
     const [currency, setCurrency] = useState('sum');
@@ -45,10 +46,13 @@ function AddExpensesHome() {
                 currency: currency,
                 currency_rate: currencyRate,}, {headers})
             .then((res) => {
-                localStorage.setItem('home_id', location.state.id_home)
-                navigate('/admin/detail-home-sales');
+                succesAlert();
+                setTimeout(() => {
+                    localStorage.setItem('home_id', location.state.id_home)
+                    navigate('/admin/detail-home-sales');
+                }, 2000)
             }).catch((err) => {
-    
+                errorAlert()
             })
         }
     }
@@ -107,6 +111,7 @@ function AddExpensesHome() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

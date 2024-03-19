@@ -9,7 +9,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import React, { useEffect } from 'react'
-import { useLocation} from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import { useState } from 'react';
 import { base_url, 
     expenses_item_api_url, 
@@ -18,13 +18,10 @@ import { base_url,
     expenses_item_delete_api_url } from '../API/baseURL';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { DeleteAlert, SuccessfullAlert, EditAlert, ErrorAlert } from '../Alert/Alert';
+import {Alert, editAlert, succesAlert, deleteAlert, errorAlert } from '../Alert/Alert';
 
 function DetailCost() {
-    const [succesAlert, setSuccessAlert] = useState(false);
-    const [errorAlert, setErrorAlert] = useState(false);
-    const [editAlert, setEditAlert] = useState(false);
-    const [deleteAlert, setDeleteAlert] = useState(false);
+    const navigate = useNavigate();
     const [currentId, setCurrentId] = useState("");
     const location = useLocation();
     const [itemData, setItemData] = useState([]);
@@ -69,7 +66,9 @@ function DetailCost() {
         .then((res) => {
             setItemData(res.data);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [isAgreeDelete])
 
@@ -86,10 +85,7 @@ function DetailCost() {
                 setSumma(0);
                 setComment("");
                 setDate("");
-                setSuccessAlert(true);
-                    setTimeout(() => {
-                        setSuccessAlert(false);
-                    }, 1000)
+                succesAlert()
                 axios.get(expenses_item_api_url(), {
                     params: {
                         expense: location.state.id 
@@ -102,10 +98,7 @@ function DetailCost() {
                     console.log(err)
                 })
             }).catch((err) => {
-                setErrorAlert(true);
-                setTimeout(() => {
-                    setErrorAlert(false);
-                }, 1000)
+                errorAlert()
             })   
        } 
     }
@@ -133,10 +126,7 @@ function DetailCost() {
             setEditComment("");
             setEditDate("");
             setEditSumma(0);
-            setEditAlert(true);
-            setTimeout(() => {
-                setEditAlert(false);
-            }, 1000)
+            editAlert();
             axios.get(expenses_item_api_url(), {
                 params: {
                     expense: location.state.id 
@@ -147,25 +137,16 @@ function DetailCost() {
                 setItemData(res.data);
             })
         }).catch((err) => {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 1000)
+            errorAlert()
         })
     }
 
     function deleteItemExpenses (id) {
         axios.delete(expenses_item_delete_api_url(id), {headers})
         .then((res) => {
-            setDeleteAlert(true);
-            setTimeout(() => {
-                setDeleteAlert(false);
-            }, 1000)
+            deleteAlert()
         }).catch((err) => {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 1000)
+            errorAlert();
         })
         setIsAgreeDelete(true);
         setTimeout(() => {
@@ -175,18 +156,6 @@ function DetailCost() {
 
   return (
     <Stack pb='70px'>
-        {
-            succesAlert ? <SuccessfullAlert /> : <></>
-        }
-        {
-            errorAlert ? <ErrorAlert /> : <></>
-        }
-        {
-            deleteAlert ? <DeleteAlert /> : <></>
-        }
-        {
-            editAlert ? <EditAlert /> : <></>
-        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Харажатлар (Умумий Малумот)</Typography>
@@ -315,6 +284,7 @@ function DetailCost() {
                </Stack>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

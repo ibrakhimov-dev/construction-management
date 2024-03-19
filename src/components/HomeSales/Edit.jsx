@@ -12,6 +12,7 @@ import { base_url,
     upload_img_url_api, 
     delete_img_api_url, 
     delete_home_sales_api_url } from '../API/baseURL';
+import { editAlert, errorAlert, Alert, deleteAlert} from '../Alert/Alert';
 
 function Edit() {
     const [name, setName] = useState("");
@@ -43,6 +44,10 @@ function Edit() {
             setImgUrl(res.data.data.image_url);
             let file = new File([res.data.data.image_url.doc], res.data.data.image_name);
             setValue(file);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
 
@@ -54,6 +59,8 @@ function Edit() {
             setImageName(res.data.image_name);
             setImgUrl(res.data.image_url)
             setUpload(false)
+        }).catch((err) => {
+           errorAlert()
         })  
     }
 
@@ -73,7 +80,12 @@ function Edit() {
                 "Access-Control-Allow-Origin": base_url
             }})
             .then((res) => {
-                navigate('/admin/home-sales')
+                editAlert()
+                setTimeout(() => {
+                    navigate('/admin/home-sales')
+                }, 2000)
+            }).catch((err) => {
+               errorAlert()
             })
         }
     }
@@ -84,8 +96,15 @@ function Edit() {
             .then((res) => {
                 axios.delete(delete_home_sales_api_url(locationNavigate.state.id), {headers})
                 .then((res) => {
-                    navigate('/admin/home-sales')
+                    deleteAlert()
+                    setTimeout(() => {
+                        navigate('/admin/home-sales')
+                    }, 2000)
+                }).catch((err) => {
+                    errorAlert()
                 })
+            }).catch((err) => {
+                errorAlert()
             })
         }
     }
@@ -132,6 +151,7 @@ function Edit() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

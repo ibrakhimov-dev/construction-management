@@ -11,7 +11,7 @@ import { base_url,
     edit_hired_worker_expenses_api_url } from '../API/baseURL';
 import axios from 'axios';
 import { useNavigate, } from 'react-router-dom';
-import { DeleteAlert, SuccessfullAlert, EditAlert, ErrorAlert } from '../Alert/Alert';
+import { succesAlert, editAlert, deleteAlert, errorAlert, Alert } from '../Alert/Alert';
 
 function AddHiredCost(props) {
     const [currency, setCurrency] = useState('sum');
@@ -40,6 +40,10 @@ function AddHiredCost(props) {
         axios.get(hired_worker_expenses_api_url(props.workerId), {headers})
         .then((res) => {
             setExpenses(res.data.data);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [isAgreeDelete])
 
@@ -57,6 +61,11 @@ function AddHiredCost(props) {
 
     function deleteExpenses (id) {
         axios.delete(delete_hired_worker_expenses_api_url(id), {headers})
+        .then((res) => {
+            deleteAlert()
+        }).catch((err) => {
+            errorAlert()
+        })
         setIsAgreeDelete(true);
         setTimeout(() => {
             setIsAgreeDelete(false)
@@ -77,13 +86,15 @@ function AddHiredCost(props) {
              }, {headers}).then((res) => {
                  axios.get(hired_worker_expenses_api_url(props.workerId), {headers})
                  .then((res) => {
-                     console.log(res.data.data);
+                    succesAlert()
                      setExpenses(res.data.data);
                      setDate("");
                      setComment("");
                      setSumma(0);
                      setCurrency('sum');
                      setCurrencyRate(1);
+                }).catch((err) => {
+                    errorAlert()
                 })
              })
         }
@@ -115,13 +126,15 @@ function AddHiredCost(props) {
             setEditCost(false);
             axios.get(hired_worker_expenses_api_url(props.workerId), {headers})
              .then((res) => {
-                 console.log(res.data.data);
+                 editAlert()
                  setExpenses(res.data.data);
                  setDate("");
                  setComment("");
                  setSumma(0);
                  setCurrency('sum');
                  setCurrencyRate(1);
+            }).catch((err) => {
+                errorAlert()
             })
         })
     }
@@ -308,6 +321,7 @@ function AddHiredCost(props) {
                 }                   
             </Grid>
         </Paper>
+        <Alert />
     </Stack>
   )
 }

@@ -14,6 +14,7 @@ import { base_url,
     delete_object_api_url } from '../API/baseURL';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { editAlert, Alert, deleteAlert, errorAlert } from '../Alert/Alert';
 
 function EditObject() {
     const [upload, setUpload] = useState(false);
@@ -44,6 +45,8 @@ function EditObject() {
             setImageName(res.data.image_name);
             setImgUrl(res.data.image_url)
             setUpload(false)
+        }).catch((err) => {
+           errorAlert();
         })  
     }
 
@@ -57,6 +60,10 @@ function EditObject() {
             setImgUrl(res.data.data.image_url);
             let file = new File([res.data.data.image_url.doc], res.data.data.image_name);
             setValue(file);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
 
@@ -75,7 +82,12 @@ function EditObject() {
             "Access-Control-Allow-Origin": base_url
         }})
         .then((res) => {
-            navigate('/admin/object')
+            editAlert()
+            setTimeout(() => {
+                navigate('/admin/object')
+            }, 2000)
+        }).catch((err) => {
+            errorAlert();
         })}
     }
 
@@ -85,14 +97,21 @@ function EditObject() {
             .then((res) => {
                 axios.delete(delete_object_api_url(location.state.id), {headers})
                 .then((res) => {
-                    navigate('/admin/object')
+                    deleteAlert()
+                    setTimeout(() => {
+                        navigate('/admin/object')
+                    }, 2000)
+                }).catch((err) => {
+                    errorAlert();
                 })
+            }).catch((err) => {
+                errorAlert()
             })
         }
     }
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' sx={{position: 'relative'}}>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Обектни тахрирлаш</Typography>
@@ -144,6 +163,7 @@ function EditObject() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

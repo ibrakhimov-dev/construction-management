@@ -11,6 +11,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import { base_url, worker_api_url, delete_worker_api_url, all_object_api_url} from '../API/baseURL';
 import axios from 'axios';
+import { deleteAlert, errorAlert, Alert } from '../Alert/Alert';
 
 function Worker() {
     const role = localStorage.getItem("role")
@@ -46,7 +47,7 @@ function Worker() {
 
     function oylik () {
         if (objectSelect === "") {
-            alert("Илтимос объектни танланг!");
+            errorAlert()
         }else {
             setIsAgreeMothly(true)
         }
@@ -66,6 +67,10 @@ function Worker() {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
 
         axios.get(worker_api_url(), {
@@ -80,11 +85,20 @@ function Worker() {
             setCountPage(res.data.meta?.last_page);
             setPage(res.data.meta?.current_page);
             setDefoultPage(res.data.meta?.current_page);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [isAgreeDelete, objectSelect, position, name, page])
 
     function deleteWorker (id) {
         axios.delete(delete_worker_api_url(id), {headers})
+        .then((res) => {
+            deleteAlert();
+        }).catch((err) => {
+            errorAlert();
+        })
         setIsAgreeDelete(true);
         setTimeout(() => {
             setIsAgreeDelete(false)
@@ -193,6 +207,7 @@ function Worker() {
                 </Stack>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

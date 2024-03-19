@@ -9,12 +9,10 @@ import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
 import { useNavigate } from 'react-router-dom';
 import CostTable from './CostTable';
 import axios from 'axios';
-import { ErrorAlert, DeleteAlert } from '../Alert/Alert';
+import { Alert, errorAlert, deleteAlert } from '../Alert/Alert';
 import { base_url, all_user_api_url, all_object_api_url, delete_expenses_api_url, expenses_api_url} from '../API/baseURL';
 
 function Cost() {
-    const [errorAlert, setErrorAlert] = useState(false);
-    const [deleteAlert, setDeleteAlert] = useState(false);
     const role = localStorage.getItem("role");
     const [objectSelect, setObjectSelect] = useState("");
     const [allUser, setAllUser] = useState([]);
@@ -67,21 +65,27 @@ function Cost() {
             setPage(res.data.meta.current_page);
             setDefoultPage(res.data.meta.current_page);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         });
 
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         });
 
         axios.get(all_user_api_url(), {headers})
         .then((res) => {
             setAllUser(res.data.data)
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         });
 
     }, [page, objectSelect, category, currentUser, startDate, endDate, isAgreeDelete])
@@ -89,15 +93,9 @@ function Cost() {
     function deleteExpenses (id) {
         axios.delete(delete_expenses_api_url(id), {headers})
         .then((res) => {
-            setDeleteAlert(true);
-            setTimeout(() => {
-                setDeleteAlert(false);
-            }, 1000)
+            deleteAlert()
         }).catch((err) => {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 1000)
+            errorAlert()
         })
         setIsAgreeDelete(true);
         setTimeout(() => {
@@ -107,12 +105,6 @@ function Cost() {
 
   return (
     <Stack  pb='70px' sx={{position: 'relative'}}>
-        {
-            errorAlert ? <ErrorAlert /> : <></>
-        }
-        {
-            deleteAlert ? <DeleteAlert /> : <></>
-        }
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Харажатлар</Typography>
@@ -216,6 +208,7 @@ function Cost() {
                 </Stack>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

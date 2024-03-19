@@ -9,11 +9,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { base_url, create_house_expenses_api_url } from '../API/baseURL';
 import { useState } from 'react';
 import axios from 'axios';
-import { SuccessfullAlert, ErrorAlert } from '../Alert/Alert';
+import { Alert, succesAlert, errorAlert} from '../Alert/Alert';
 
 function CreateDailyExpenses() {
-    const [succesAlert, setSuccessAlert] = useState(false);
-    const [errorAlert, setErrorAlert] = useState(false);
     const [currency, setCurrency] = useState('sum');
     const [currencyRate, setCurrencyRate] = useState(1);
     const [comment, setComment] = useState('');
@@ -46,28 +44,18 @@ function CreateDailyExpenses() {
                 currency: currency,
                 currency_rate: currencyRate,}, {headers})
             .then((res) => {
-                setSuccessAlert(true);
+                    succesAlert();
                     setTimeout(() => {
-                        setSuccessAlert(false);
                         navigate('/admin/daily-expenses')
-                    }, 1000)
+                    }, 2000)
             }).catch((err) => {
-                setErrorAlert(true);
-                setTimeout(() => {
-                    setErrorAlert(false);
-                }, 1000)
+                errorAlert();
             })
         }
     }
 
   return (
-    <Stack pb='70px' sx={{position: 'relative'}}>
-        {
-            succesAlert ? <SuccessfullAlert /> : <></>
-        }
-        {
-            errorAlert ? <ErrorAlert /> : <></>
-        }
+    <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Уй харажатлар қўшиш</Typography>
@@ -120,6 +108,7 @@ function CreateDailyExpenses() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

@@ -6,6 +6,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { MuiFileInput } from 'mui-file-input';
 import axios from 'axios';
 import { base_url, create_home_sales_api_url, upload_img_url_api } from '../API/baseURL';
+import { succesAlert, errorAlert, Alert } from '../Alert/Alert';
 
 function CreateHomeSales() {
     const [name, setName] = useState("");
@@ -35,6 +36,8 @@ function CreateHomeSales() {
             setImageName(res.data.image_name);
             setImgUrl(res.data.image_url)
             setUpload(false)
+        }).catch((err) => {
+            errorAlert()
         })  
     }
 
@@ -50,7 +53,12 @@ function CreateHomeSales() {
                 image_url: imgUrl,
             }, {headers})
             .then((res) => {
-                navigate('/admin/home-sales')
+                succesAlert()
+                setTimeout(() => {
+                    navigate('/admin/home-sales')
+                }, 2000)
+            }).catch((err) => {
+                errorAlert()
             })
         }
     }
@@ -94,6 +102,7 @@ function CreateHomeSales() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

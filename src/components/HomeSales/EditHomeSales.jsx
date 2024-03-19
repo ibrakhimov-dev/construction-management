@@ -10,6 +10,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { base_url, current_home_sales_expense_api_url, edit_home_sales_expenses_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { editAlert, errorAlert, Alert} from '../Alert/Alert';
 
 
 function EditHomeSales() {
@@ -43,6 +44,10 @@ function EditHomeSales() {
             setDate(dayjs(res.data.data.date));
             setCurrency(res.data.data.currency)
             setCurrencyRate(res.data.data.currency_rate)
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
 
@@ -55,13 +60,18 @@ function EditHomeSales() {
             currency: currency,
             currency_rate: currencyRate,}, {headers})
         .then((res) => {
-            localStorage.setItem('home_id', location.state.id_home)
-            navigate('/admin/detail-home-sales');
+           editAlert()
+            setTimeout(() => {
+                localStorage.setItem('home_id', location.state.id_home)
+                navigate('/admin/detail-home-sales');
+            }, 2000)
+        }).catch((err) => {
+           errorAlert()
         })
     }
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' > 
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Харажатни Таҳрирлаш</Typography>
@@ -114,6 +124,7 @@ function EditHomeSales() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

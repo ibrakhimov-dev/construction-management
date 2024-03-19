@@ -9,6 +9,7 @@ import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Butt
 import { useNavigate } from 'react-router-dom';
 import { base_url, all_object_api_url, create_income_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { succesAlert, errorAlert, Alert } from '../Alert/Alert';
 
 function CreateIncome() {
     const token = localStorage.getItem('accessToken');
@@ -31,6 +32,10 @@ function CreateIncome() {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
 
@@ -39,7 +44,7 @@ function CreateIncome() {
             return m
         } else {
             return `0${m}`;
-        }
+        } 
     }
 
     function createIncome() {
@@ -55,13 +60,18 @@ function CreateIncome() {
                 "currency": currency ,
                 "currency_rate": currencyRate
             }, {headers}).then((res) => {
-                navigate('/admin/income')
+                succesAlert()
+                setTimeout(() => {
+                    navigate('/admin/income')
+                }, 2000)
+            }).catch((err) => {
+                errorAlert()
             })
         }
     }
-
+ 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' >
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Даромад қўшиш</Typography>
@@ -152,6 +162,7 @@ function CreateIncome() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

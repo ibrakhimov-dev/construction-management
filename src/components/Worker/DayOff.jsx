@@ -8,8 +8,11 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Grid, Typography, IconButton, Stack, Select, FormControl, MenuItem, Button } from '@mui/material';
 import { base_url, all_dayoff_api_url, create_dayoff_api_url, delete_dayoff_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { succesAlert, errorAlert, deleteAlert, Alert } from '../Alert/Alert';
 
 function DayOff() {
+    const navigate = useNavigate()
     const [day, setDay] = useState('1');
     const [date, setDate] = useState('');
     const [dayData, SetDayData] = useState([]);
@@ -37,6 +40,10 @@ function DayOff() {
         headers: headers
     }).then((res) => {
         SetDayData(res.data.data)
+    }).catch((err) => {
+        if (err.response.data.message === 'Unauthenticated.'){
+            navigate('/login')
+          }
     }) 
     }, [])
 
@@ -46,6 +53,7 @@ function DayOff() {
             "date": `${date.$y}-${correctDate(date.$M + 1)}-${date.$D}`,
             "quantity": +day
         }, {headers}).then((res) => {
+            succesAlert();
             setDate("");
             setDay('1');
             axios.get(all_dayoff_api_url(), {
@@ -55,13 +63,18 @@ function DayOff() {
                 headers: headers
             }).then((res) => {
                 SetDayData(res.data.data)
-            }) 
+            }).catch((err) => {
+                errorAlert()
+            })
+        }).catch((err) => {
+            errorAlert()
         })
     }
 
     function deleteDayOff (id) {
         axios.delete(delete_dayoff_api_url(id), {headers})
         .then((res) => {
+            deleteAlert();
             axios.get(all_dayoff_api_url(), {
                 params: {
                     worker_id: workerId,
@@ -69,7 +82,11 @@ function DayOff() {
                 headers: headers
             }).then((res) => {
                 SetDayData(res.data.data)
+            }).catch((err) => {
+                errorAlert()
             }) 
+        }).catch((err) => {
+            errorAlert()
         })
     }
 
@@ -144,6 +161,7 @@ function DayOff() {
                                 })
                             }
             </Grid>
+            <Alert />
         </Grid>
   )
 }

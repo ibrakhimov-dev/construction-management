@@ -5,12 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import HiredWorkerTable from './HiredWorkerTable';
 import { base_url, hired_worker_api_url, all_object_api_url, delete_hired_worker_api_url } from '../API/baseURL';
 import axios from 'axios';
-import { ErrorAlert, DeleteAlert } from '../Alert/Alert';
+import { deleteAlert, errorAlert, Alert } from '../Alert/Alert';
 
 
 function HiredWorker() {
-    const [errorAlert, setErrorAlert] = useState(false);
-    const [deleteAlert, setDeleteAlert] = useState(false);
     const [objectSelect, setObjectSelect] = useState(null);
     const [isAgreeDelete, setIsAgreeDelete] = useState(false);
     const [worker, setWorker] = useState([]);
@@ -40,13 +38,17 @@ function HiredWorker() {
             setPage(res.data.meta?.current_page);
             setDefoultPage(res.data.meta?.current_page)
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [objectSelect, page, isAgreeDelete])
 
@@ -54,15 +56,9 @@ function HiredWorker() {
     function deleteHiredWorker (id) {
         axios.delete(delete_hired_worker_api_url(id), {headers})
         .then((res) => {
-            setDeleteAlert(true);
-            setTimeout(() => {
-                setDeleteAlert(false);
-            }, 1000)
+            deleteAlert()
         }).catch((err) => {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 1000)
+            errorAlert()
         })
         setIsAgreeDelete(true);
         setTimeout(() => {
@@ -80,18 +76,12 @@ function HiredWorker() {
             setPage(res.data.meta?.current_page);
             setDefoultPage(res.data.meta?.current_page)
         }).catch((err) =>{
-            console.log(err)
+            errorAlert()
         })
     }
 
   return (
-    <Stack pb='70px' sx={{position: 'relative'}}>
-        {
-            errorAlert ? <ErrorAlert /> : <></>
-        }
-        {
-            deleteAlert ? <DeleteAlert /> : <></>
-        }
+    <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Ёлланма Ишчилар</Typography>
@@ -137,6 +127,7 @@ function HiredWorker() {
                 </Stack>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

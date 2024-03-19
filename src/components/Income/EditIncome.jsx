@@ -11,6 +11,7 @@ import { base_url, all_object_api_url, current_income_api_url, edit_income_api_u
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { useLocation } from 'react-router-dom';
+import { editAlert, errorAlert, Alert } from '../Alert/Alert';
 
 
 function EditIncome() {
@@ -35,6 +36,10 @@ function EditIncome() {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
 
         axios.get(current_income_api_url(location.state.id), {headers})
@@ -46,6 +51,10 @@ function EditIncome() {
             setPaymentType(res.data.data.income_type);
             setSumma(res.data.data.summa);
             setObject(res.data.data.project_id);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
 
@@ -70,12 +79,17 @@ function EditIncome() {
             "currency": currency ,
             "currency_rate": currencyRate
         }, {headers}).then((res) => {
-            navigate('/admin/income')
+            editAlert()
+            setTimeout(() => {
+                navigate('/admin/income')
+            }, 2000)
+        }).catch((err) => {
+            errorAlert()
         })}
     }
 
   return (
-    <Stack pb='70px'>
+    <Stack pb='70px' >
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Даромадни Таҳрирлаш</Typography>

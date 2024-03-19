@@ -5,11 +5,9 @@ import AddIcon from '@mui/icons-material/Add';
 import { useState, useEffect } from 'react';
 import { base_url, create_hired_worker_api_url, all_object_api_url } from '../API/baseURL';
 import axios from 'axios';
-import { ErrorAlert, SuccessfullAlert } from '../Alert/Alert';
+import { succesAlert, errorAlert, Alert } from '../Alert/Alert';
 
-function EditHiredWorker() {
-    const [errorAlert, setErrorAlert] = useState(false);
-    const [editAlert, setEditAlert] = useState(false);
+function CreateHiredWorker() {
     const [object, setObject] = useState(null);
     const [allObject, setAllObject] = useState([]);
     const [fullName, setFullName] = useState("");
@@ -28,7 +26,9 @@ function EditHiredWorker() {
         .then((res) => {
             setAllObject(res.data.data);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, []) 
 
@@ -42,28 +42,18 @@ function EditHiredWorker() {
                 comment: comment,
                 project_id: object,
             }, {headers}).then((res) => {
-                setEditAlert(true);
-                setTimeout(() => {
-                    setEditAlert(false);
+                succesAlert()
+                setTimeout(() => {                  
                     navigate('/admin/hired-worker')
-                }, 1000)
+                }, 2000)
             }).catch((err) => {
-                setErrorAlert(true);
-                setTimeout(() => {
-                    setErrorAlert(false);
-                }, 1000)
+                errorAlert()
             })
         }
     }
 
   return (
-    <Stack pb='70px' sx={{position: 'relative'}}>
-        {
-            errorAlert ? <ErrorAlert /> : <></>
-        }
-        {
-            editAlert ? <SuccessfullAlert /> : <></>
-        }
+    <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Ёлланма ишчилар қўшиш</Typography>
@@ -113,8 +103,9 @@ function EditHiredWorker() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }
 
-export default EditHiredWorker
+export default CreateHiredWorker

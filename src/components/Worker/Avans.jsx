@@ -8,8 +8,11 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Grid, Typography, IconButton, Stack,  FormControl, Button, TextField, Select, MenuItem } from '@mui/material';
 import { base_url, all_worker_avans_api_url, create_worker_avans_api_url, delete_worker_avans_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { succesAlert, deleteAlert, errorAlert, Alert } from '../Alert/Alert';
 
 function Avans() {
+    const navigate = useNavigate();
     const [money, setMoney] = useState(0);
     const [date, setDate] = useState('');
     const [category, setCategory] = useState("");
@@ -38,6 +41,10 @@ function Avans() {
           headers: headers
       }).then((res) => {
           setAvansData(res.data.data)
+      }).catch((err) => {
+        if (err.response.data.message === 'Unauthenticated.'){
+            navigate('/login')
+          }
       }) 
       }, [])
 
@@ -51,6 +58,7 @@ function Avans() {
             setDate("");
             setMoney('1');
             setCategory("");
+            succesAlert();
             axios.get(all_worker_avans_api_url(), {
                 params: {
                     worker_id: workerId,
@@ -58,7 +66,11 @@ function Avans() {
                 headers: headers
             }).then((res) => {
                 setAvansData(res.data.data)
+            }).catch((err) => {
+                errorAlert()
             })  
+        }).catch((err) => {
+            errorAlert()
         })
     }
 
@@ -73,6 +85,7 @@ function Avans() {
     function deleteAvans (id) {
         axios.delete(delete_worker_avans_api_url(id), {headers})
         .then((res) => {
+            deleteAlert()
             axios.get(all_worker_avans_api_url(), {
                 params: {
                     worker_id: workerId,
@@ -80,7 +93,11 @@ function Avans() {
                 headers: headers
             }).then((res) => {
                 setAvansData(res.data.data)
+            }).catch((err) => {
+                errorAlert()
             })  
+        }).catch ((err) => {
+            errorAlert()
         })
     }
 
@@ -166,6 +183,7 @@ function Avans() {
                         })
                     }
             </Grid>
+            <Alert />
         </Grid>
   )
 }

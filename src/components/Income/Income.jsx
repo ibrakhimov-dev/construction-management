@@ -10,6 +10,7 @@ import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { base_url, income_api_url, delete_income_api_url, all_object_api_url } from '../API/baseURL';
+import { errorAlert, deleteAlert, Alert } from '../Alert/Alert';
 
 function Income() {
     const [objectSelect, setObjectSelect] = useState(""); 
@@ -38,6 +39,10 @@ function Income() {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
         axios.post(income_api_url(), {
             "project_id": objectSelect,
@@ -50,6 +55,10 @@ function Income() {
             setCountPage(res.data.meta?.last_page);
             setPage(res.data.meta?.current_page);
             setDefoultPage(res.data.meta?.current_page)
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [page, startDate, endDate, objectSelect, isAgreeDelete])
 
@@ -63,6 +72,11 @@ function Income() {
 
     function deleteIncome (id) {
         axios.delete(delete_income_api_url(id), {headers})
+        .then((res) => {
+            deleteAlert()
+        }).catch((err) => {
+            errorAlert()
+        })
         setIsAgreeDelete(true);
         setTimeout(() => {
             setIsAgreeDelete(false)
@@ -132,7 +146,7 @@ function Income() {
                 </Stack>
             </Grid>
         </Grid>
-        
+        <Alert />
     </Stack>
   )
 }

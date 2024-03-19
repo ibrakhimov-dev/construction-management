@@ -11,11 +11,9 @@ import { useNavigate } from 'react-router-dom';
 import { base_url, car_expenses_api_url, car_expenses_day_api_url, delete_car_expense_api_url } from '../API/baseURL';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { ErrorAlert, DeleteAlert } from '../Alert/Alert';
+import {errorAlert, deleteAlert, Alert } from '../Alert/Alert';
 
 function CarExpenses() {
-    const [errorAlert, setErrorAlert] = useState(false);
-    const [deleteAlert, setDeleteAlert] = useState(false);
     const [carExpensesDate, setCarExpensesDate] = useState([]);
     const [totalSumma, setTotalSumma] = useState(null);
     const [startDate, setStartDate] = useState("");
@@ -55,22 +53,18 @@ function CarExpenses() {
             setPage(res.data.data.current_page);
             setDefoultPage(res.data.data.current_page);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [endDate, startDate, page, isAgreeDelete])
 
     function deleteCarExpenses (id) {
         axios.delete(delete_car_expense_api_url(id), {headers})
         .then((res) => {
-            setDeleteAlert(true);
-            setTimeout(() => {
-                setDeleteAlert(false);
-            }, 1000)
+           deleteAlert()
         }).catch((err) => {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 1000)
+            errorAlert()
         })
         setIsAgreeDelete(true);
         setTimeout(() => {
@@ -84,10 +78,7 @@ function CarExpenses() {
             setCarExpensesDate(res.data.data)
             setTotalSumma(res.data.totalAmount)
         }).catch((err) => {
-            setErrorAlert(true);
-                setTimeout(() => {
-                    setErrorAlert(false);
-                }, 1000)
+            errorAlert();
         })
     }
 
@@ -97,21 +88,12 @@ function CarExpenses() {
             setCarExpensesDate(res.data.data)
             setTotalSumma(res.data.totalAmount)
         }).catch((err) => {
-            setErrorAlert(true);
-                setTimeout(() => {
-                    setErrorAlert(false);
-                }, 1000)
+           errorAlert();
         })
     }
 
   return (
-    <Stack pb='70px' sx={{position: 'relative'}}>
-        {
-            errorAlert ? <ErrorAlert /> : <></>
-        }
-        {
-            deleteAlert ? <DeleteAlert /> : <></>
-        }
+    <Stack pb='70px' >
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Машина Харажатлар</Typography>
@@ -159,6 +141,7 @@ function CarExpenses() {
                 </Stack>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

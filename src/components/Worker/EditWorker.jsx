@@ -5,6 +5,7 @@ import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Butt
 import { useNavigate } from 'react-router-dom';
 import { base_url, all_object_api_url, current_worker_api_url, edit_worker_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { errorAlert, editAlert, Alert } from '../Alert/Alert';
 
 function EditWorker() {
     const role = localStorage.getItem("role");
@@ -27,6 +28,10 @@ function EditWorker() {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
 
         axios.get(current_worker_api_url(workerId), {headers})
@@ -36,6 +41,10 @@ function EditWorker() {
             setSalary(res.data.data?.salary_rate);
             setPosition(res.data.data?.position);
             setObjectSelect(res.data.data?.project_id);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
 
     }, [])
@@ -51,7 +60,12 @@ function EditWorker() {
                 "salary_rate": salary,
                 "project_id": objectSelect,
             }, {headers}).then((res) => {
-                navigate(`/${role}/worker`)
+                editAlert()
+                setTimeout(() => {
+                    navigate(`/${role}/worker`)
+                }, 2000)
+            }).catch((err) => {
+                errorAlert()
             })
         }
     }
@@ -118,6 +132,7 @@ function EditWorker() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

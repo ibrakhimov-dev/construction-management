@@ -20,8 +20,11 @@ function HomeSales() {
     useEffect(() => {
         axios.get(home_sales_api_url(), {headers})
         .then((res) => {
-            console.log(res.data)
             setHome(res.data.data)
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
 

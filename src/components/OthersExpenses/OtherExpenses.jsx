@@ -10,6 +10,7 @@ import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
 import { useNavigate } from 'react-router-dom';
 import { base_url, others_expenses_api_url, others_expenses_day_api_url, delete_others_expense_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { Alert, deleteAlert, errorAlert } from '../Alert/Alert';
 
 function OthersExpenses() {
     const [othersExpensesDate, setOthersExpensesDate] = useState([]);
@@ -51,12 +52,19 @@ function OthersExpenses() {
             setPage(res.data.data.current_page);
             setDefoultPage(res.data.data.current_page);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [endDate, startDate, page, isAgreeDelete])
 
     function deleteOthersExpenses (id) {
         axios.delete(delete_others_expense_api_url(id), {headers})
+        .then((res) => {
+            deleteAlert();
+        }).catch((err) => {
+            errorAlert();
+        })
         setIsAgreeDelete(true);
         setTimeout(() => {
             setIsAgreeDelete(false)
@@ -69,7 +77,7 @@ function OthersExpenses() {
             setOthersExpensesDate(res.data.data)
             setTotalSumma(res.data.totalAmount)
         }).catch((err) => {
-
+            errorAlert();
         })
     }
 
@@ -79,7 +87,7 @@ function OthersExpenses() {
             setOthersExpensesDate(res.data.data)
             setTotalSumma(res.data.totalAmount)
         }).catch((err) => {
-
+            errorAlert()
         })
     }
 
@@ -132,6 +140,7 @@ function OthersExpenses() {
                 </Stack>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

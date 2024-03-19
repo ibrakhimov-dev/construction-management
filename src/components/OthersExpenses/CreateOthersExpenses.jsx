@@ -8,6 +8,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { base_url, create_others_expenses_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { errorAlert, succesAlert, Alert } from '../Alert/Alert';
 
 function CreateOthersExpenses() {
     const [currency, setCurrency] = useState('sum');
@@ -22,7 +23,7 @@ function CreateOthersExpenses() {
         'Authorization' : `Bearer ${token}`,
         "Access-Control-Allow-Origin": base_url
     }
-
+ 
     function correctDate (m) {
         if (m > 9) {
             return m
@@ -43,9 +44,12 @@ function CreateOthersExpenses() {
                 currency_rate: currencyRate,
             }, {headers})
             .then((res) => {
-                navigate('/admin/others-expenses')
+                succesAlert();
+                setTimeout(() => {
+                    navigate('/admin/others-expenses')
+                }, 2000)
             }).catch((err) => {
-
+                errorAlert()
             })
         }
     }
@@ -107,6 +111,7 @@ function CreateOthersExpenses() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

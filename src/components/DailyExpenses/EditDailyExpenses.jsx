@@ -11,11 +11,9 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { EditAlert, ErrorAlert } from '../Alert/Alert';
+import { editAlert, errorAlert, Alert } from '../Alert/Alert';
 
 function EditDailyExpenses() {
-    const [errorAlert, setErrorAlert] = useState(false);
-    const [editAlert, setEditAlert] = useState(false);
     const [currency, setCurrency] = useState('sum');
     const [currencyRate, setCurrencyRate] = useState(1);
     const [comment, setComment] = useState('');
@@ -40,7 +38,9 @@ function EditDailyExpenses() {
             setCurrency(res.data.data.currency);
             setCurrencyRate(res.data.data.currency_rate);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
 
@@ -63,28 +63,18 @@ function EditDailyExpenses() {
             currency: currency,
             currency_rate: currencyRate,}, {headers})
         .then((res) => {
-            setEditAlert(true);
+                editAlert();
                 setTimeout(() => {
-                    setEditAlert(false);
                     navigate('/admin/daily-expenses')
-                }, 1000)
+                }, 2000)
         }).catch((err) => {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 1000)
+           errorAlert()
         })
     }
     }
 
   return (
-    <Stack pb='70px' sx={{position: 'relative'}}>
-        {
-            errorAlert ? <ErrorAlert /> : <></>
-        }
-        {
-            editAlert ? <EditAlert /> : <></>
-        }
+    <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Уй харажатларни тахрирлаш</Typography>
@@ -137,6 +127,7 @@ function EditDailyExpenses() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

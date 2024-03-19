@@ -5,6 +5,7 @@ import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Butt
 import { useNavigate } from 'react-router-dom';
 import { base_url, all_object_api_url, create_worker_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { succesAlert, errorAlert, Alert } from '../Alert/Alert';
 
 function CreateWorker() {
     const [name, setName] = useState("");
@@ -26,6 +27,10 @@ function CreateWorker() {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
 
@@ -40,7 +45,10 @@ function CreateWorker() {
                 "salary_rate": salary,
                 "project_id": objectSelect,
             }, {headers}).then((res) => {
-                navigate(`/${role}/worker`)
+                succesAlert()
+                setTimeout(() => {
+                    navigate(`/${role}/worker`)
+                }, 2000)
             })
         }
     }
@@ -112,6 +120,7 @@ function CreateWorker() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

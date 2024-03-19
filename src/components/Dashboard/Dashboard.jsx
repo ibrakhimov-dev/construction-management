@@ -7,8 +7,10 @@ import build from "../Assets/build.png";
 import React, { useEffect, useState } from 'react'
 import { base_url, dashboard_api_url } from '../API/baseURL';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
+  const navigate = useNavigate();
   const [dashboardData, setDashboardData] = useState({});
   const [isAgree, setIsAgree] = useState(false);
   const [xLabels, setALabels] = useState([
@@ -32,6 +34,10 @@ function Dashboard() {
       setDashboardData(res.data);
       setALabels(res.data.months.reverse())
       setIsAgree(true);
+    }).catch((err) => {
+      if (err.response.data.message === 'Unauthenticated.'){
+        navigate('/login')
+      }
     })
   }, [])
 

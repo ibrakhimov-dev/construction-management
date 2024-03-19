@@ -6,8 +6,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { useNavigate } from 'react-router-dom';
 import { base_url } from '../API/baseURL';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 function CostTable(props) {
     const navigate = useNavigate();

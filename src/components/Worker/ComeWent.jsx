@@ -15,8 +15,11 @@ import { all_worker_account_api_url, base_url,
     current_worker_account_api_url } from '../API/baseURL';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { succesAlert, editAlert, errorAlert, deleteAlert, Alert } from '../Alert/Alert';
+import { useNavigate } from 'react-router-dom';
 
 function ComeWent() {
+    const navigate = useNavigate()
     const [date, setDate] = useState('');
     const [finishedDate, setFinishedDate] = useState('');
     const [currentId, setCurrentId] = useState("");
@@ -66,7 +69,11 @@ function ComeWent() {
             setCountPage(res.data.meta.last_page);
             setPage(res.data.meta.current_page);
             setDefoultPage(res.data.meta.current_page);
-        }) 
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
+        })
     }, [page])
 
     function correctDate (m) {
@@ -86,6 +93,7 @@ function ComeWent() {
                 "started_date": `${date.$y}-${correctDate(date.$M + 1)}-${date.$D}`
             }, {headers}).then((res) => {
                 setDate("");
+                succesAlert()
                 axios.get(all_worker_account_api_url(), {
                     params: {
                         worker_id: workerId,
@@ -96,9 +104,11 @@ function ComeWent() {
                     setCountPage(res.data.meta.last_page);
                     setPage(res.data.meta.current_page);
                     setDefoultPage(res.data.meta.current_page);
+                }).catch((err) => {
+                    errorAlert()
                 }) 
             }).catch((err) => {
-                alert("Ишчи ишини якунлагани ёқ хали")
+                errorAlert()
             })
         }
     }
@@ -108,8 +118,11 @@ function ComeWent() {
         setCurrentId(id);
         axios.get(current_worker_account_api_url(id), {headers})
         .then((res) => {
+            editAlert();
             setCategory(res.data.data.status);
             setFinishedDate(dayjs(res.data.data.finished_date));
+        }).catch((err) => {
+            errorAlert()
         })   
     }
 
@@ -122,6 +135,7 @@ function ComeWent() {
                 "status": category
             }, {headers}).then((res) => {
                 setIsAgreeEdit(false);
+                editAlert();
                 axios.get(all_worker_account_api_url(), {
                     params: {
                         worker_id: workerId,
@@ -132,7 +146,11 @@ function ComeWent() {
                     setCountPage(res.data.meta.last_page);
                     setPage(res.data.meta.current_page);
                     setDefoultPage(res.data.meta.current_page);
-                }) 
+                }).catch((err) => {
+                    errorAlert()
+                })
+            }).catch((err) => {
+                errorAlert()
             })
         }
     }
@@ -141,6 +159,7 @@ function ComeWent() {
     function deleteAccount(id) {
         axios.delete(delete_worker_account_api_url(id), {headers})
         .then((res) => {
+            deleteAlert()
             axios.get(all_worker_account_api_url(), {
                 params: {
                     worker_id: workerId,
@@ -151,7 +170,11 @@ function ComeWent() {
                 setCountPage(res.data.meta.last_page);
                 setPage(res.data.meta.current_page);
                 setDefoultPage(res.data.meta.current_page);
+            }).catch((err) => {
+                errorAlert()
             }) 
+        }).catch((err) => {
+            errorAlert()
         }) 
     }
 
@@ -287,6 +310,7 @@ function ComeWent() {
                 </Stack>
             </Grid>
         </Grid>
+        <Alert />
     </>
   )
 }

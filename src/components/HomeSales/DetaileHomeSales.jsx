@@ -14,6 +14,7 @@ import { base_url,
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import {errorAlert, deleteAlert, Alert } from "../Alert/Alert";
 
 function DetailHomeSales () {
     const [home, setHome] = useState({});
@@ -33,10 +34,18 @@ function DetailHomeSales () {
         axios.get(detail_home_sales_api_url(location.state?.id === undefined ? homeId : location.state?.id), {headers})
         .then((res) => {
             setHome(res.data.data);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
         axios.get(home_sales_expenses_api_url(location.state?.id === undefined ? homeId : location.state?.id), {headers})
         .then((res) => {
             setHomeExpenses(res.data.data);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [isAgreeDelete])
 
@@ -58,6 +67,11 @@ function DetailHomeSales () {
 
     function deleteExpenses (id) {
         axios.delete(delete_home_sales_expenses_api_url(id), {headers})
+        .then((res) => {
+           deleteAlert()
+        }).catch((err) => {
+            errorAlert()
+        })
         setIsAgreeDelete(true);
         setTimeout(() => {
             setIsAgreeDelete(false)
@@ -135,6 +149,7 @@ function DetailHomeSales () {
             </Stack>            
         </Grid>
     </Grid>
+    <Alert />
         </Stack>
     )
 }

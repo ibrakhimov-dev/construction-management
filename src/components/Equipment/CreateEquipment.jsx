@@ -7,11 +7,9 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { base_url, create_tools_api_url, all_object_api_url, upload_img_url_api } from '../API/baseURL';
 import { MuiFileInput } from 'mui-file-input';
 import axios from 'axios';
-import { SuccessfullAlert, ErrorAlert } from '../Alert/Alert';
+import { succesAlert, errorAlert, Alert } from '../Alert/Alert';
 
 function CreateEquipment() {
-    const [succesAlert, setSuccessAlert] = useState(false);
-    const [errorAlert, setErrorAlert] = useState(false);
     const role = localStorage.getItem('role');
     const [upload, setUpload] = useState(false);
     const [object, setObject] = useState(null);
@@ -40,18 +38,11 @@ function CreateEquipment() {
         formData.append('image', value);
         axios.post(upload_img_url_api(), formData, {headers})
         .then((res) => {
-            setSuccessAlert(true);
-            setTimeout(() => {
-                setSuccessAlert(false);
-            }, 1000)
             setImgName(res.data.image_name);
             setImgUrl(res.data.image_url)
             setUpload(false)
         }).catch((err) => {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 1000)
+            errorAlert()
         })  
     }
 
@@ -60,7 +51,9 @@ function CreateEquipment() {
         .then((res) => {
             setAllObject(res.data.data);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
  
@@ -77,28 +70,18 @@ function CreateEquipment() {
                 "price": price,
                 "project_id": object
             }, {headers}).then((res) => {
-                setSuccessAlert(true);
+                    succesAlert()
                     setTimeout(() => {
-                        setSuccessAlert(false);
                         navigate(`/${role}/equipment`)
-                    }, 1000)
+                    }, 2000)
             }).catch((err) => {
-                setErrorAlert(true);
-                setTimeout(() => {
-                    setErrorAlert(false);
-                }, 1000)
+                errorAlert();
             })
         }
     }   
 
   return (
-    <Stack pb='70px' sx={{position: 'relative'}}>
-        {
-            succesAlert ? <SuccessfullAlert /> : <></>
-        }
-        {
-            errorAlert ? <ErrorAlert /> : <></>
-        }
+    <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>Ускуна Қўшиш</Typography>
@@ -168,6 +151,7 @@ function CreateEquipment() {
                 </Grid>
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }

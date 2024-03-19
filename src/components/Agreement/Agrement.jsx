@@ -39,7 +39,9 @@ function Agreement() {
             setPage(res.data.meta?.current_page);
             setDefoultPage(res.data.meta?.current_page)
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [page, objectSelect])
 
@@ -51,6 +53,10 @@ function Agreement() {
         axios.get(all_object_api_url(), {headers})
         .then((res) => {
             setAllObject(res.data.data);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [])
   return (

@@ -34,6 +34,10 @@ function Objects() {
             } else {
                 setObject(res.data.data);
             }
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [status])
     

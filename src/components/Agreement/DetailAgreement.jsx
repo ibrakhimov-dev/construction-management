@@ -13,13 +13,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { DeleteAlert, SuccessfullAlert, EditAlert, ErrorAlert } from '../Alert/Alert';
+import { Alert, errorAlert, editAlert, succesAlert, deleteAlert } from '../Alert/Alert';
 
 function DetailAgreement() {
-    const [succesAlert, setSuccessAlert] = useState(false);
-    const [errorAlert, setErrorAlert] = useState(false);
-    const [editAlert, setEditAlert] = useState(false);
-    const [deleteAlert, setDeleteAlert] = useState(false);
     const navigate = useNavigate();
     const [currentId, setCurrentId] = useState(null);
     const [isAgreeEdit, setIsAgreeEdit] = useState(true);
@@ -53,13 +49,17 @@ function DetailAgreement() {
         .then((res) => {
             setCurrentContract(res.data.data);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
         axios.get(contract_expenses_api_url(location.state.id), {headers})
         .then((res) => {
             setCurrentExpenses(res.data.data);
         }).catch((err) => {
-            console.log(err)
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
         })
     }, [isAgreeDelete])
 
@@ -67,16 +67,12 @@ function DetailAgreement() {
         if (window.confirm("Сиз ростан ҳам ўчирмоқчимисз?")) {
             axios.delete(delete_contract_api_url(location.state.id), {headers})
             .then((res) => {
-                setDeleteAlert(true);
+                deleteAlert();
                 setTimeout(() => {
                     navigate("/admin/agreement")
-                    setDeleteAlert(false);
-                }, 1000)
+                }, 2000)
             }).catch((err) => {
-                setErrorAlert(true);
-                setTimeout(() => {
-                    setErrorAlert(false);
-                }, 1000)
+                errorAlert();               
             })
         }
     }
@@ -95,15 +91,9 @@ function DetailAgreement() {
     function deleteExpenses (id) {
         axios.delete(delete_contract_expenses_api_url(id), {headers})
         .then((res) => {
-            setDeleteAlert(true);
-            setTimeout(() => {
-                setDeleteAlert(false);
-            }, 1000)
+            deleteAlert();
         }).catch((err) => {
-            setErrorAlert(true);
-            setTimeout(() => {
-                setErrorAlert(false);
-            }, 1000)
+            errorAlert();
         })
         setIsAgreeDelete(true);
         setTimeout(() => {
@@ -124,16 +114,10 @@ function DetailAgreement() {
             setEditSquare(0);
             axios.get(contract_expenses_api_url(location.state.id), {headers})
             .then((res) => {
-                setEditAlert(true);
-                setTimeout(() => {
-                    setEditAlert(false);
-                }, 1000)
+                editAlert()
                 setCurrentExpenses(res.data.data);
             }).catch((err) => {
-                setErrorAlert(true);
-                setTimeout(() => {
-                    setErrorAlert(false);
-                }, 1000)
+                errorAlert()
             })
         })
     }
@@ -157,35 +141,17 @@ function DetailAgreement() {
                 setSumma(0);
                 axios.get(contract_expenses_api_url(location.state.id), {headers})
                 .then((res) => {
-                    setSuccessAlert(true);
-                    setTimeout(() => {
-                        setSuccessAlert(false);
-                    }, 1000)
+                    succesAlert();
                     setCurrentExpenses(res.data.data);
                 })
             }).catch((err) => {
-                setErrorAlert(true);
-                setTimeout(() => {
-                    setErrorAlert(false);
-                }, 1000)
+                errorAlert()
             })
         }
     }
 
   return (
-    <Stack pb='70px' sx={{position: 'relative'}}>
-        {
-            succesAlert ? <SuccessfullAlert /> : <></>
-        }
-        {
-            errorAlert ? <ErrorAlert /> : <></>
-        }
-        {
-            deleteAlert ? <DeleteAlert /> : <></>
-        }
-        {
-            editAlert ? <EditAlert /> : <></>
-        }
+    <Stack pb='70px'>
         <Grid container p={3}>
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Typography variant='h5' color='#fff' fontWeight='bold'>{currentContract.project_name} обекти {currentContract.block} блок келишув</Typography>
@@ -290,6 +256,7 @@ function DetailAgreement() {
                 }
             </Grid>
         </Grid>
+        <Alert />
     </Stack>
   )
 }
