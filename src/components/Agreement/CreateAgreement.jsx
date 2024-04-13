@@ -1,13 +1,17 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
-import { Grid, Button, TextField, FormControl, Typography, Stack, MenuItem, Select } from '@mui/material';
+import { Grid, Button, TextField, FormControl, FormHelperText, Typography, Stack, MenuItem, Select } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { base_url, all_object_api_url, create_contract_api_url } from '../API/baseURL';
 import axios from 'axios';
 import { Alert, succesAlert, errorAlert } from '../Alert/Alert';
 
 function CreateAgreement() {
+    const [errorBlock, setErrorBlock] = useState(false);
+    const [errorObj, setErrorObj] = useState(false);
+    const [textBlock, setTextBlock] = useState("");
+    const [textObj, setTextObj] = useState("");
     const [object, setObject] = useState(null);
     const [allObject, setAllObject] = useState([]);
     const [block, setBlock] = useState("");
@@ -32,22 +36,40 @@ function CreateAgreement() {
     }, [])
 
     function createAgreement () {
-        if (block === "" || moneyValue === "" || object === null) {
-            alert("Илтимос сўралган малумотларни тўлдиринг!");
-        } else {
+        // if (block === "" || moneyValue === "" || object === null) {
+        //     alert("Илтимос сўралган малумотларни тўлдиринг!");
+        // } else {
             axios.post(create_contract_api_url(), {
                 "block": block ,
                 "currency" : moneyValue,
                 "project_id": object,
             }, {headers}).then((res) => {
+                setErrorBlock(false);
+                setErrorObj(false);
+                setTextObj("");
+                setTextBlock("");
                 succesAlert();
                 setTimeout(() => {
                     navigate("/admin/agreement")
                 }, 2000)
             }).catch((err) => {
+                if(err.response.data.errors.block ? err.response.data.errors.block[0] : "" === 'The block field is required.') {
+                    setErrorBlock(true);
+                    setTextBlock("Илтимос блок киритинг!");
+                }else {
+                    setErrorBlock(false);
+                    setTextBlock("");
+                }
+                if(err.response.data.errors.project_id ? err.response.data.errors.project_id[0] : "" === 'The project id field is required.') {
+                    setErrorObj(true);
+                    setTextObj("Илтимос объект танланг!");
+                }else {
+                    setErrorObj(false);
+                    setTextObj("");
+                }
                 errorAlert()
             })
-        }
+        // }
 
     }
 
@@ -69,6 +91,7 @@ function CreateAgreement() {
                                 labelId="demo-select-small-label"
                                 id="demo-select-small"
                                 color='warning'
+                                error={errorObj}       
                                 value={object}
                                 onChange={(e) => setObject(e.target.value) }
                             >
@@ -80,10 +103,11 @@ function CreateAgreement() {
                                     })
                                 }
                             </Select>
+                                <FormHelperText sx={{color: "red"}}>{textObj}</FormHelperText>
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Блоcк:</Typography>
-                            <TextField autoComplete='off' value={block} onChange={(e) => setBlock(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField error={errorBlock} helperText={textBlock} autoComplete='off' value={block} onChange={(e) => setBlock(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
@@ -95,6 +119,7 @@ function CreateAgreement() {
                                 id="demo-select-small"
                                 color='warning'
                                 value={moneyValue}
+                                
                                 onChange={(e) => setMoneyValue(e.target.value) }
                             >
                                 <MenuItem value="sum">Сўм</MenuItem>

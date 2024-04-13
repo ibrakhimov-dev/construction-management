@@ -12,6 +12,12 @@ import axios from 'axios';
 import { Alert, succesAlert, errorAlert} from '../Alert/Alert';
 
 function CreateDailyExpenses() {
+    const [errorComment, setErrorComment] = useState(false);
+    const [errorDate, setErrorDate] = useState(false);
+    const [errorSumma, setErrorSumma] = useState(false);
+    const [helperTextComment, setHelperTextComment] = useState("");
+    const [helperTextDate, setHelperTextDate] = useState("");
+    const [helperTextSumma, setHelperTextSumma] = useState("");
     const [currency, setCurrency] = useState('sum');
     const [currencyRate, setCurrencyRate] = useState(1);
     const [comment, setComment] = useState('');
@@ -34,9 +40,9 @@ function CreateDailyExpenses() {
     }
 
     function createHouseExpenses () {
-        if(summa === null || comment === "" || date === "") {
-            alert("Илтимос сўралган малумотларни тўлдиринг!");
-        } else {
+        // if(summa === null || comment === "" || date === "") {
+        //     alert("Илтимос сўралган малумотларни тўлдиринг!");
+        // } else {
             axios.post(create_house_expenses_api_url(), {
                 summa: summa, 
                 date: `${date.$y}-${correctDate(date.$M+ 1)}-${date.$D}`, 
@@ -44,14 +50,41 @@ function CreateDailyExpenses() {
                 currency: currency,
                 currency_rate: currencyRate,}, {headers})
             .then((res) => {
+                    setErrorComment(false);
+                    setErrorDate(false);
+                    setErrorSumma(false);
+                    setHelperTextComment("");
+                    setHelperTextDate("");
+                    setHelperTextSumma("");
                     succesAlert();
                     setTimeout(() => {
                         navigate('/admin/daily-expenses')
                     }, 2000)
             }).catch((err) => {
+                if(err.response.data.errors.comment ? err.response.data.errors.comment[0] : "" === 'The comment field must be a string.') {
+                    setErrorComment(true);
+                    setHelperTextComment("Илтимос изоҳ қолдиринг!");
+                }else {
+                    setErrorComment(false);
+                    setHelperTextComment("");
+                }
+                if (err.response.data.errors.date ? err.response.data.errors.date[0] : "" === 'The date field must be a valid date.') {
+                    setErrorDate(true);
+                    setHelperTextDate("Илтимос вақтни киритинг!")
+                }else {
+                    setErrorDate(false);
+                    setHelperTextDate("");
+                }
+                if (err.response.data.errors.summa ? err.response.data.errors.summa[0] : "" === 'The summa field is required.') {
+                    setHelperTextSumma("Илтимос суммани киритинг!")
+                    setErrorSumma(true)
+                } else {
+                    setErrorSumma(false);
+                    setHelperTextSumma("");
+                }
                 errorAlert();
             })
-        }
+        // }
     }
 
   return (
@@ -67,17 +100,22 @@ function CreateDailyExpenses() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Изоҳ:</Typography>
-                            <TextField autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField error={errorComment} helperText={helperTextComment} autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сумма ({currency}):</Typography>
-                            <TextField autoComplete='off' color='warning' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField error={errorSumma} helperText={helperTextSumma} autoComplete='off' color='warning' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Sana:</Typography>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
-                                    <DatePicker value={date} onChange={(e) => setDate(e)} label="Сана:" />
+                                    <DatePicker slotProps={{
+                                            textField: {
+                                            error: errorDate, 
+                                            helperText: helperTextDate, 
+                                            },
+                                        }}  value={date} onChange={(e) => setDate(e)} label="Сана:" />
                                 </DemoContainer>
                             </LocalizationProvider>
                         </FormControl>

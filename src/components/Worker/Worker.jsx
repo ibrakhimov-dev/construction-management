@@ -77,7 +77,8 @@ function Worker() {
             params: {
                 search: name,
                 position: position,
-                project_id: objectSelect
+                project_id: objectSelect,
+                page: page
             },
             headers: headers
         }).then((res) => {

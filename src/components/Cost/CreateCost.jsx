@@ -5,13 +5,25 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button } from '@mui/material'
+import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button, FormHelperText } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import { base_url, all_object_api_url, all_user_api_url, create_expenses_api_url } from '../API/baseURL';
 import axios from 'axios';
 import { Alert, succesAlert, errorAlert } from '../Alert/Alert';
 
 function CreateCost() {
+    const [errorComment, setErrorComment] = useState(false);
+    const [errorDate, setErrorDate] = useState(false);
+    const [errorSumma, setErrorSumma] = useState(false);
+    const [helperTextComment, setHelperTextComment] = useState("");
+    const [helperTextDate, setHelperTextDate] = useState("");
+    const [helperTextSumma, setHelperTextSumma] = useState("");
+    const [errorObj, setErrorObj] = useState(false);
+    const [textObj, setTextObj] = useState("");
+    const [errorCategory, setErrorCategory] = useState(false);
+    const [textCategory, setTextCategory] = useState("");
+    const [errorUser, setErrorUser] = useState(false);
+    const [textUser, setTextUser] = useState("");
     const role = localStorage.getItem('role')
     const [objectSelect, setObjectSelect] = useState("");
     const [allUser, setAllUser] = useState([]);
@@ -63,9 +75,9 @@ function CreateCost() {
     }
 
     function createExpenses () {
-        if (comment === "" || date === "" || objectSelect === "" || currentUser === "" || objectSelect === "" || category === "") {
-            alert("Илтимос сўралган малумотларни тўлдиринг!");
-        } else {
+        // if (comment === "" || date === "" || objectSelect === "" || currentUser === "" || objectSelect === "" || category === "") {
+        //     alert("Илтимос сўралган малумотларни тўлдиринг!");
+        // } else {
             axios.post(create_expenses_api_url(), {
                 "user_id": currentUser,
                 "category": category,
@@ -77,14 +89,74 @@ function CreateCost() {
                 "currency": currency,
                 "currency_rate": currencyRate 
             }, {headers}).then((res) => {
+                setErrorCategory(false);
+                setErrorComment(false);
+                setErrorDate(false);
+                setErrorObj(false);
+                setErrorUser(false);
+                setErrorSumma(false);
+                setTextUser("");
+                setTextCategory("");
+                setHelperTextComment("");
+                setHelperTextDate("");
+                setHelperTextSumma("");
+                setTextObj("");
                 succesAlert()
                 setTimeout(() => {
                     navigate(`/${role}/cost`)
                 }, 2000)
             }).catch((err) => {
+                if(err.response.data.errors.project_id ? err.response.data.errors.project_id[0] : "" === 'The project id field is required.') {
+                    setErrorObj(true);
+                    setTextObj("Илтимос объект танланг!");
+                }else {
+                    setErrorObj(false);
+                    setTextObj("");
+                } 
+
+                if(err.response.data.errors.comment ? err.response.data.errors.comment[0] : "" === 'The comment field must be a string.') {
+                    setErrorComment(true);
+                    setHelperTextComment("Илтимос изоҳ қолдиринг!");
+                }else {
+                    setErrorComment(false);
+                    setHelperTextComment("");
+                }
+
+                if (err.response.data.errors.date ? err.response.data.errors.date[0] : "" === 'The date field must be a valid date.') {
+                    setErrorDate(true);
+                    setHelperTextDate("Илтимос вақтни киритинг!")
+                }else {
+                    setErrorDate(false);
+                    setHelperTextDate("");
+                }
+
+                if (err.response.data.errors.summa ? err.response.data.errors.summa[0] : "" === 'The summa field is required.') {
+                    setHelperTextSumma("Илтимос суммани киритинг!")
+                    setErrorSumma(true)
+                } else {
+                    setErrorSumma(false);
+                    setHelperTextSumma("");
+                }
+
+                if (err.response.data.errors.user_id ? err.response.data.errors.user_id[0] : "" === 'The user id field is required.') {
+                    setErrorUser(true);
+                    setTextUser("Илтимос ходимни танланг!")
+                }else {
+                    setErrorUser(false);
+                    setTextUser("");
+                }
+
+                if (err.response.data.errors.category ? err.response.data.errors.category[0] : "" === 'The category field is required.') {
+                    setErrorCategory(true);
+                    setTextCategory("Илтимос ҳаражат турини танланг!")
+                }else {
+                    setErrorCategory(false);
+                    setTextCategory("");
+                }
+
                 errorAlert()
             })
-        }
+        // }
     }
 
   return (
@@ -106,6 +178,7 @@ function CreateCost() {
                                 id="demo-select-small"
                                 color='warning'
                                 value={category}
+                                error={errorCategory}
                                 onChange={(e) => setCategory(e.target.value) }
                             >
                                 <MenuItem value="salary">Иш ҳақи</MenuItem>
@@ -113,6 +186,7 @@ function CreateCost() {
                                 <MenuItem value="tool">Ускуна</MenuItem>
                                 <MenuItem value="other">Бошқа харажатлар</MenuItem>
                             </Select>
+                            <FormHelperText sx={{color: "red"}}>{textCategory}</FormHelperText>
                         </FormControl> 
                         <FormControl  fullWidth>
                             <Typography mt={2}>Обект:</Typography>
@@ -121,6 +195,7 @@ function CreateCost() {
                                 id="demo-simple-select"
                                 color='warning'
                                 value={objectSelect}
+                                error={errorObj}
                                 onChange={(e) => setObjectSelect(e.target.value)}
                             >
                                 {
@@ -131,6 +206,7 @@ function CreateCost() {
                                     })
                                 }
                             </Select>
+                            <FormHelperText sx={{color: "red"}}>{textObj}</FormHelperText>
                         </FormControl>
                         <FormControl  fullWidth>
                             <Typography mt={2}>Иш Бошқарувчи:</Typography>
@@ -139,6 +215,7 @@ function CreateCost() {
                                 labelId="demo-select-small-label"
                                 id="demo-select-small"
                                 color='warning'
+                                error={errorUser}
                                 value={currentUser}
                                 onChange={(e) => setCurrentUser(e.target.value) }
                             >
@@ -150,16 +227,22 @@ function CreateCost() {
                                     })
                                 }
                             </Select>
+                            <FormHelperText sx={{color: "red"}}>{textUser}</FormHelperText>
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сумма ({currency}):</Typography>
-                            <TextField autoComplete='off' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
+                            <TextField error={errorSumma} helperText={helperTextSumma} autoComplete='off' value={summa} onChange={(e) => setSumma(e.target.value)} id="outlined-basic" type='number' variant="outlined" />
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Сана:</Typography>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DatePicker']}>
-                                    <DatePicker value={date} onChange={(e) => setDate(e)} label="Сана" />
+                                    <DatePicker slotProps={{
+                                            textField: {
+                                            error: errorDate, 
+                                            helperText: helperTextDate, 
+                                            },
+                                        }} value={date} onChange={(e) => setDate(e)} label="Сана" />
                                 </DemoContainer>
                             </LocalizationProvider>
                         </FormControl>
@@ -207,7 +290,7 @@ function CreateCost() {
                         
                         <FormControl fullWidth>
                             <Typography mt={2}>Изоҳ:</Typography>
-                            <TextField autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" variant="outlined" />
+                            <TextField error={errorComment} helperText={helperTextComment} autoComplete='off' value={comment} onChange={(e) => setComment(e.target.value)} id="outlined-basic" variant="outlined" />
                         </FormControl>
                         
                             <Button onClick={createExpenses} sx={{height: '55px', mt: 6}} size='large' variant='contained' color='warning' endIcon={<AddIcon />}>

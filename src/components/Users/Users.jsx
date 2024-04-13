@@ -17,11 +17,17 @@ import { useNavigate } from 'react-router-dom';
 
 function User() {
     const navigate = useNavigate()
+    const [errorUserName, setErrorUserName] = useState(false);
+    const [errorName, setErrorName] = useState(false);
+    const [errorPassword, setErrorPassword] = useState(false);
     const [currentId, setCurrentId] = useState("");
     const [userData, setUserData] = useState([]);
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState("");
+    const [helperTextName, setHelperTextName] = useState("")
+    const [helperTextUserName, setHelperTextUserName] = useState("")
+    const [helperTextPassword, setHelperTextPassword] = useState("")
     const [isAgreeEdit, setIsAgreeEdit] = useState(false);
     const [editName, setEditName] = useState('');
     const [editUserName, setEditUserName] = useState('');
@@ -47,9 +53,9 @@ function User() {
     }, [isAgreeDelete])
 
     function createUser () {
-       if (name === "" || userName === "" || password === ""){
-            alert("Илтимос сўралган малумотларни тўлдиринг!");
-       } else {
+    //    if (name === "" || userName === "" || password === ""){
+    //         alert("Илтимос сўралган малумотларни тўлдиринг!");
+    //    } else {
             axios.post(create_user_api_url(), {
                 "name": name,
                 "username": userName,
@@ -59,6 +65,12 @@ function User() {
                 setName("");
                 setPassword("");
                 setUserName("");
+                setHelperTextName("");
+                setHelperTextPassword("");
+                setHelperTextUserName("");
+                setErrorName(false);
+                setErrorUserName(false);
+                setErrorPassword(false);
                 axios.get(all_user_api_url(), {headers})
                 .then((res) => {
                     setUserData(res.data)
@@ -66,9 +78,30 @@ function User() {
                     errorAlert()
                 })
             }).catch((err) => {
+                if(err.response.data.errors.name ? err.response.data.errors.name[0] : "" === "The name field is required."){
+                    setErrorName(true)
+                    setHelperTextName("Илтимос исм фамилия киритинг!")
+                }else {
+                    setErrorName(false)
+                    setHelperTextName("")
+                }
+                if(err.response.data.errors.username ? err.response.data.errors.username[0] : "" === "The username field is required."){
+                    setErrorUserName(true)
+                    setHelperTextUserName("Илтимос усернаме киритинг!")
+                }else {
+                    setErrorUserName(false)
+                    setHelperTextUserName("")
+                }
+                if(err.response.data.errors.password ? err.response.data.errors.password[0] : "" === "The password field is required."){
+                    setErrorPassword(true)
+                    setHelperTextPassword("Илтимос парол киритинг!")
+                }else {
+                    setErrorPassword(false)
+                    setHelperTextPassword("")
+                }
                 errorAlert()
             })   
-       } 
+    //    }
     }
 
     function currentUser (id) {
@@ -138,19 +171,19 @@ function User() {
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Исм Фамилия:</Typography>
-                                <TextField autoComplete='off' value={editName} onChange={(e) => setEditName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField helperText={helperTextName} autoComplete='off' value={editName} onChange={(e) => setEditName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Усер Наме:</Typography>
-                                <TextField autoComplete='off' value={editUserName} onChange={(e) => setEditUserName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField helperText={helperTextUserName} autoComplete='off' value={editUserName} onChange={(e) => setEditUserName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>         
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Парол:</Typography>
-                                <TextField autoComplete='off' value={editPassword} onChange={(e) => setEditPassword(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField helperText={helperTextPassword} autoComplete='off' value={editPassword} onChange={(e) => setEditPassword(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>         
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2} display='flex' justifyContent="flex-end">   
@@ -168,19 +201,19 @@ function User() {
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Исм Фамилия:</Typography>
-                                <TextField autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField helperText={helperTextName} error={errorName} autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Усер Наме:</Typography>
-                                <TextField autoComplete='off' value={userName} onChange={(e) => setUserName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField helperText={helperTextUserName} error={errorUserName} autoComplete='off' value={userName} onChange={(e) => setUserName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>          
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2}>
                             <FormControl fullWidth>
                                 <Typography>Парол:</Typography>
-                                <TextField autoComplete='off' value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                                <TextField helperText={helperTextPassword} error={errorPassword} autoComplete='off' value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                             </FormControl>          
                         </Grid>
                         <Grid xl={3} md={6} sm={6} xs={12} p={2} display='flex' justifyContent='flex-end'>   

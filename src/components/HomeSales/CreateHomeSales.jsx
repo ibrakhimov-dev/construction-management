@@ -9,6 +9,12 @@ import { base_url, create_home_sales_api_url, upload_img_url_api } from '../API/
 import { succesAlert, errorAlert, Alert } from '../Alert/Alert';
 
 function CreateHomeSales() {
+    const [errorName, setErrorName] = useState(false);
+    const [errorAdress, setErrorAdress] = useState(false);
+    const [errorImg, setErrorImg] = useState(false);
+    const [textName, setTextName] = useState("");
+    const [textAdress, setTextAdress] = useState("");
+    const [textImg, setTextImg] = useState("");
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [value, setValue] = React.useState(null)
@@ -43,9 +49,9 @@ function CreateHomeSales() {
 
 
     function createHomeSales () {
-        if (name === "" || location === "" || imageName === "" || imgUrl === "" ) {
-            alert("Илтимос сўралган малумотларни тўлдиринг!");
-        } else {      
+        // if (name === "" || location === "" || imageName === "" || imgUrl === "" ) {
+        //     alert("Илтимос сўралган малумотларни тўлдиринг!");
+        // } else {      
             axios.post(create_home_sales_api_url(), {
                 name: name,
                 address: location,
@@ -53,14 +59,41 @@ function CreateHomeSales() {
                 image_url: imgUrl,
             }, {headers})
             .then((res) => {
+                setErrorName(false);
+                setErrorImg(false);
+                setErrorAdress(false);
+                setTextName("");
+                setTextAdress("");
+                setTextImg("");
                 succesAlert()
                 setTimeout(() => {
                     navigate('/admin/home-sales')
                 }, 2000)
             }).catch((err) => {
+                if(err.response.data.errors.name ? err.response.data.errors.name[0] : "" === 'The name field is required.') {
+                    setErrorName(true);
+                    setTextName("Илтимос уй номини киритинг!");
+                }else {
+                    setErrorName(false);
+                    setTextName("");
+                }
+                if(err.response.data.errors.address ? err.response.data.errors.address[0] : "" === 'The address field is required.') {
+                    setErrorAdress(true);
+                    setTextAdress("Илтимос уй манзилини киритинг!");
+                }else {
+                    setErrorAdress(false);
+                    setTextAdress("");
+                }
+                if(err.response.data.errors.image_name ? err.response.data.errors.image_name[0] : "" === 'The image name field is required.') {
+                    setErrorImg(true);
+                    setTextImg("Илтимос расм юкланг!");
+                }else {
+                    setErrorImg(false);
+                    setTextImg("");
+                }
                 errorAlert()
             })
-        }
+        // }
     }
 
   return (
@@ -76,18 +109,18 @@ function CreateHomeSales() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Уй Номи:</Typography>
-                            <TextField autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField helperText={textName} error={errorName} autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         
                         <FormControl fullWidth>
                             <Typography mt={2}>Манзил:</Typography>
-                            <TextField autoComplete='off' value={location} onChange={(e) => setLocation(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField helperText={textAdress} error={errorAdress} autoComplete='off' value={location} onChange={(e) => setLocation(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                     </Grid>
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>   
                         <FormControl fullWidth>
                             <Typography>Уй расмини юкланг:</Typography>
-                            <MuiFileInput color='warning' value={value} onChange={handleChange} />
+                            <MuiFileInput error={errorImg} helperText={textImg} color='warning' value={value} onChange={handleChange} />
                         </FormControl> 
                         {
                             upload ? 

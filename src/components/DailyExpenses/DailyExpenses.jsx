@@ -45,7 +45,6 @@ function DailyExpenses() {
     useEffect (() => {
         axios.post(house_expenses_api_url(), {page: page ,start_date: startDate?`${startDate.$y}-${correctDate(startDate.$M + 1)}-${startDate.$D}`:'', end_date: endDate?`${endDate.$y}-${correctDate(endDate.$M + 1)}-${endDate.$D}`:""  } , {headers})
         .then((res) => {
-            console.log(res.data.data)
             setHouseExpensesDate(res.data.data.data)
             setTotalSumma(res.data.totalAmount)
             setCountPage(res.data.data.last_page);

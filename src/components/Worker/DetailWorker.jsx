@@ -1,14 +1,34 @@
 import { Stack, Grid, Typography,Button, ButtonGroup } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { base_url, current_worker_api_url } from '../API/baseURL';
+import axios from 'axios';
 
 function DetailWorker() {
     const navigate = useNavigate();
     const [dayColor, setDayColor] = useState('#d35602')
     const [avansColor, setAvansColor] = useState('#FE6529')
     const [editColor, setEditColor] = useState('#FE6529')
-    const [comeWentColor, setComeWentColor] = useState('#FE6529')
+    const [comeWentColor, setComeWentColor] = useState('#FE6529');
+    const token = localStorage.getItem('accessToken');
+    const workerId = localStorage.getItem('workerId');
+    const [workerData, setWorkerData] = useState({});
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization' : `Bearer ${token}`,
+        "Access-Control-Allow-Origin": base_url
+    }
     
+    useEffect(() =>{
+        axios.get(current_worker_api_url(workerId), {headers})
+        .then((res) => {
+            setWorkerData(res.data.data);
+        }).catch((err) => {
+            if (err.response.data.message === 'Unauthenticated.'){
+                navigate('/login')
+              }
+        })
+    }, [])
 
     function dayOff () {
         navigate('day-off')
@@ -48,7 +68,7 @@ function DetailWorker() {
             <Grid item xl={12} md={12} sm={12} xs={12} p={3} sx={{borderRadius: '10px', backgroundColor: '#272d7b'}}>
                 <Grid container>
                     <Grid item xl={12} md={12} sm={12} xs={12} display='flex' alignItems='center'>
-                        <Typography color='#fff' variant='h6'>Иш бошқарувчи: Илҳом Фармонов</Typography>
+                        <Typography color='#fff' variant='h6'><span style={{textTransform: "capitalize"}}>{workerData.position}:</span> {workerData.name}</Typography>
                     </Grid>
                 </Grid>
             </Grid>

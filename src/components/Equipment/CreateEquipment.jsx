@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Grid, Stack, Typography, FormControl, MenuItem, Select, TextField, Button, Box } from '@mui/material'
+import { Grid, Stack, Typography, FormControl, FormHelperText, MenuItem, Select, TextField, Button, Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
@@ -10,6 +10,12 @@ import axios from 'axios';
 import { succesAlert, errorAlert, Alert } from '../Alert/Alert';
 
 function CreateEquipment() {
+    const [errorName, setErrorName] = useState(false);
+    const [errorImg, setErrorImg] = useState(false);
+    const [textName, setTextName] = useState("");
+    const [textImg, setTextImg] = useState("");
+    const [errorObj, setErrorObj] = useState(false);
+    const [textObj, setTextObj] = useState("");
     const role = localStorage.getItem('role');
     const [upload, setUpload] = useState(false);
     const [object, setObject] = useState(null);
@@ -59,9 +65,9 @@ function CreateEquipment() {
  
 
     function createTools () {
-        if (toolsName === "" || imgName === "" || imgUrl === "" || object === null) {
-            alert("Илтимос сўралган малумотларни тўлдиринг!");
-        }else {
+        // if (toolsName === "" || imgName === "" || imgUrl === "" || object === null) {
+        //     alert("Илтимос сўралган малумотларни тўлдиринг!");
+        // }else {
             axios.post(create_tools_api_url(), {
                 "name": toolsName , 
                 "state": state,
@@ -70,14 +76,41 @@ function CreateEquipment() {
                 "price": price,
                 "project_id": object
             }, {headers}).then((res) => {
+                    setErrorImg(false);
+                    setErrorName(false);
+                    setErrorObj(false);
+                    setTextImg("");
+                    setTextName("");
+                    setTextObj("");
                     succesAlert()
                     setTimeout(() => {
                         navigate(`/${role}/equipment`)
                     }, 2000)
             }).catch((err) => {
+                if(err.response.data.errors.project_id ? err.response.data.errors.project_id[0] : "" === 'The project id field is required.') {
+                    setErrorObj(true);
+                    setTextObj("Илтимос объект танланг!");
+                }else {
+                    setErrorObj(false);
+                    setTextObj("");
+                }
+                if(err.response.data.errors.name ? err.response.data.errors.name[0] : "" === 'The name field is required.') {
+                    setErrorName(true);
+                    setTextName("Илтимос ускуна номини киритинг!");
+                }else {
+                    setErrorName(false);
+                    setTextName("");
+                }
+                if(err.response.data.errors.image_name ? err.response.data.errors.image_name[0] : "" === 'The image name field is required.') {
+                    setErrorImg(true);
+                    setTextImg("Илтимос расм юкланг!");
+                }else {
+                    setErrorImg(false);
+                    setTextImg("");
+                }
                 errorAlert();
             })
-        }
+        // }
     }   
 
   return (
@@ -93,7 +126,7 @@ function CreateEquipment() {
                     <Grid item xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Ускуна Номи:</Typography>
-                            <TextField autoComplete='off' value={toolsName} onChange={(e) => setToolsName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField error={errorName} helperText={textName} autoComplete='off' value={toolsName} onChange={(e) => setToolsName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         <FormControl  fullWidth>
                             <Typography mt={2}>Обект:</Typography>
@@ -102,6 +135,7 @@ function CreateEquipment() {
                                 labelId="demo-select-small-label"
                                 id="demo-select-small"
                                 color='warning'
+                                error={errorObj}
                                 value={object}
                                 onChange={(e) => setObject(e.target.value) }
                             >
@@ -113,6 +147,7 @@ function CreateEquipment() {
                                     })
                                 }             
                             </Select>
+                            <FormHelperText sx={{color: "red"}}>{textObj}</FormHelperText>
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Нархи:</Typography>
@@ -136,7 +171,7 @@ function CreateEquipment() {
                         </FormControl>
                         <FormControl fullWidth>
                             <Typography mt={2}>Обект расмини юкланг:</Typography>
-                            <MuiFileInput color='warning' value={value} onChange={handleChange} />
+                            <MuiFileInput error={errorImg} helperText={textImg} color='warning' value={value} onChange={handleChange} />
                         </FormControl>
                         {
                             upload ? 

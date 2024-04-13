@@ -6,7 +6,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 function DailyExpensesTable(props) {
-    console.log(props.carExpensesDate)
     const navigate = useNavigate();
 
     function currencyFormat(num) {

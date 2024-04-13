@@ -11,6 +11,10 @@ import { Alert, succesAlert, errorAlert } from '../Alert/Alert';
 
 
 function CreateObject() {
+    const [errorName, setErrorName] = useState(false);
+    const [textName, setTextName] = useState("");
+    const [errorImg, setErrorImg] = useState(false);
+    const [textImg, setTextImg] = useState("");
     const [upload, setUpload] = useState(false);
     const [status, setStatus] = useState('active');
     const [value, setValue] = React.useState(null);
@@ -44,9 +48,9 @@ function CreateObject() {
     } 
 
     function createObject () { 
-        if (name === "" || imageName === "" || imgUrl === "") {
-            alert("Илтимос сўралган малумотларни тўлдиринг!")
-        } else {
+        // if (name === "" || imageName === "" || imgUrl === "") {
+        //     alert("Илтимос сўралган малумотларни тўлдиринг!")
+        // } else {
             axios.post(create_object_api_url(), {
                 name: name,
                 state: status,
@@ -55,13 +59,32 @@ function CreateObject() {
             }, {headers})
             .then((res) => {
                 succesAlert();
+                setErrorImg(false);
+                setErrorName(false)
+                setTextImg("");
+                setTextName("")
                 setTimeout(() => {
                     navigate('/admin/object')
                 }, 2000)
             }).catch((err) => {
+                if(err.response.data.errors.image_name ? err.response.data.errors.image_name[0] : "" === 'The image name field is required.') {
+                    setErrorImg(true);
+                    setTextImg("Илтимос расм юкланг!");
+                }else {
+                    setErrorImg(false);
+                    setTextImg("");
+                }
+
+                if(err.response.data.errors.name ? err.response.data.errors.name[0] : "" === 'The name field is required.') {
+                    setErrorName(true);
+                    setTextName("Илтимос объект номини киритинг!");
+                }else {
+                    setErrorName(false);
+                    setTextName("");
+                }
                 errorAlert();
             })
-        }    
+        // }    
     }
 
   return (
@@ -78,7 +101,7 @@ function CreateObject() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Обект Номи:</Typography>
-                            <TextField autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
+                            <TextField error={errorName} helperText={textName} autoComplete='off' value={name} onChange={(e) => setName(e.target.value)} id="outlined-basic" color='warning' variant="outlined" />
                         </FormControl>
                         
                         <FormControl  fullWidth>
@@ -99,7 +122,7 @@ function CreateObject() {
                     <Grid xl={6} md={6} sm={6} xs={12} p={2}>
                         <FormControl fullWidth>
                             <Typography>Обект расмини юкланг:</Typography>
-                            <MuiFileInput color='warning' value={value} onChange={handleChange} />
+                            <MuiFileInput error={errorImg} helperText={textImg} color='warning' value={value} onChange={handleChange} />
                         </FormControl>
                         {
                             upload ? 
