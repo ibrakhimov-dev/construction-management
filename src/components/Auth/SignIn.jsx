@@ -3,6 +3,7 @@ import logo from "../Assets/logo.png";
 import banner from "../Assets/banner.jpg"
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 import { login_api_url, base_url, role_api_url } from '../API/baseURL';
 import axios from 'axios';
 
@@ -11,12 +12,26 @@ function SignIn() {
     const [login , setLogin] = useState('')
     const [parol , setParol] = useState('')
     const navigate = useNavigate();
+    let loginRef = useRef(null);
+    let parolRef = useRef(null);
     
     const token = localStorage.getItem('accessToken');
 
     const headers = {
         'Content-Type': 'application/json',
         "Access-Control-Allow-Origin": base_url
+    }
+
+    useEffect(() => {
+        if(login === "") {
+            loginRef.current.focus();
+        } 
+    }, [])
+
+    function clickBtn (e) {
+        if (e.key === 'Enter') {
+            click();
+        }
     }
 
     function click () {
@@ -56,13 +71,13 @@ function SignIn() {
                 <Box width='80%' margin='0 auto' pt={3}>
                     <FormControl fullWidth>
                         <FormGroup>
-                            <TextField autoComplete='off' id="outlined-basic" margin='normal' value={login} onChange={(e) => {setLogin(e.target.value)}} label="Login" color='warning' variant="outlined" />
+                            <TextField onKeyDown={e => clickBtn(e)}  inputRef={loginRef} autoComplete='off' id="outlined-basic" margin='normal' value={login} onChange={(e) => {setLogin(e.target.value)}} label="Login" color='warning' variant="outlined" />
                         </FormGroup>
                         <FormGroup>
-                            <TextField autoComplete='off' id="outlined-basic" margin='normal' value={parol} onChange={(e) => {setParol(e.target.value)}} label="Parol" color='warning' variant="outlined" />
+                            <TextField onKeyDown={e => clickBtn(e)} autoComplete='off' id="outlined-basic" margin='normal' value={parol} type='password' onChange={(e) => {setParol(e.target.value)}} label="Parol" color='warning' variant="outlined" />
                         </FormGroup>
                     </FormControl>
-                    <Button onClick={click} sx={{marginTop: '30px', padding: '10px 0', fontSize: '16px'}} color='warning' variant='contained' fullWidth>Tizmga kirish</Button>
+                    <Button onClick={click} ref={parolRef} sx={{marginTop: '30px', padding: '10px 0', fontSize: '16px'}} color='warning' variant='contained' fullWidth>Tizmga kirish</Button>
                 </Box>
             </Grid>
             <Grid item xl={6} md={6} sm={6} xs={12} sx={{height: '100%', display: {xl: 'flex', md: 'flex', sm: 'flex', xs: 'none'}, justifyContent: 'center', alignItems: 'center'}} >
